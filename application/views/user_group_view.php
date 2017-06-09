@@ -22,8 +22,7 @@
     <link href="assets/plugins/datapicker/datepicker3.css" rel="stylesheet">
 
     <link href="assets/plugins/select2/select2.min.css" rel="stylesheet">
-
-
+    <link type="text/css" href="assets/css/dark-theme.css" rel="stylesheet">
 
     <style>
         html {
@@ -128,8 +127,8 @@
             <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; User Group</b>
         </div>
         <div class="panel-body table-responsive">
-            <table id="tbl_user_group_list" class="custom-design table-striped" cellspacing="0" width="100%">
-                <thead class="table-erp">
+            <table id="tbl_user_group_list" cellspacing="0" width="100%">
+                <thead class="">
                 <tr>
                     <th></th>
                     <th>User Group</th>
@@ -148,44 +147,6 @@
 </div>
 
 
-<!-- <div id="div_user_group_fields" style="display: none;">
-<div class="panel panel-default" style="border-top: 3px solid #2196f3;"> -->
-<!-- <div class="panel-heading">
-    <h2>User Group</h2>
-    <div class="panel-ctrls" data-actions-container=""></div>
-</div> -->
-
-<!-- <div class="panel-body">
-<h2>User Group Information</h2>
-    <form id="frm_user_group" role="form" class="form-horizontal row-border">
-        <div class="form-group">
-            <label class="col-md-2 col-md-offset-1 control-label"><strong>* User Group :</strong></label>
-            <div class="col-md-7">
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="fa fa-users"></i>
-                    </span>
-                    <input type="text" name="user_group" class="form-control" placeholder="User Group" data-error-msg="User Group is required!" required>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-2 col-md-offset-1 control-label"><strong>* Description :</strong></label>
-            <div class="col-md-7">
-                <textarea name="user_group_desc" class="form-control"></textarea>
-            </div>
-        </div>
-    </form>
-    <br /><br />
-</div> -->
-<!-- <div class="panel-footer">
-    <div class="row">
-        <div class="col-sm-10 col-sm-offset-3">
-            <button id="btn_save" class="btn-primary btn" style="text-transform: capitalize;font-family: Tahoma, Georgia, Serif;"><span class=""></span>  Save Changes</button>
-            <button id="btn_cancel" class="btn-default btn" style="text-transform: capitalize;font-family: Tahoma, Georgia, Serif;"">Cancel</button>
-        </div>
-    </div>
-</div> -->
 </div>
 </div>
 
@@ -259,15 +220,7 @@
 
 
 
-<footer role="contentinfo">
-    <div class="clearfix">
-        <ul class="list-unstyled list-inline pull-left">
-            <li><h6 style="margin: 0;">&copy; 2016 - Paul Christian Rueda</h6></li>
-        </ul>
-        <button class="pull-right btn btn-link btn-xs hidden-print" id="back-to-top"><i class="ti ti-arrow-up"></i></button>
-    </div>
-</footer>
-
+<?php echo $_footer; ?>
 
 
 

@@ -27,10 +27,11 @@ class Login extends CORE_Controller {
         $data['_footer']=$this->load->view('template/elements/page_footer','',TRUE);
 
 
+        //seed default data needed by the app
+        $this->seed_data();
+
         //WORKAROUND FOR LOGIN REDIRECTION TO DASHBOARD (if user session is ACTIVE)
         if($this->session->userdata('logged_in') == 1) {
-
-
             $this->load->view('dashboard_view',$data);
 
         } else {
@@ -40,6 +41,11 @@ class Login extends CORE_Controller {
 
     }
 
+    function seed_data(){
+        $m_users = $this->load->Users_model;
+        $m_users->create_default_user();
+
+    }
 
 
 

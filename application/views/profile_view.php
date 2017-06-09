@@ -26,6 +26,11 @@
 
 
     <style>
+        html {
+            zoom: 0.8;
+            zoom: 80%;
+        }
+
         .toolbar{
             float: left;
         }
@@ -356,16 +361,7 @@
 
 
 
-<footer role="contentinfo">
-    <div class="clearfix">
-        <ul class="list-unstyled list-inline pull-left">
-            <li><h6 style="margin: 0;">&copy; 2016 - Paul Christian Rueda</h6></li>
-        </ul>
-        <button class="pull-right btn btn-link btn-xs hidden-print" id="back-to-top"><i class="ti ti-arrow-up"></i></button>
-    </div>
-</footer>
-
-
+<?php echo $_footer; ?>
 
 
 </div>

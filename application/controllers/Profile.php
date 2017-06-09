@@ -18,6 +18,7 @@ class Profile extends CORE_Controller
         $data['_switcher_settings'] = $this->load->view('template/elements/switcher', '', TRUE);
         $data['_side_bar_navigation'] = $this->load->view('template/elements/side_bar_navigation', '', TRUE);
         $data['_top_navigation'] = $this->load->view('template/elements/top_navigation', '', TRUE);
+        $data['_footer']=$this->load->view('template/elements/page_footer','',TRUE);
         $data['user_groups']=$this->User_groups_model->get_list();
         $data['title'] = 'My Profile';
 

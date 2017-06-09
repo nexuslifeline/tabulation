@@ -91,6 +91,7 @@
         }*/
 
     </style>
+    <link type="text/css" href="assets/css/dark-theme.css" rel="stylesheet">
 </head>
 
 <body class="animated-content">
@@ -128,8 +129,8 @@
                                                 <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; User Accounts</b>
                                             </div>
                                             <div class="panel-body table-responsive">
-                                                <table id="tbl_user_list" class="custom-design table-striped" cellspacing="0" width="100%">
-                                                    <thead class="table-erp">
+                                                <table id="tbl_user_list" cellspacing="0" width="100%">
+                                                    <thead class="">
                                                     <tr>
                                                         <th></th>
                                                         <th>Username</th>
