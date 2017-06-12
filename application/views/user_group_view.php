@@ -307,7 +307,7 @@ $(document).ready(function(){
 
 
         var createToolBarButton=function(){
-            var _btnNew='<button class="btn btn-green"  id="btn_new" style="text-transform: capitalize;font-family: Tahoma, Georgia, Serif;" data-toggle="modal" data-target="" data-placement="left" title="Create User Group" >'+
+            var _btnNew='<button class="btn btn-primary"  id="btn_new" style="text-transform: capitalize;font-family: Tahoma, Georgia, Serif;" data-toggle="modal" data-target="" data-placement="left" title="Create User Group" >'+
                 '<i class="fa fa-plus"></i> Create User Group</button>';
             $("div.toolbar").html(_btnNew);
         }();

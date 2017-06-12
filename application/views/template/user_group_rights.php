@@ -1,15 +1,12 @@
 <center>
-    <table width="100%" style="font-family: tahoma;">
+    <table width="100%" style="font-family: tahoma;border: hidden;">
         <tbody>
         <tr>
             <td>
                 <br />
 
                 <div class="tab-container tab-left tab-default">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#user_rights_<?php echo $user_group_id; ?>" data-toggle="tab"><i class="fa fa-users"></i> Information</a></li>
 
-                    </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="user_rights_<?php echo $user_group_id; ?>" style="min-height: 300px;">
 

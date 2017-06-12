@@ -33,6 +33,9 @@ class User_group_right_model extends CORE_Model{
 
 
 
+
+
+
 }
 
 

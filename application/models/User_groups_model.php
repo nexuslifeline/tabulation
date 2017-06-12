@@ -17,7 +17,8 @@ class User_groups_model extends CORE_Model
         $sql="INSERT INTO user_groups
                   (user_group_id,user_group,user_group_desc)
               VALUES
-                  (1,'System Administrator','Can access all features.')
+                  (1,'System Administrator','Can access all features.'),
+                  (2,'Event Panel','')
               ON DUPLICATE KEY UPDATE
                   user_groups.user_group=VALUES(user_groups.user_group),
                   user_groups.user_group_desc=VALUES(user_groups.user_group_desc)

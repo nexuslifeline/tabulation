@@ -224,7 +224,8 @@ div.dataTables_paginate li.first > a, div.dataTables_paginate li.next > a {
 
 label {
     color: white;
-    font-weight: bolder;
+    font-weight: bold; !important;
+
 }
 
 tr {

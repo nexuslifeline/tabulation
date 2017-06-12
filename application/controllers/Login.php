@@ -45,6 +45,8 @@ class Login extends CORE_Controller {
         $m_users = $this->load->Users_model;
         $m_users->create_default_user();
 
+        $m_group = $this->User_groups_model;
+        $m_group->create_default_user_group();
     }
 
 
