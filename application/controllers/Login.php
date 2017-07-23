@@ -11,7 +11,9 @@ class Login extends CORE_Controller {
         $this->load->model(array(
             'Users_model',
             'User_groups_model',
-            'User_group_right_model'
+            'User_group_right_model',
+            'Criteria_model',
+            'Rights_link_model'
         ));
 
     }
@@ -47,6 +49,12 @@ class Login extends CORE_Controller {
 
         $m_group = $this->User_groups_model;
         $m_group->create_default_user_group();
+
+        $m_criteria = $this->Criteria_model;
+        $m_criteria->seed_criteria();
+
+        $m_rights = $this->Rights_link_model;
+        $m_rights->create_default_link_list();
     }
 
 
