@@ -5,12 +5,12 @@
 
 .input-group-addon {
     background-color: #1f1f1f!important;
-    color: #ffad33!important;
-    border: 2px solid #ffad33!important;
+    color: #f8372c!important;
+    border: 2px solid #f8372c!important;
 }
 
 b {
-    color: #ffad33;
+    color: #f8372c;
 }
 
 .typeahead {
@@ -65,7 +65,7 @@ b {
 
 .typeahead:focus {
     background-color: #ffd65c!important;
-    border-color: #ffad33!important;
+    border-color: #f8372c!important;
     color: black;
     font-size: 18px;
 }
@@ -131,15 +131,15 @@ div.dataTables_paginate li.first > a, div.dataTables_paginate li.next > a {
 .btn-primary,
 .btn-success {
     color: white;
-    background: rgba(255, 173, 51, .4)!important;
-    border: 1px solid #ffad33!important;
+    background: rgba(244, 10, 42, .4)!important;
+    border: 1px solid #f8372c!important;
 }
 
 .btn-primary:hover,
 .btn-success:hover {
     color: white;
-    background: #ffad33!important;
-    border: 1px solid #ffad33!important;
+    background: #f8372c!important;
+    border: 1px solid #f8372c!important;
 }
 
 .btn-warning {
@@ -200,7 +200,7 @@ div.dataTables_paginate li.first > a, div.dataTables_paginate li.next > a {
 
 .form-control:not(.general-search) {
     color: white;
-    font-size: 15px;
+    font-size: 13px;;
     border-width: 2px!important;
     border-radius: 0!important;
     background: #1f1f1f!important;
@@ -208,28 +208,32 @@ div.dataTables_paginate li.first > a, div.dataTables_paginate li.next > a {
 
 .form-control:not(.general-search):focus {
     transition: .2s;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bolder!important;
     color: black;
-    background-color: #ffd65c!important;
-    border-color: #ee8e00!important;
+    background-color: rgba(190, 67, 54, .4)!important;
+    border-color: #f8372c!important;
     -webkit-box-shadow: none!important;
     -moz-box-shadow: none!important;
     box-shadow: none!important;
 }
 
 .form-control:focus:not(.general-search)::placeholder {
-    color: #ffd65c;
+    color: #f8abfa;
 }
 
 label {
     color: white;
-    font-weight: bold; !important;
+    font-weight: bold !important;
 
 }
 
+table tr td,table tr th{
+    border: solid 1px white!important;
+}
+
 tr {
-    border: none!important;
+    border: 1px!important;
 }
 
 tr:nth-child(even){
@@ -239,8 +243,8 @@ tr:nth-child(even){
 
 tr:hover {
     transition: .4s;
-    background: #ffce3a !important;
-    color: black;
+    background: rgba(180, 67, 54, .4)!important;
+    color: white;
 }
 
 tr:hover .btn {
@@ -289,17 +293,6 @@ table:not(.datepicker table) {
 tbody {
     border-top: none!important;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
