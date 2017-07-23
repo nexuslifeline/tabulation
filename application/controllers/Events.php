@@ -9,7 +9,10 @@ class Events     extends CORE_Controller {
         $this->load->model(array(
             'Event_model',
             'Users_model',
-            'Contestant_model'
+            'Contestant_model',
+            'Event_judge_model',
+            'Event_contestant_model',
+            'Event_criteria_model'
         ));
 
     }
@@ -133,8 +136,6 @@ class Events     extends CORE_Controller {
                     mkdir('assets/img/contestants');
                 }
 
-
-
                 foreach($_FILES as $file) {
 
                     $server_file_name=uniqid('');
@@ -155,16 +156,112 @@ class Events     extends CORE_Controller {
                     }
 
                 }
+                break;
 
+            case 'add-criteria':
+                $m_event_criteria = $this->Event_criteria_model;
+
+                $event_id = $this->input->post('event-id');
+                $criteria_id = $this->input->post('criteria-id');
+                $percentage = $this->input->post('percentage');
+                $rating = $this->input->post('rating');
+
+                $m_event_criteria->begin();
+
+                $m_event_criteria->delete(
+                    array(
+                        'event_id'=>$event_id,
+                        'criteria_id'=>$criteria_id
+                    )
+                );
+
+                //insert if status is 1 = YES
+                if($this->input->post('status')==1){
+                    $m_event_criteria->event_id = $event_id;
+                    $m_event_criteria->criteria_id = $criteria_id;
+                    $m_event_criteria->percentage = $percentage;
+                    $m_event_criteria->max_score = $rating;
+                    $m_event_criteria->save();
+                }
+
+
+                $m_event_criteria->commit();
+
+                break;
+
+            case 'add-candidate':
+                $m_event_contestant = $this->Event_contestant_model;
+
+                $event_id = $this->input->post('event-id');
+                $contestant_id = $this->input->post('contestant-id');
+
+                $m_event_contestant->begin();
+
+                $m_event_contestant->delete(
+                    array(
+                        'event_id'=>$event_id,
+                        'contestant_id'=>$contestant_id
+                    )
+                );
+
+                //insert if status is 1 = YES
+                if($this->input->post('status')==1){
+                    $m_event_contestant->event_id = $event_id;
+                    $m_event_contestant->contestant_id = $contestant_id;
+                    $m_event_contestant->save();
+                }
+
+                $m_event_contestant->commit();
+
+
+
+                break;
+            case 'add-judge':
+                $m_event_judge = $this->Event_judge_model;
+
+                $event_id = $this->input->post('event-id');
+                $judge_id = $this->input->post('judge-id');
+
+                $m_event_judge->begin();
+                $m_event_judge->delete(
+                    array(
+                        'event_id'=>$event_id,
+                        'judge_id'=>$judge_id
+                    )
+                );
+
+                //insert if status is 1 = YES
+                if($this->input->post('status')==1){
+                    $m_event_judge->event_id = $event_id;
+                    $m_event_judge->judge_id = $judge_id;
+                    $m_event_judge->save();
+                }
+                    
+
+                $m_event_judge->commit();
 
                 break;
 
             case 'enlistment':
-                $m_users = $this->Users_model;
-                $m_contestants = $this->Contestant_model;
+                $m_judges = $this->Event_judge_model;
+                $m_contestants = $this->Event_contestant_model;
+                $m_criteria = $this->Event_criteria_model;
 
-                $data['judges'] = $m_users->get_list('is_deleted=0 AND is_active=1 AND user_group_id=2','user_accounts.*,CONCAT_WS(" ",user_accounts.user_fname,user_accounts.user_lname)as fullname');
-                $data['contestants'] = $m_contestants->get_list('is_active=1 AND is_deleted=0','contestants.*,CONCAT_WS(" ",contestants.fname,contestants.mname,contestants.lname) as fullname');
+                $event_id = $this->input->get('event-id');
+                $info = $m_criteria->get_list(
+                    array(
+                        'event_id'=>$event_id
+                    ),
+                    array(
+                        'SUM(percentage) as total_percentage'
+                    )
+                );
+
+                $data['event_id'] = $event_id;
+                $data['total_percentage'] =  (count($info)>0?$info[0]->total_percentage:0);
+                $data['judges'] = $m_judges->get_judge_list($event_id);
+                $data['contestants'] = $m_contestants->get_contestant_list($event_id);
+                $data['criteria'] = $m_criteria->get_criteria_list($event_id);
 
                 $this->load->view('template/enlistment_view',$data);
                 break;
@@ -172,9 +269,12 @@ class Events     extends CORE_Controller {
     }
 
 
-    function response_rows(){
+    function response_rows($params){
         $m_events = $this->Event_model;
-        return  $m_events->get_list('is_deleted=0','events.*,DATE_FORMAT(events.date_schedule,"%m/%d/%Y")as date_schedule');
+        return  $m_events->get_list(
+                $params,
+                'events.*,DATE_FORMAT(events.date_schedule,"%m/%d/%Y")as date_schedule'
+        );
     }
 
 
