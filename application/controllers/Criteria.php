@@ -46,15 +46,15 @@ class Criteria extends CORE_Controller {
                 $m_criteria->set('date_created','NOW()');
                 $m_criteria->save();
 
-                $event_id = $m_criteria->last_insert_id();
+                $criteria_id = $m_criteria->last_insert_id();
 
                 $m_criteria->commit();
 
                 if($m_criteria->status()==TRUE){
                     $response['title'] = "Success!";
                     $response['stat'] = "success";
-                    $response['msg'] = "Contestant successfully registered!";
-                    $response['row_added'] = $this->response_rows($event_id);
+                    $response['msg'] = "Criteria successfully created!";
+                    $response['row_added'] = $this->response_rows($criteria_id);
                     echo json_encode($response);
                 }
 
@@ -62,45 +62,44 @@ class Criteria extends CORE_Controller {
 
             case 'update':
                 $m_criteria = $this->Criteria_model;
-                $event_id = $this->input->post('event_id',TRUE);
+                $criteria_id = $this->input->post('criteria_id',TRUE);
 
                 $m_criteria->begin();
 
                 $m_criteria->criteria = $this->input->post('criteria',TRUE);
-                $m_criteria->description = $this->input->post('description',TRUE);     
-                $m_criteria->remarks = $this->input->post('remarks',TRUE);
+                $m_criteria->description = $this->input->post('description',TRUE);    
 
                 $m_criteria->modified_by = $this->session->user_id;
                 $m_criteria->set('date_modified','NOW()');
-                $m_criteria->modify($event_id);
+                $m_criteria->modify($criteria_id);
 
                 $m_criteria->commit();
 
                 if($m_criteria->status()==TRUE){
                     $response['title'] = "Success!";
                     $response['stat'] = "success";
-                    $response['msg'] = "Contestant successfully updated!";
-                    $response['row_updated'] = $this->response_rows($event_id);
+                    $response['msg'] = "Criteria successfully updated!";
+                    $response['row_updated'] = $this->response_rows($criteria_id);
                     echo json_encode($response);
                 }
 
                 break;
             case 'delete':
                 $m_criteria = $this->Criteria_model;
-                $event_id = $this->input->post('event_id',TRUE);
+                $criteria_id = $this->input->post('criteria_id',TRUE);
 
                 $m_criteria->begin();
                 $m_criteria->is_deleted = 1;
                 $m_criteria->deleted_by = $this->session->user_id;
                 $m_criteria->set('date_deleted','NOW()');
-                $m_criteria->modify($event_id);
+                $m_criteria->modify($criteria_id);
                 $m_criteria->commit();
 
                 if($m_criteria->status()==TRUE){
                     $response['title'] = "Success!";
                     $response['stat'] = "success";
-                    $response['msg'] = "Contestant successfully deleted!";
-                    $response['row_updated'] = $m_criteria->get_list($event_id);
+                    $response['msg'] = "Criteria successfully deleted!";
+                    $response['row_updated'] = $m_criteria->get_list($criteria_id);
                     echo json_encode($response);
                 }
 
