@@ -6,7 +6,7 @@
 
     <meta charset="utf-8">
 
-    <title>JCORE - <?php echo $title; ?></title>
+    <title>Tabulation - <?php echo $title; ?></title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
@@ -165,7 +165,7 @@
             <div data-widget-group="group1">
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="div_product_list">
+                        <div id="div_event_list">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; Event Management</b>
@@ -279,7 +279,7 @@
 
                             <div class="form-group" style="margin-bottom:0px;">
                                 <label class="">Remarks :</label>
-                                <textarea name="remarks" id="txt_remarks" class="form-control" data-error-msg="Address is required!" required></textarea>
+                                <textarea name="remarks" id="txt_remarks" class="form-control"></textarea>
                             </div>
 
                         </div>
@@ -295,6 +295,24 @@
     </div>
 </div><!---modal-->
 
+    <div id="modal_event_setup" class="modal fade" tabindex="-1" role="dialog"><!--modal-->
+        <div class="modal-dialog" style="width: 90%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"   data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title" style="color:white;"><span id="modal_mode"> </span>Enlistment</h4>
+                </div>
+
+                <div class="modal-body">
+
+                </div>
+
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -422,10 +440,46 @@ $(document).ready(function(){
     var bindEventHandlers=(function(){
         var detailRows = [];
 
+
+        $('#tbl_events tbody').on( 'click', 'button[name="enlist_contestant"]', function () {
+            var tr = $(this).closest('tr');
+            var row = dt.row( tr );
+            var data=dt.row(tr).data();
+
+            var d=row.data();
+            $.ajax({
+                "dataType":"html",
+                "type":"POST",
+                "url":"Events/transaction/enlistment?event-id="+data.event_id,
+                "beforeSend" : function(){
+                    $('#modal_event_setup').modal('show');
+                }
+            }).done(function(response){
+                $('#modal_event_setup').find('.modal-body').html(response);
+            });
+        });
+
         $('#tbl_events tbody').on( 'click', 'tr td.details-control', function () {
             var tr = $(this).closest('tr');
             var row = dt.row( tr );
+            var data=dt.row(tr).data();
+
+            var d=row.data();
+            $.ajax({
+                "dataType":"html",
+                "type":"POST",
+                "url":"Events/transaction/enlistment?event-id="+data.event_id,
+                "beforeSend" : function(){
+                    $('#modal_event_setup').modal('show');
+                }
+            }).done(function(response){
+                $('#modal_event_setup').find('.modal-body').html(response);
+            });
+            /*var tr = $(this).closest('tr');
+            var row = dt.row( tr );
             var idx = $.inArray( tr.attr('id'), detailRows );
+
+            var data=dt.row(tr).data();
 
             if ( row.child.isShown() ) {
                 tr.removeClass( 'details' );
@@ -439,12 +493,12 @@ $(document).ready(function(){
                 $.ajax({
                     "dataType":"html",
                     "type":"POST",
-                    "url":"Events/transaction/enlistment",
+                    "url":"Events/transaction/enlistment?event-id="+data.event_id,
                     "beforeSend" : function(){
                         row.child( '<center><br /><img src="assets/img/loader/ajax-loader-lg.gif" /><br /><br /></center>' ).show();
                     }
                 }).done(function(response){
-                    row.child( response,'no-padding' ).show();
+                    row.child( response ).show();
 
                     // Add to the 'open' array
                     if ( idx === -1 ) {
@@ -453,7 +507,7 @@ $(document).ready(function(){
 
 
                 });
-            }
+            }*/
         } );
 
         $('#btn_new').click(function(){
@@ -461,45 +515,7 @@ $(document).ready(function(){
             $('#modal_events').modal('show');
             clearFields($('#frm_events'));
         });
-
-        $('#btn_browse').click(function(event){
-            event.preventDefault();
-            $('input[name="file_upload[]"]').click();
-        });
-
-        $('#btn_remove_photo').click(function(event){
-            event.preventDefault();
-            $('img[name="img_user"]').attr('src','assets/img/default-user-image.png');
-        });
-
-        $('input[name="file_upload[]"]').change(function(event){
-            var _files=event.target.files;
-
-            $('#div_img_loader').show();
-            $('.img-container').hide();
-            $('#btn_remove_photo').hide();
-
-            var data=new FormData();
-            $.each(_files,function(key,value){
-                data.append(key,value);
-            });
-            console.log(_files);
-            $.ajax({
-                url : 'Events/transaction/upload',
-                type : "POST",
-                data : data,
-                cache : false,
-                dataType : 'json',
-                processData : false,
-                contentType : false,
-                success : function(response){
-                    $('#div_img_loader').hide();
-                    $('.img-container').show();
-                    $('#btn_remove_photo').show();
-                    $('img[name="img_user"]').attr('src',response.path);
-                }
-            });
-        });
+    
 
         $('#tbl_events tbody').on('click','button[name="edit_info"]',function(){
             _txnMode="edit";
@@ -519,6 +535,85 @@ $(document).ready(function(){
             });
         });
 
+        $('#modal_event_setup').on('keyup','input[name="percentage"],input[name="rating"]',function(){
+            var row = $(this).closest('tr');
+            var criteria_id= row.data('criteria-id');
+            var event_id= $(this).closest('tr').data('event-id');
+
+            var percentage = row.find('input[name="percentage"]').val();
+            var rating = row.find('input[name="rating"]').val();
+            var rows = $(this).closest('table').find('tbody').find('tr');
+
+            if(percentage>0 || rating>0){ //make sure dropdown is set to yes when there is value
+                row.find('select').val(1);
+            }else{
+                row.find('select').val(0);
+            }
+
+            var status = row.find('select').val();
+
+            $.ajax({
+                "dataType":"json",
+                "type":"POST",
+                "url":"Events/transaction/add-criteria",
+                "data":[{name : "criteria-id" ,value: criteria_id},{name : "event-id" ,value: event_id},{name : "status" ,value: status},{name : "percentage" ,value: percentage},{name : "rating" ,value: rating}]
+            });
+
+            $('#total_percentage').html(getTotalPercentage(rows)+"%");
+        });
+
+        $('#modal_event_setup').on('change','select.cbo-add-criteria',function(){
+            var row = $(this).closest('tr');
+            var criteria_id= row.data('criteria-id');
+            var event_id= $(this).closest('tr').data('event-id');
+            var status = $(this).val();
+
+            var rows = $(this).closest('table').find('tbody').find('tr');
+
+            if(status==1){
+                //row.find('input[name="percentage"]').val(row.find('input[name="percentage"]').val());
+            }else{
+                row.find('input[name="percentage"]').val(0);
+                $('#total_percentage').html(getTotalPercentage(rows)+"%");
+            }
+
+            var percentage = row.find('input[name="percentage"]').val();
+            var rating = row.find('input[name="rating"]').val();
+
+            $.ajax({
+                "dataType":"json",
+                "type":"POST",
+                "url":"Events/transaction/add-criteria",
+                "data":[{name : "criteria-id" ,value: criteria_id},{name : "event-id" ,value: event_id},{name : "status" ,value: status},{name : "percentage" ,value: percentage},{name : "rating" ,value: rating}]
+            });
+        });
+
+        $('#modal_event_setup').on('change','select.cbo-add-contestant',function(){
+            var contestant_id= $(this).closest('tr').data('contestant-id');
+            var event_id= $(this).closest('tr').data('event-id');
+            var status = $(this).val();
+
+            $.ajax({
+                "dataType":"json",
+                "type":"POST",
+                "url":"Events/transaction/add-candidate",
+                "data":[{name : "contestant-id" ,value: contestant_id},{name : "event-id" ,value: event_id},{name : "status" ,value: status}]
+            });
+        });
+
+         $('#modal_event_setup').on('change','select.cbo-add-judge',function(){
+            var judge_id= $(this).closest('tr').data('judge-id');
+            var event_id= $(this).closest('tr').data('event-id');
+            var status = $(this).val();
+
+            $.ajax({
+                "dataType":"json",
+                "type":"POST",
+                "url":"Events/transaction/add-judge",
+                "data":[{name : "judge-id" ,value: judge_id},{name : "event-id" ,value: event_id},{name : "status" ,value: status}]
+            });
+        });
+
 
         $('#tbl_events tbody').on('click','button[name="remove_info"]',function(){
             $('#modal_confirmation').modal('show');
@@ -530,7 +625,7 @@ $(document).ready(function(){
 
 
         $('#btn_yes').click(function(){
-            removeContestant().done(function(response){
+            removeEvent().done(function(response){
                 showNotification(response);
                 if(response.stat == 'success') {
                     dt.row(_selectRowObj).remove().draw();
@@ -546,7 +641,7 @@ $(document).ready(function(){
         $('#btn_save').click(function(){
             if(validateRequiredFields($('#frm_events'))){
                 if(_txnMode=="new"){
-                    registerContestant().done(function(response){
+                    createEvent().done(function(response){
                         showNotification(response);
                         dt.row.add(response.row_added[0]).draw();
                         clearFields($('#frm_events'))
@@ -558,7 +653,7 @@ $(document).ready(function(){
                     return;
                 }
                 if(_txnMode==="edit"){
-                    updateContestant().done(function(response){
+                    updateEvent().done(function(response){
                         showNotification(response);
                         dt.row(_selectRowObj).data(response.row_updated[0]).draw();
                     }).always(function(){
@@ -602,9 +697,9 @@ $(document).ready(function(){
         return stat;
     };
 
-    var registerContestant=function(){
+    var createEvent=function(){
         var _data=$('#frm_events').serializeArray();
-        _data.push({name : "photo_path" ,value : $('img[name="img_user"]').attr('src')});
+      
         return $.ajax({
             "dataType":"json",
             "type":"POST",
@@ -614,7 +709,7 @@ $(document).ready(function(){
         });
     };
 
-    var updateContestant=function(){
+    var updateEvent=function(){
         var _data=$('#frm_events').serializeArray();
         _data.push({name : "event_id" ,value : _selectedID});
 
@@ -627,7 +722,7 @@ $(document).ready(function(){
         });
     };
 
-    var removeContestant=function(){
+    var removeEvent=function(){
         return $.ajax({
             "dataType":"json",
             "type":"POST",
@@ -638,11 +733,11 @@ $(document).ready(function(){
 
     var showList=function(b){
         if(b){
-            $('#div_product_list').show();
-            $('#div_product_fields').hide();
+            $('#div_event_list').show();
+            $('#div_event_fields').hide();
         }else{
-            $('#div_product_list').hide();
-            $('#div_product_fields').show();
+            $('#div_event_list').hide();
+            $('#div_event_fields').show();
         }
     };
 
@@ -657,6 +752,7 @@ $(document).ready(function(){
 
     var showSpinningProgress=function(e){
         $(e).find('span').toggleClass('glyphicon glyphicon-refresh spinning');
+        $(e).toggleClass('disabled');
     };
 
     var clearFields=function(f){
@@ -669,6 +765,17 @@ $(document).ready(function(){
 
     var getFloat=function(f){
         return parseFloat(accounting.unformat(f));
+    };
+
+
+    var getTotalPercentage =  function(rows){
+        var p = 0.00;
+
+        rows.each(function(value,i){
+            p += parseFloat($(this).find('input[name="percentage"]').val());
+        });
+        return  p;
+        //$('#total_percentage').html(p);
     };
 
 
