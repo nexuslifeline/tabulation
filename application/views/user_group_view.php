@@ -71,23 +71,6 @@
 
 
 
-        /*table{
-            min-width: 700px;
-        }
-
-        .dataTables_filter{
-            min-width: 700px;
-        }
-
-        .dataTables_info{
-            min-width: 700px;
-        }
-
-        .dataTables_paginate{
-            float: left;
-            width: 100%;
-        }*/
-
     </style>
 </head>
 

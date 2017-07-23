@@ -17,18 +17,18 @@
                             <span style="margin-left: 1%"><b><i class="fa fa-list"></i> User Group Rights</b></span>
                             <hr />
                             <div class="table-responsive">
-                                <table id="tbl_user_group_rights" class="" cellspacing="0" width="100%">
+                                <table id="tbl_user_group_rights" width="97%">
                                     <thead>
                                     <tr>
-                                        <th width="80%">Description</th>
-                                        <th width="20%">Permission</th>
+                                        <th width="80%" style="border: 1px solid white;">Application Module</th>
+                                        <th width="17%" style="border: 1px solid white;">Permission</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach($rights as $right){ ?>
                                             <tr>
-                                                <td style="color:#ffad33;"><?php echo $right->link_name; ?></td>
-                                                <td>
+                                                <td style="color:#ffad33;border: 1px solid white;"><?php echo $right->link_name; ?></td>
+                                                <td style="border: 1px solid white;">
                                                     <select name="link_code[]" class="cbo_links">
                                                         <option value="<?php echo $right->link_code; ?>" <?php echo ($right->is_allowed?'selected':''); ?>>Enable</option>
                                                         <option value="0" <?php echo ($right->is_allowed?'':'selected'); ?>>Disable</option>

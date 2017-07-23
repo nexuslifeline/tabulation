@@ -28,8 +28,7 @@
     <style>
         html {
           zoom: 0.8;
-          zoom: 80%;
-        }
+          zoom: 80%;        }
 
         .toolbar{
             float: left;
