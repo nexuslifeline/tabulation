@@ -243,7 +243,7 @@ tr:nth-child(even){
 
 tr:hover {
     transition: .4s;
-    background: rgba(180, 67, 54, .4)!important;
+    background: rgba(1, 104, 239, 0.52)!important;
     color: white;
 }
 

@@ -24,7 +24,7 @@ class Tabulation extends CORE_Controller {
         $data['_top_navigation']=$this->load->view('template/elements/top_navigation','',TRUE);
         $data['_footer']=$this->load->view('template/elements/page_footer','',TRUE);
 
-        $active_event_id  = 4;
+        $active_event_id  = $this->session->active_event_id;
 
         $candidates = $this->Contestant_model->get_list(
             array(
@@ -43,28 +43,32 @@ class Tabulation extends CORE_Controller {
             )
         );
 
-        $judge_id = $this->session->user_id;
+
         $criteria = $this->Event_criteria_model->get_list(
             array(
-                'events_criteria.event_id'=>$active_event_id,
-                't.judge_id'=>$judge_id
+                'events_criteria.event_id'=>$active_event_id
             ),
             array(
                 'events_criteria.*',
-                'c.*',
-                't.score',
-                't.contestant_id'
+                'c.*'
             ),
             array(
-                array('criteria as c','c.criteria_id=events_criteria.criteria_id','left'),
-                array('tabulation as t','t.criteria_id=events_criteria.criteria_id AND t.event_id=events_criteria.event_id','inner')
+                array('criteria as c','c.criteria_id=events_criteria.criteria_id','left')
             )
         );
 
+        $judge_id = $this->session->user_id;
+        $m_contestant_scores = $this->Tabulation_model;
+        $contestant_scores = $m_contestant_scores->get_list(array(
+            'judge_id' => $judge_id,
+            'event_id' => $active_event_id
+        ));
 
         $data['criterias'] = $criteria;
         $data['active_event_id'] = $active_event_id;
         $data['candidates'] = $candidates;
+        $data['contestant_scores'] = $contestant_scores;
+
         $data['title'] = 'Tabulation | System';
         $this->load->view('tabulation_view',$data);
 
@@ -77,6 +81,7 @@ class Tabulation extends CORE_Controller {
                 $m_tabulation = $this->Tabulation_model;
 
                 $event_id = $this->input->post('event-id');
+                $contestant_id = $this->input->post('contestant-id');
                 $criteria_id = $this->input->post('criteria-id');
                 $judge_id = $this->input->post('judge-id');
                 $score = $this->input->post('score');
@@ -86,13 +91,15 @@ class Tabulation extends CORE_Controller {
                 $m_tabulation->delete(array(
                     'event_id' => $event_id,
                     'criteria_id' => $criteria_id,
-                    'judge_id' => $judge_id
+                    'judge_id' => $judge_id,
+                    'contestant_id' => $contestant_id
                 ));
 
                 $m_tabulation->event_id = $event_id;
                 $m_tabulation->criteria_id = $criteria_id;
                 $m_tabulation->judge_id = $judge_id;
                 $m_tabulation->score = $score;
+                $m_tabulation->contestant_id = $contestant_id;
                 $m_tabulation->save();
 
                 $m_tabulation->commit();

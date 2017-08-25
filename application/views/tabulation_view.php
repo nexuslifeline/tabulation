@@ -138,16 +138,24 @@
                                                                     </thead>
                                                                     <tbody>
 
-                                                                        <?php print_r($criterias); foreach($criterias as $r){ ?>
+                                                                        <?php foreach($criterias as $r){ ?>
                                                                         <tr data-contestant-id="<?php echo $c->contestant_id; ?>" data-event-id="<?php echo $active_event_id; ?>" data-criteria-id="<?php echo $r->criteria_id; ?>" data-judge-id="<?php echo $this->session->user_id; ?>">
                                                                             <td><?php echo $r->criteria; ?></td>
                                                                             <td><?php echo $r->percentage; ?></td>
                                                                             <td><?php echo $r->max_score; ?></td>
-                                                                            <td><input type="number" class="form-control txt_candidate_score" style="text-align: right;" value="<?php echo ($r->contestant_id==$c->contestant_id?$r->score:0); ?>"></td>
+                                                                            <td><input type="number" class="form-control txt_candidate_score" style="text-align: right;" value="<?php  foreach ($contestant_scores as $cs){
+                                                                                   echo ( $cs->criteria_id == $r->criteria_id && $cs->contestant_id == $c->contestant_id ? $cs->score : '' );
+                                                                                } ?>" data-max="<?php echo $r->max_score; ?>"></td>
                                                                         </tr>
                                                                         <?php } ?>
 
                                                                     </tbody>
+                                                                    <tfoot>
+                                                                        <tr>
+                                                                            <td colspan="3" align="right"><b>Current Rating : </b></td>
+                                                                            <td colspan="1" align="center"><b>89%</b></td>
+                                                                        </tr>
+                                                                    </tfoot>
                                                                 </table>
 
                                                                 <br />
@@ -203,13 +211,9 @@
 <script type="text/javascript" src="assets/plugins/datatables/dataTables.bootstrap.js"></script>
 
 
-<!-- Date range use moment.js same as full calendar plugin -->
-<script src="assets/plugins/fullcalendar/moment.min.js"></script>
-<!-- Data picker -->
-<script src="assets/plugins/datapicker/bootstrap-datepicker.js"></script>
-
-<!-- Select2 -->
-<script src="assets/plugins/select2/select2.full.min.js"></script>
+<!-- numeric formatter -->
+<script src="assets/plugins/formatter/autoNumeric.js" type="text/javascript"></script>
+<script src="assets/plugins/formatter/accounting.js" type="text/javascript"></script>
 
 
 <script>
@@ -218,11 +222,10 @@
         var dt; var _txnMode; var _selectedID; var _selectRowObj; var _selectedProductType; var _files;
 
         var initializeControls=function() {
-
+                $('#tbl_candidates').DataTable();
 
 
         }();
-
 
 
 
@@ -237,14 +240,23 @@
                 var row = $(this).closest('tr');
                 var event_id = row.data('event-id');
                 var criteria_id = row.data('criteria-id');
+                var contestant_id = row.data('contestant-id');
                 var judge_id = row.data('judge-id');
-                var score = $(this).val();
+                var score = getFloat($(this).val());
+                var vmax = getFloat($(this).data('max'));
+
+                if(score>vmax){
+                    showNotification({"title":"Error","msg":"Invalid score, max number is "+vmax+".","type":"error"});
+                    $(this).val('');
+                    return;
+                }
 
                 var _data = [];
                _data.push({name : "event-id" , value : event_id });
                _data.push({name : "criteria-id" , value : criteria_id });
                _data.push({name : "judge-id" , value : judge_id });
                _data.push({name : "score" , value : score });
+               _data.push({name : "contestant-id" , value : contestant_id });
 
                $.ajax({
                    "dataType":"json",
@@ -261,51 +273,6 @@
 
 
 
-        var registerContestant=function(){
-            var _data=$('#frm_contestants').serializeArray();
-            _data.push({name : "photo_path" ,value : $('img[name="img_user"]').attr('src')});
-            return $.ajax({
-                "dataType":"json",
-                "type":"POST",
-                "url":"Contestants/transaction/create",
-                "data":_data,
-                "beforeSend": showSpinningProgress($('#btn_save'))
-            });
-        };
-
-        var updateContestant=function(){
-            var _data=$('#frm_contestants').serializeArray();
-            _data.push({name : "photo_path" ,value : $('img[name="img_user"]').attr('src')});
-            _data.push({name : "contestant_id" ,value : _selectedID});
-
-            return $.ajax({
-                "dataType":"json",
-                "type":"POST",
-                "url":"Contestants/transaction/update",
-                "data":_data,
-                "beforeSend": showSpinningProgress($('#btn_save'))
-            });
-        };
-
-        var removeContestant=function(){
-            return $.ajax({
-                "dataType":"json",
-                "type":"POST",
-                "url":"Contestants/transaction/delete",
-                "data":{contestant_id : _selectedID}
-            });
-        };
-
-        var showList=function(b){
-            if(b){
-                $('#div_product_list').show();
-                $('#div_product_fields').hide();
-            }else{
-                $('#div_product_list').hide();
-                $('#div_product_fields').show();
-            }
-        };
-
         var showNotification=function(obj){
             PNotify.removeAll();
             new PNotify({
@@ -319,13 +286,6 @@
             $(e).find('span').toggleClass('glyphicon glyphicon-refresh spinning');
         };
 
-        var clearFields=function(f){
-            var d = <?php echo json_encode(date('m/d/Y')); ?>;
-            $('input,textarea,select',f).val('');
-            $('.date-picker').val(d);
-            $(f).find('input:first').focus();
-
-        };
 
         var getFloat=function(f){
             return parseFloat(accounting.unformat(f));

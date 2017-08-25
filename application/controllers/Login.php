@@ -13,7 +13,8 @@ class Login extends CORE_Controller {
             'User_groups_model',
             'User_group_right_model',
             'Criteria_model',
-            'Rights_link_model'
+            'Rights_link_model',
+            'Event_model'
         ));
 
     }
@@ -89,6 +90,15 @@ class Login extends CORE_Controller {
                             $parent_links[]=$main[0];
                         }
 
+                        //get active event
+                        $m_events = $this->Event_model;
+                        $events = $m_events->get_list(array(
+                            'is_open' => 1
+                        ));
+
+
+
+
                         //set session data here and response data
                         $this->session->set_userdata(
                             array(
@@ -99,7 +109,8 @@ class Login extends CORE_Controller {
                                 'user_photo'=>$result->row()->photo_path,
                                 'user_rights'=>$user_rights,
                                 'parent_rights'=>$parent_links,
-                                'logged_in'=>1
+                                'logged_in'=>1,
+                                'active_event_id' => $events[0]->event_id
                             )
                         );
 

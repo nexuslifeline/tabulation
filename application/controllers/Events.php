@@ -265,6 +265,26 @@ class Events     extends CORE_Controller {
 
                 $this->load->view('template/enlistment_view',$data);
                 break;
+            case 'activate-event':
+                $event_id = $this->input->post('event-id');
+                $m_events = $this->Event_model;
+
+                $m_events->is_open = 0;
+                $m_events->modify(
+                    '`event_id`>0'
+                );
+
+                $m_events->is_open = 1;
+                $m_events->modify($event_id);
+
+                $this->session->active_event_id = $event_id;
+
+                $response['title']='Activated!';
+                $response['stat']='success';
+                $response['msg']='Event successfully activated.';
+                echo json_encode($response);
+
+                break;
         }
     }
 

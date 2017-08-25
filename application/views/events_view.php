@@ -315,6 +315,27 @@
     </div>
 
 
+    <div id="modal_confirm_activation" class="modal fade" tabindex="-1" role="dialog"><!--modal-->
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"   data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title"><span id="modal_mode"> </span>Confirm Activation</h4>
+                </div>
+
+                <div class="modal-body">
+                    <p id="modal-body-message">Are you sure you want to activate this event?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="btn_confirm_activate" type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                    <button id="btn_close" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
 <div id="modal_confirmation" class="modal fade" tabindex="-1" role="dialog"><!--modal-->
@@ -388,11 +409,12 @@ $(document).ready(function(){
             "ajax" : "Events/transaction/list",
             "columns": [
                 {
-                    "targets": [0],
-                    "class":          "details-control",
-                    "orderable":      false,
-                    "data":           null,
-                    "defaultContent": ""
+                    targets:[1],
+                    render: function (data, type, full, meta){
+                        var cls = (full.is_open == "1"?"fa-check-circle":"fa-times-circle");
+                        var clr = (full.is_open == "1"?"green":"red");
+                        return '<center><a href="#" class="btn_activate" data-event-id="'+full.event_id+'"><i class="fa '+cls+'" style="color:'+clr+';"></a></center>';
+                    }
                 },
                 { targets:[1],data: "event_name" },
                 { targets:[2],data: "site" },
@@ -438,7 +460,37 @@ $(document).ready(function(){
 
 
     var bindEventHandlers=(function(){
-        var detailRows = [];
+        var detailRows = []; var selEventID = 0;
+
+        $('#tbl_events tbody').on( 'click', 'a.btn_activate', function (e) {
+            e.preventDefault();
+            $('#modal_confirm_activation').modal('show');
+            selEventID = $(this).data('event-id');
+
+        });
+
+        $('#btn_confirm_activate').click(function(){
+            var data = [];
+            data.push({name : "event-id", value : selEventID });
+
+            $.ajax({
+                "dataType":"json",
+                "type":"POST",
+                "url":"Events/transaction/activate-event",
+                "data" : data,
+                "beforeSend" : function(){
+
+                }
+            }).done(function(response){
+                $('#modal_confirm_activation').modal('hide');
+                showNotification(response);
+                dt.ajax.reload();
+            });
+
+        });
+
+
+
 
 
         $('#tbl_events tbody').on( 'click', 'button[name="enlist_contestant"]', function () {

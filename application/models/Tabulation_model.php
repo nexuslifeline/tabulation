@@ -13,6 +13,11 @@ class Tabulation_model extends CORE_Model{
     }
 
 
+    function get_contestant_scores($event_id){
+
+    }
+
+
 }
 
 
