@@ -54,7 +54,7 @@
                 <td style="border: 1px solid white;"><?php echo $cr->criteria; ?></td>
                 <td style="border: 1px solid white;"><?php echo $cr->description; ?></td>
                 <td style="border: 1px solid white;"><input type="number" name="percentage" class="form-control" value="<?php echo $cr->percentage; ?>" max="100" style="text-align: right;" /></td>
-                <td style="border: 1px solid white;"><input type="number" name="rating" class="form-control" value="<?php echo ($cr->criteria_id==1?'':'100'); ?>" max="100" style="text-align: right;" <?php echo ($cr->criteria_id==1?'readonly':''); ?> /></td>
+                <td style="border: 1px solid white;"><input type="text" name="rating" class="form-control" value="<?php echo ($cr->criteria_id==1?'NA':($cr->max_score==0?'100':$cr->max_score)); ?>" max="100" style="text-align: right;" <?php echo ($cr->criteria_id==1?'readonly':''); ?> /></td>
             </tr>
         <?php } ?>
         </tbody>
@@ -69,15 +69,16 @@
 
     <hr /><br>
 
-    <b>Candidate Enlistment</b> Please tick mark candidates on this event.<br>
+    <b>Entity/Candidate/Person Enlistment</b> Please tick mark candidates on this event.<br>
     <table width="100%" style="border: 1px solid white;">
         <thead>
         <tr>
             <th width="10%" style="border: 1px solid white;">Enlist</th>
-            <th style="border: 1px solid white;">Candidate</th>
-            <th style="border: 1px solid white;">Nationality</th>
-            <th style="border: 1px solid white;">Address</th>
-            <th style="border: 1px solid white;">Contact</th>
+            <th width="8%" style="border: 1px solid white;">Entity #</th>
+            <th style="border: 1px solid white;">Entity/Candidate/Competitor</th>
+            <th style="border: 1px solid white;">Description 1</th>
+            <th style="border: 1px solid white;">Description 2</th>
+            <th style="border: 1px solid white;">Description 3</th>
 
         </tr>
         </thead>
@@ -85,10 +86,11 @@
         <?php foreach($contestants as $contestant){ ?>
             <tr data-contestant-id="<?php echo $contestant->contestant_id; ?>" data-event-id="<?php echo $event_id; ?>">
                 <td style="border: 1px solid white;"><select class="form-control col-sm-12 cbo-add-contestant"><option value="0" <?php echo ($contestant->status==0?'selected':''); ?>>No</option><option value="1"<?php echo ($contestant->status==1?'selected':''); ?>>Yes</option></select></td>
-                <td style="border: 1px solid white;"><?php echo $contestant->fullname; ?></td>
-                <td style="border: 1px solid white;"><?php echo $contestant->nationality; ?></td>
-                <td style="border: 1px solid white;"><?php echo $contestant->address; ?></td>
-                <td style="border: 1px solid white;"><?php echo $contestant->contact; ?></td>
+                <td style="border: 1px solid white;"><input type="text" name="entity_no" class="form-control entity_no" value="<?php echo $contestant->contestant_no; ?>"></td>
+                <td style="border: 1px solid white;"><?php echo $contestant->entity_name; ?></td>
+                <td style="border: 1px solid white;"><?php echo $contestant->desc_1; ?></td>
+                <td style="border: 1px solid white;"><?php echo $contestant->desc_2; ?></td>
+                <td style="border: 1px solid white;"><?php echo $contestant->desc_3; ?></td>
 
             </tr>
         <?php }?>

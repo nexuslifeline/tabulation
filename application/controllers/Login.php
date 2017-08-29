@@ -110,7 +110,7 @@ class Login extends CORE_Controller {
                                 'user_rights'=>$user_rights,
                                 'parent_rights'=>$parent_links,
                                 'logged_in'=>1,
-                                'active_event_id' => $events[0]->event_id
+                                'active_event_id' => (count($events) == 0? 0: $events[0]->event_id)
                             )
                         );
 
@@ -137,9 +137,9 @@ class Login extends CORE_Controller {
                     break;
                 //****************************************************************************
                 case 'logout' :
-                    $m_users=$this->Users_model;
+                   /* $m_users=$this->Users_model;
                     $m_users->is_online=0;
-                    $m_users->modify($this->session->user_id);
+                    $m_users->modify($this->session->user_id);*/
                     
                     $this->end_session();
                 //****************************************************************************

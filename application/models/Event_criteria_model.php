@@ -14,14 +14,14 @@ class Event_criteria_model extends CORE_Model{
     function get_criteria_list($event_id){
         $sql = "SELECT
                     c.criteria_id,c.criteria,c.description,IFNULL(ec.percentage,0) as percentage,
-                    IF(ISNULL(ec.event_id),0,1) as status
+                    IF(ISNULL(ec.event_id),0,1) as status,ec.max_score
 
                     FROM criteria as c
                     LEFT JOIN
 
                     (
                     SELECT
-                    ec.criteria_id,ec.event_id,ec.percentage
+                    ec.criteria_id,ec.event_id,ec.percentage,ec.max_score
                     FROM events_criteria as ec
                     WHERE ec.event_id=$event_id
                     )as ec ON ec.criteria_id=c.criteria_id

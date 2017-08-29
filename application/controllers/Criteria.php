@@ -110,9 +110,9 @@ class Criteria extends CORE_Controller {
     }
 
 
-    function response_rows(){
+    function response_rows($filter){
         $m_criteria = $this->Criteria_model;
-        return  $m_criteria->get_list('is_deleted=0');
+        return  $m_criteria->get_list($filter);
     }
 
 

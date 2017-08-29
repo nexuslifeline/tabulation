@@ -168,7 +168,7 @@
                         <div id="div_event_list">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; Event Management</b>
+                                    <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; Nature of Event</b>
                                 </div>
                                 <div class="panel-body table-responsive">
                                     <button class="btn btn-primary" id="btn_new" style="float: left; text-transform: capitalize;font-family: Tahoma, Georgia, Serif;margin-bottom: 0px !important;" data-toggle="modal" data-target="" data-placement="left" title="New Event" ><i class="fa fa-plus"></i> Create New Event</button>
@@ -176,7 +176,7 @@
                                         <thead class="">
                                         <tr>
                                             <th></th>
-                                            <th>Event</th>
+                                            <th>Nature of Event</th>
                                             <th>Site</th>
                                             <th>Address</th>
                                             <th>Contact Person</th>
@@ -233,12 +233,12 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group" style="margin-bottom:0px;">
-                                <label class="">Event / Meet * :</label>
+                                <label class="">Nature of Event * :</label>
                                 <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-toggle-off"></i>
                                 </span>
-                                    <input type="text" name="event_name" id="txt_event_name" class="form-control" value="" data-error-msg="Event name is required!" required>
+                                    <input type="text" name="event_name" id="txt_event_name" class="form-control" value="" data-error-msg="Nature of Event is required!" required>
                                 </div>
                             </div>
 
@@ -335,7 +335,63 @@
         </div>
     </div>
 
+    <div id="modal_reenlist" class="modal fade" tabindex="-1" role="dialog"><!--modal-->
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"   data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title"><span id="modal_mode"> </span>Important</h4>
+                </div>
 
+                <div class="modal-body">
+                    <p id="modal-body-message">
+                        Is this a new round or stage?
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="btn_yes_round" type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                    <button id="btn_close" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="modal_reenlist_entity" class="modal fade" tabindex="-1" role="dialog"><!--modal-->
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span id="modal_mode"> </span>Required</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form id="frm_round">
+                        <p id="modal-body-message">
+                            Please specify the <b>Previous</b> Round :
+                        </p>
+                        <select name="prev_event_id" class="form-control col-lg-12">
+                            <?php foreach($events as $event){ ?>
+                            <option value="<?php echo $event->event_id; ?>"><?php echo $event->event_name; ?></option>
+                            <?php } ?>
+                        </select>
+
+                        <br /><br /><br />
+
+                        <p id="modal-body-message">
+                            Top Entities/Candidates/Competitors to be included in this round/stage:
+                        </p>
+                        <input id="txt_limit" type="number" class="form-control col-lg-12" value="5" /><br />
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="btn_finalize_round" type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                    <button id="btn_close" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 <div id="modal_confirmation" class="modal fade" tabindex="-1" role="dialog"><!--modal-->
@@ -469,6 +525,26 @@ $(document).ready(function(){
 
         });
 
+        $('#btn_yes_round').click(function(){
+            $('#modal_reenlist_entity').modal('show');
+        });
+
+        $('#btn_finalize_round').click(function(){
+            var data = [];
+            data.push({name : "prev-event-id", value : $('select[name="prev_event_id"]').val() });
+            data.push({name : "cur-event-id", value : selEventID });
+            data.push({name : "limit", value : $('#txt_limit').val() });
+
+            $.ajax({
+                "dataType":"json",
+                "type":"POST",
+                "url":"Events/transaction/re-enlist",
+                "data" : data
+            }).done(function(response){
+                showNotification(response);
+            });
+        });
+
         $('#btn_confirm_activate').click(function(){
             var data = [];
             data.push({name : "event-id", value : selEventID });
@@ -483,6 +559,7 @@ $(document).ready(function(){
                 }
             }).done(function(response){
                 $('#modal_confirm_activation').modal('hide');
+                $('#modal_reenlist').modal('show');
                 showNotification(response);
                 dt.ajax.reload();
             });
@@ -643,13 +720,14 @@ $(document).ready(function(){
         $('#modal_event_setup').on('change','select.cbo-add-contestant',function(){
             var contestant_id= $(this).closest('tr').data('contestant-id');
             var event_id= $(this).closest('tr').data('event-id');
+            var contestant_no = $(this).closest('tr').find('input.entity_no').val();
             var status = $(this).val();
 
             $.ajax({
                 "dataType":"json",
                 "type":"POST",
                 "url":"Events/transaction/add-candidate",
-                "data":[{name : "contestant-id" ,value: contestant_id},{name : "event-id" ,value: event_id},{name : "status" ,value: status}]
+                "data":[{name : "contestant-id" ,value: contestant_id},{name : "event-id" ,value: event_id},{name : "status" ,value: status},{name : "contestant-no" ,value: contestant_no}]
             });
         });
 
@@ -695,7 +773,7 @@ $(document).ready(function(){
                 if(_txnMode=="new"){
                     createEvent().done(function(response){
                         showNotification(response);
-                        dt.row.add(response.row_added[0]).draw();
+                        dt.ajax.reload();
                         clearFields($('#frm_events'))
                         showList(true);
                     }).always(function(){
@@ -717,8 +795,55 @@ $(document).ready(function(){
             }
         });
 
+        $(document).on('keyup','input.entity_no',function () {
+            var i = $(this).val();
+
+            var row = $(this).closest('tr');
+            //console.log(row.index());
+            if(i>0){
+                row.find('td').eq(0).find('select').val(1);
+            }
+
+            if(checkExist($(this).closest('table'),i, row.index())){
+                showNotification({
+                    "title" : "Already Exists!",
+                    "stat" : "error",
+                    "msg" : "Duplicate entity/candidate/competitor number."
+                });
+                $(this).val("");
+                row.find('td').eq(0).find('select').val(0);
+                showNotification({
+                    "title" : "Info!",
+                    "stat" : "info",
+                    "msg" : "Please make sure you enter unique number."
+                });
+            }else{
+
+            }
+            $('select.cbo-add-contestant').change();
+        });
+
 
     })();
+
+
+    function checkExist( tbl , v , ind){
+        var rows = tbl.find('tbody').find('tr');
+        var b = false;
+        rows.each(function(z,zz){
+            //console.log($(this).index());
+            var a = $(this).find('td').eq(1).find('input.entity_no').val();
+
+            if(a == v && ind != $(this).index()){
+                //console.log(a);
+                //console.log(v);
+                b = true;
+                return;
+            }
+        });
+
+        return b;
+    }
 
     var validateRequiredFields=function(f){
         var stat=true;

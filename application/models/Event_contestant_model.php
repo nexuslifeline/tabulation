@@ -12,21 +12,20 @@ class Event_contestant_model extends CORE_Model{
 
     function get_contestant_list($event_id){
         $sql = "SELECT
-                c.contestant_id,c.nationality,c.`address`,c.contact,
-                CONCAT_WS(' ',c.fname,c.mname,c.lname) as fullname,
+                c.*,ec.contestant_no,
                 IF(ISNULL(ec.event_id),0,1)as status
 
                 FROM contestants as c
                 LEFT JOIN
                 (
                   SELECT
-                  ec.event_id,ec.contestant_id
+                  ec.event_id,ec.contestant_id,ec.contestant_no
                   FROM `events_contestant` as `ec`
                   WHERE ec.event_id=$event_id
                 )as ec ON ec.contestant_id=c.contestant_id
 
 
-                WHERE c.is_active=1 AND c.is_deleted=0 ORDER BY c.fname,c.lname";
+                WHERE c.is_active=1 AND c.is_deleted=0 ORDER BY c.entity_name";
 
         return $this->db->query($sql)->result();
     }

@@ -20,7 +20,8 @@ class Rights_link_model extends CORE_Model{
                                           (6,'2','2-1','Manage User Account'),
                                           (7,'2','2-2','Manage User Group'),
                                           (8,'2','2-3','Manage Events'),
-                                          (9,'2','2-4','Setup Criteria')
+                                          (9,'2','2-4','Setup Criteria'),
+                                          (10,'3','3-1','Print Ranking')
 
                                           ON DUPLICATE KEY UPDATE
 

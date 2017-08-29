@@ -168,19 +168,19 @@
                         <div id="div_product_list">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; Candidates</b>
+                                    <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; Entity Management</b>
                                 </div>
                                 <div class="panel-body table-responsive">
-                                    <button class="btn btn-primary" id="btn_new" style="float: left; text-transform: capitalize;font-family: Tahoma, Georgia, Serif;margin-bottom: 0px !important;" data-toggle="modal" data-target="" data-placement="left" title="Register Candidate" ><i class="fa fa-plus"></i> Register New Candidate</button>
+                                    <button class="btn btn-primary" id="btn_new" style="float: left; text-transform: capitalize;font-family: Tahoma, Georgia, Serif;margin-bottom: 0px !important;" data-toggle="modal" data-target="" data-placement="left" title="Register Entity" ><i class="fa fa-plus"></i> Register New Entity</button>
                                     <table id="tbl_candidates" class="" cellspacing="0" width="100%">
                                         <thead class="">
                                         <tr>
                                             <th></th>
                                             <th>Code</th>
-                                            <th>Candidate</th>
-                                            <th>Email</th>
-                                            <th>Contact</th>
-                                            <th>Address</th>
+                                            <th>Entity</th>
+                                            <th>Description 1</th>
+                                            <th>Description 2</th>
+                                            <th>Description 3</th>
                                             <th><center>Action</center></th>
                                         </tr>
                                         </thead>
@@ -222,7 +222,7 @@
 </div><!---modal-->
 
 <div id="modal_register_candidate" class="modal fade" tabindex="-1" role="dialog"><!--modal-->
-    <div class="modal-dialog" style="width: 75%;">
+    <div class="modal-dialog" style="width: 50%;">
         <div class="modal-content">
             <div class="modal-header" style="background-color:#2ecc71;">
                 <button type="button" class="close"   data-dismiss="modal" aria-hidden="true">X</button>
@@ -232,175 +232,84 @@
             <div class="modal-body">
                 <form id="frm_contestants">
                 <div class="row">
-                    <div class="col-lg-5">
+                    <div class="col-lg-9">
 
                         <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Firstname * :</label>
+                            <label class="">Entity Name * :</label>
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <input type="text" name="fname" id="txt_fname" class="form-control" value="" data-error-msg="Firstname is required!" required>
+                                <input type="text" name="entity_name" id="txt_fname" class="form-control" value="" data-error-msg="Entity Name is required!" required>
                             </div>
                         </div>
 
                         <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Middlename  :</label>
+                            <label class="">Description 1 (Optional)  :</label>
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <input type="text" name="mname" id="txt_mname" class="form-control" value="">
+                                <input type="text" name="desc_1" id="txt_mname" class="form-control" value="">
                             </div>
                         </div>
 
                         <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Lastname * :</label>
+                            <label class="">Description 2 (Optional) :</label>
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <input type="text" name="lname" id="txt_lname" class="form-control" value="">
+                                <input type="text" name="desc_2" id="txt_lname" class="form-control" value="">
                             </div>
                         </div>
 
                         <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Contact No :</label>
+                            <label class="">Description 3 (Optional) :</label>
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-toggle-off"></i>
                                 </span>
-                                <input type="text" name="contact" id="txt_contact" class="form-control" value="">
+                                <input type="text" name="desc_3" id="txt_contact" class="form-control" value="">
                             </div>
                         </div>
 
                         <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Email :</label>
+                            <label class="">Description 4 (Optional) :</label>
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-send"></i>
                                 </span>
-                                <input type="text" name="email" id="txt_email" class="form-control" value="">
+                                <input type="text" name="desc_4" id="txt_email" class="form-control" value="">
                             </div>
                         </div>
 
-                        <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Gender :</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-user"></i>
-                                </span>
-                                <select name="gender" class="form-control">
-                                    <option value="1" selected>Male</option>
-                                    <option value="2">Female</option>
-                                </select>
-                            </div>
-                        </div>
+
 
                         <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Nationality :</label>
+                            <label class="">Description 5 (Optional) :</label>
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-toggle-off"></i>
                                 </span>
-                                <input type="text" name="nationality" id="txt_nationality" class="form-control" value="">
+                                <input type="text" name="desc_5" id="txt_nationality" class="form-control" value="">
                             </div>
                         </div>
 
                         <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Address * :</label>
-                            <textarea name="address" id="txt_address" class="form-control" data-error-msg="Address is required!" required></textarea>
+                            <label class="">Description 6 (Optional) :</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-toggle-off"></i>
+                                </span>
+                                <input type="text" name="desc_6" id="txt_nationality" class="form-control" value="">
+                            </div>
                         </div>
-
-
 
                     </div>
 
-                    <div class="col-lg-5">
-                        <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Birthdate :</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </span>
-                                <input type="text" name="bdate" id="txt_bdate" class="form-control date-picker" value="<?php echo date('m/d/Y'); ?>" data-error-msg="Birthdate is required!" required>
-                            </div>
-                        </div>
 
-                        <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Place of Birth :</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-toggle-off"></i>
-                                </span>
-                                <input type="text" name="birthplace" id="txt_birthplace" class="form-control" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Weight :</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-toggle-off"></i>
-                                </span>
-                                <input type="text" name="weight" id="txt_weight" class="form-control" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Height :</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-toggle-off"></i>
-                                </span>
-                                <input type="text" name="height" id="txt_height" class="form-control" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Name of Mother :</label>
-                            <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-user"></i>
-                            </span>
-                                <input type="text" name="mothers_name" id="txt_mother" class="form-control" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Occupation of Mother :</label>
-                            <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-toggle-off"></i>
-                            </span>
-                                <input type="text" name="mothers_occupation" id="txt_mother_occ" class="form-control" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Name of Father :</label>
-                            <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-user"></i>
-                            </span>
-                                <input type="text" name="fathers_name" id="txt_father" class="form-control" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Occupation of Father :</label>
-                            <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fa fa-toggle-off"></i>
-                            </span>
-                                <input type="text" name="fathers_occupation" id="txt_father_occ" class="form-control" value="">
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                         <div class="img-container" style="height: 200px;">
                             <img class="image" name="img_user" src="assets/img/default-user-image.png" alt="Image" style="max-height: 100%; min-height: 100%;">
                             <input type="file" name="file_upload[]" class="hidden">
@@ -514,11 +423,11 @@ $(document).ready(function(){
                     "data":           null,
                     "defaultContent": ""
                 },
-                { targets:[1],data: "contestant_code" },
-                { targets:[2],data: "candidate" },
-                { targets:[3],data: "email" },
-                { targets:[4],data: "contact" },
-                { targets:[5],data: "address" },
+                { targets:[1],data: "entity_code" },
+                { targets:[2],data: "entity_name" },
+                { targets:[3],data: "desc_1" },
+                { targets:[4],data: "desc_2" },
+                { targets:[5],data: "desc_3" },
                 {
                     targets:[6],
                     render: function (data, type, full, meta){

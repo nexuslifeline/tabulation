@@ -28,6 +28,7 @@ class Events     extends CORE_Controller {
         $data['_footer']=$this->load->view('template/elements/page_footer','',TRUE);
 
         $data['title'] = 'Events | Registration';
+        $data['events'] = $this->Event_model->get_list('is_deleted=0');
         $this->load->view('events_view',$data);
 
     }
@@ -44,6 +45,21 @@ class Events     extends CORE_Controller {
 
                 $m_events->begin();
 
+                //if there is already open event, newly created will be mark as inactive/not open
+                $is_open = $m_events->get_list('is_deleted=0 AND is_open=1');
+                if(count($is_open)>0){
+                    $open_status = 0;
+                }else{
+                    //make sure to mark all records as inactive
+                    $m_events->is_open = 0;
+                    $m_events->is_locked = 1;
+                    $m_events->modify('event_id>0');
+                    $open_status = 1;
+                }
+
+
+
+
                 $m_events->event_name = $this->input->post('event_name',TRUE);
                 $m_events->event_description = $this->input->post('event_description',TRUE);
                 $m_events->site = $this->input->post('site',TRUE);
@@ -51,7 +67,8 @@ class Events     extends CORE_Controller {
                 $m_events->contact_person = $this->input->post('contact_person',TRUE);
                 $m_events->date_schedule = date('Y-m-d',strtotime($this->input->post('date_schedule',TRUE)));
                 $m_events->remarks = $this->input->post('remarks',TRUE);
-
+                $m_events->is_open = $open_status;
+                $m_events->is_locked = 0;
                 $m_events->created_by = $this->session->user_id;
                 $m_events->set('date_created','NOW()');
                 $m_events->save();
@@ -99,6 +116,7 @@ class Events     extends CORE_Controller {
                 }
 
                 break;
+
             case 'delete':
                 $m_events = $this->Event_model;
                 $event_id = $this->input->post('event_id',TRUE);
@@ -119,7 +137,6 @@ class Events     extends CORE_Controller {
                 }
 
                 break;
-
             //****************************************************************************************************************
             case 'upload': //upload customer image
                 $allowed = array('png', 'jpg', 'jpeg','bmp');
@@ -194,6 +211,7 @@ class Events     extends CORE_Controller {
 
                 $event_id = $this->input->post('event-id');
                 $contestant_id = $this->input->post('contestant-id');
+                $contestant_no = $this->input->post('contestant-no');
 
                 $m_event_contestant->begin();
 
@@ -207,6 +225,7 @@ class Events     extends CORE_Controller {
                 //insert if status is 1 = YES
                 if($this->input->post('status')==1){
                     $m_event_contestant->event_id = $event_id;
+                    $m_event_contestant->contestant_no = $contestant_no;
                     $m_event_contestant->contestant_id = $contestant_id;
                     $m_event_contestant->save();
                 }
@@ -216,6 +235,7 @@ class Events     extends CORE_Controller {
 
 
                 break;
+
             case 'add-judge':
                 $m_event_judge = $this->Event_judge_model;
 
@@ -265,9 +285,41 @@ class Events     extends CORE_Controller {
 
                 $this->load->view('template/enlistment_view',$data);
                 break;
+
             case 'activate-event':
                 $event_id = $this->input->post('event-id');
                 $m_events = $this->Event_model;
+
+                //check current status
+                $is_open = $m_events->get_list(array(
+                    'event_id'=>$event_id,
+                    'is_open'=>1
+                ));
+
+                if(count($is_open) > 0){
+                    $response['title']='Already Activated!';
+                    $response['stat']='info';
+                    $response['msg']='This event is already open and activated.';
+                    echo json_encode($response);
+                    return;
+                }
+
+                //check if already been locked
+              /*  $is_locked = $m_events->get_list(array(
+                    'event_id'=>$event_id,
+                    'is_locked'=>1
+                ));
+
+                if(count($is_locked) > 0){
+                    $response['title']='Already Locked!';
+                    $response['stat']='error';
+                    $response['msg']='This event is already been locked.';
+                    echo json_encode($response);
+                    return;
+                }
+
+                $m_events->is_locked = 1;
+                $m_events->modify('event_id>0');*/
 
                 $m_events->is_open = 0;
                 $m_events->modify(
@@ -275,6 +327,7 @@ class Events     extends CORE_Controller {
                 );
 
                 $m_events->is_open = 1;
+                $m_events->is_locked = 0;
                 $m_events->modify($event_id);
 
                 $this->session->active_event_id = $event_id;
@@ -282,6 +335,23 @@ class Events     extends CORE_Controller {
                 $response['title']='Activated!';
                 $response['stat']='success';
                 $response['msg']='Event successfully activated.';
+                echo json_encode($response);
+
+                break;
+
+            case 're-enlist':
+                $m_events = $this->Event_model;
+
+                $limit = $this->input->post('limit');
+                $prev_event_id = $this->input->post('prev-event-id');
+                $cur_event_id = $this->input->post('cur-event-id');
+
+                $current_event = $m_events->get_list($cur_event_id);
+
+                $m_events->re_enlist_candidates($prev_event_id,$cur_event_id,$limit);
+                $response['title'] = "Success!";
+                $response['stat'] = "success";
+                $response['msg'] = "Entities/Candidates/Competitors successfully included to <br /><strong>".$current_event[0]->event_name."</strong>.";
                 echo json_encode($response);
 
                 break;

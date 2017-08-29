@@ -39,30 +39,23 @@ class Contestants extends CORE_Controller {
 
                 $m_contestant->begin();
 
-                $m_contestant->lname = $this->input->post('lname',TRUE);
-                $m_contestant->fname = $this->input->post('fname',TRUE);
-                $m_contestant->mname = $this->input->post('mname',TRUE);
-                $m_contestant->contact = $this->input->post('contact',TRUE);
-                $m_contestant->email = $this->input->post('email',TRUE);
-                $m_contestant->gender = $this->input->post('gender',TRUE);
-                $m_contestant->address = $this->input->post('address',TRUE);
+                $m_contestant->entity_name = $this->input->post('entity_name',TRUE);
+                $m_contestant->desc_1 = $this->input->post('desc_1',TRUE);
+                $m_contestant->desc_2 = $this->input->post('desc_2',TRUE);
+                $m_contestant->desc_3 = $this->input->post('desc_3',TRUE);
+                $m_contestant->desc_4 = $this->input->post('desc_4',TRUE);
+                //$m_contestant->gender = $this->input->post('gender',TRUE);
+                $m_contestant->desc_5 = $this->input->post('desc_5',TRUE);
+                $m_contestant->desc_6 = $this->input->post('desc_6',TRUE);
                 $m_contestant->photo_path = $this->input->post('photo_path',TRUE);
-                $m_contestant->nationality = $this->input->post('nationality',TRUE);
-                $m_contestant->bdate = date('Y-m-d',strtotime($this->input->post('bdate',TRUE)));
-                $m_contestant->birthplace = $this->input->post('birthplace',TRUE);
-                $m_contestant->weight = $this->input->post('weight',TRUE);
-                $m_contestant->height = $this->input->post('height',TRUE);
-                $m_contestant->mothers_name = $this->input->post('mothers_name',TRUE);
-                $m_contestant->mothers_occupation = $this->input->post('mothers_occupation',TRUE);
-                $m_contestant->fathers_name = $this->input->post('fathers_name',TRUE);
-                $m_contestant->fathers_occupation = $this->input->post('fathers_occupation',TRUE);
+
                 $m_contestant->created_by = $this->session->user_id;
                 $m_contestant->set('date_created','NOW()');
                 $m_contestant->save();
 
                 $contestant_id = $m_contestant->last_insert_id();
                 //update contestant code
-                $m_contestant->contestant_code = 'C'.date('Ymd').$contestant_id;
+                $m_contestant->entity_code = 'C'.date('Ymd').$contestant_id;
                 $m_contestant->modify($contestant_id);
 
                 $m_contestant->commit();
@@ -83,23 +76,16 @@ class Contestants extends CORE_Controller {
 
                 $m_contestant->begin();
 
-                $m_contestant->lname = $this->input->post('lname',TRUE);
-                $m_contestant->fname = $this->input->post('fname',TRUE);
-                $m_contestant->mname = $this->input->post('mname',TRUE);
-                $m_contestant->contact = $this->input->post('contact',TRUE);
-                $m_contestant->email = $this->input->post('email',TRUE);
-                $m_contestant->gender = $this->input->post('gender',TRUE);
-                $m_contestant->address = $this->input->post('address',TRUE);
+                $m_contestant->entity_name = $this->input->post('entity_name',TRUE);
+                $m_contestant->desc_1 = $this->input->post('desc_1',TRUE);
+                $m_contestant->desc_2 = $this->input->post('desc_2',TRUE);
+                $m_contestant->desc_3 = $this->input->post('desc_3',TRUE);
+                $m_contestant->desc_4 = $this->input->post('desc_4',TRUE);
+                //$m_contestant->gender = $this->input->post('gender',TRUE);
+                $m_contestant->desc_5 = $this->input->post('desc_5',TRUE);
+                $m_contestant->desc_6 = $this->input->post('desc_6',TRUE);
                 $m_contestant->photo_path = $this->input->post('photo_path',TRUE);
-                $m_contestant->nationality = $this->input->post('nationality',TRUE);
-                $m_contestant->bdate = date('Y-m-d',strtotime($this->input->post('bdate',TRUE)));
-                $m_contestant->birthplace = $this->input->post('birthplace',TRUE);
-                $m_contestant->weight = $this->input->post('weight',TRUE);
-                $m_contestant->height = $this->input->post('height',TRUE);
-                $m_contestant->mothers_name = $this->input->post('mothers_name',TRUE);
-                $m_contestant->mothers_occupation = $this->input->post('mothers_occupation',TRUE);
-                $m_contestant->fathers_name = $this->input->post('fathers_name',TRUE);
-                $m_contestant->fathers_occupation = $this->input->post('fathers_occupation',TRUE);
+
                 $m_contestant->modified_by = $this->session->user_id;
                 $m_contestant->set('date_modified','NOW()');
                 $m_contestant->modify($contestant_id);
@@ -184,7 +170,8 @@ class Contestants extends CORE_Controller {
 
     function response_rows($filter){
         $m_contestant = $this->Contestant_model;
-        return  $m_contestant->get_list($filter,'contestants.*,CONCAT_WS(" ",contestants.fname,contestants.mname,contestants.lname)as candidate,DATE_FORMAT(contestants.bdate,"%m/%d/%Y")as bdate');
+        return  $m_contestant->get_list($filter,
+            'contestants.*');
 
     }
 

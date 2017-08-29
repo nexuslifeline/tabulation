@@ -107,10 +107,10 @@
                                     <div id="div_product_list">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
-                                                <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; Candidates</b>
+                                                <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; Tabulation</b>
                                             </div>
                                             <div class="panel-body table-responsive">
-                                                 <table id="tbl_candidates" class="" cellspacing="0" width="100%">
+                                                 <table id="tbl_tabulation" class="" cellspacing="0" width="100%">
                                                     <thead class="">
                                                         <tr>
                                                             <th width="15%">Photo</th>
@@ -120,46 +120,61 @@
                                                     <tbody>
                                                         <?php foreach($candidates as $c){ ?>
                                                         <tr>
-                                                            <td align="center" valign="top"><img src="<?php echo $c->photo_path; ?>" width="70%" width="70%" style="border: 1px solid black;"></td>
+                                                            <td align="center" valign="top">
+                                                                <img src="<?php echo $c->photo_path; ?>" width="70%" width="70%" style="border: 1px solid black;">
+<br />
+                                                                <span></span> <b><?php echo $c->entity_name; ?></b><br />
+                                                                <span></span> <b><?php echo $c->desc_1; ?></b><br />
+                                                                <span></span> <b><?php echo $c->desc_2; ?></b><br />
+                                                                <span></span> <b><?php echo $c->desc_3; ?></b><br />
+                                                            </td>
                                                             <td valign="top">
-                                                                <span>Candidate : </span> <b><?php echo $c->candidate_name; ?></b><br />
-                                                                <span>Age : </span> <b>21 y/o</b><br />
-                                                                <span>Nationality : </span> <b><?php echo $c->nationality; ?></b><br />
-                                                                <span>Address : </span> <b><?php echo $c->address; ?></b><br />
-                                                                <br />
-                                                                <table id="tbl_scores" class="" cellspacing="0" width="100%">
+
+
+                                                                <table id="tbl_scores_<?php echo $c->contestant_id; ?>" class="" cellspacing="0" width="100%">
                                                                     <thead>
                                                                         <tr>
                                                                             <th width="40%">Criteria</th>
                                                                             <th width="20%">Percentage</th>
                                                                             <th width="20%">Max Score Allowed</th>
                                                                             <th width="20%">Score</th>
+                                                                            <th width="20%">Rating</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
 
-                                                                        <?php foreach($criterias as $r){ ?>
-                                                                        <tr data-contestant-id="<?php echo $c->contestant_id; ?>" data-event-id="<?php echo $active_event_id; ?>" data-criteria-id="<?php echo $r->criteria_id; ?>" data-judge-id="<?php echo $this->session->user_id; ?>">
+                                                                        <?php $percent = 0;  $current_contestant_total = 0; foreach($criterias as $r){ ?>
+                                                                        <tr data-contestant-id="<?php echo $c->contestant_id; ?>" data-percentage="<?php echo $r->percentage; ?>" data-event-id="<?php echo $active_event_id; ?>" data-criteria-id="<?php echo $r->criteria_id; ?>" data-judge-id="<?php echo $this->session->user_id; ?>">
                                                                             <td><?php echo $r->criteria; ?></td>
-                                                                            <td><?php echo $r->percentage; ?></td>
-                                                                            <td><?php echo $r->max_score; ?></td>
-                                                                            <td><input type="number" class="form-control txt_candidate_score" style="text-align: right;" value="<?php  foreach ($contestant_scores as $cs){
-                                                                                   echo ( $cs->criteria_id == $r->criteria_id && $cs->contestant_id == $c->contestant_id ? $cs->score : '' );
-                                                                                } ?>" data-max="<?php echo $r->max_score; ?>"></td>
+                                                                            <td align="right"><?php echo $r->percentage; $percent += $r->percentage; ?></td>
+                                                                            <td align="right"><?php echo ($r->criteria_id==1?'NA':$r->max_score); ?></td>
+                                                                            <td><input type="number" class="form-control txt_candidate_score" style="text-align: right;" value="<?php  $criteria_rating = 0; foreach ($contestant_scores as $cs){
+                                                                                   //echo ( $cs->criteria_id == $r->criteria_id && $cs->contestant_id == $c->contestant_id ? $cs->score : '' );
+                                                                                   if($cs->criteria_id == $r->criteria_id && $cs->contestant_id == $c->contestant_id){
+                                                                                        echo $cs->score;
+                                                                                       $criteria_rating = $cs->score / $r->max_score  * $r->percentage;
+                                                                                       $current_contestant_total += $criteria_rating;
+                                                                                   }else{
+                                                                                       echo '';
+                                                                                   }
+                                                                                } ?>" data-max="<?php echo $r->max_score; ?>" <?php echo($c->is_submitted?'readonly':''); ?>></td>
+                                                                            <td data-line-rate="" align="center"><?php echo $criteria_rating; ?>%</td>
                                                                         </tr>
                                                                         <?php } ?>
 
                                                                     </tbody>
                                                                     <tfoot>
                                                                         <tr>
-                                                                            <td colspan="3" align="right"><b>Current Rating : </b></td>
-                                                                            <td colspan="1" align="center"><b>89%</b></td>
+                                                                            <td colspan="1" align="right"><b>Total Percentage : </b></td>
+                                                                            <td colspan="1" align="center"><b><?php echo $percent; ?></b></td>
+                                                                            <td colspan="1" align="right"><b>Total Rating : </b></td>
+                                                                            <td colspan="1" align="center"><h4 class="total_rating"><?php echo $current_contestant_total; ?>%</h4></td>
                                                                         </tr>
                                                                     </tfoot>
                                                                 </table>
 
                                                                 <br />
-                                                                <button class="btn btn-primary btn_finalize">Submit and Finalize</button><br /><br />
+                                                                <button class="btn btn-<?php echo($c->is_submitted?'default':'primary'); ?> btn_finalize" <?php echo($c->is_submitted?'disabled':''); ?>  data-judge-id="<?php echo $this->session->user_id; ?>" data-event-id="<?php echo $active_event_id; ?>" data-contestant-id="<?php echo $c->contestant_id; ?>">Submit and Finalize</button><br /><br />
                                                             </td>
                                                         </tr>
                                                         <?php } ?>
@@ -220,9 +235,10 @@
 
     $(document).ready(function(){
         var dt; var _txnMode; var _selectedID; var _selectRowObj; var _selectedProductType; var _files;
+        var objFinalize = {};
 
         var initializeControls=function() {
-                $('#tbl_candidates').DataTable();
+                $('#tbl_tabulation').DataTable();
 
 
         }();
@@ -231,8 +247,28 @@
 
         var bindEventHandlers=(function(){
 
+
+
            $('.btn_finalize').click(function(){
+                objFinalize.event_id = $(this).data('event-id');
+                objFinalize.contestant_id = $(this).data('contestant-id');
+                objFinalize.judge_id = $(this).data('judge-id');
+
                 $('#modal_confirmation').modal('show');
+           });
+
+           $('#btn_yes').click(function(){
+               //console.log(objFinalize);
+
+               $.ajax({
+                   "dataType":"json",
+                   "type":"POST",
+                   "url":"Tabulation/transaction/mark-submitted",
+                   "data":objFinalize,
+                   "beforeSend": showSpinningProgress($('#btn_save'))
+               }).done(function(response){
+                    showNotification(response);
+               });
            });
 
            $('.txt_candidate_score').keyup(function(){
@@ -242,14 +278,24 @@
                 var criteria_id = row.data('criteria-id');
                 var contestant_id = row.data('contestant-id');
                 var judge_id = row.data('judge-id');
+                var percentage = row.data('percentage');
                 var score = getFloat($(this).val());
                 var vmax = getFloat($(this).data('max'));
+                var line_rate = (score / vmax) * percentage;
+
+                row.find('td').eq(4).text(line_rate + "%");
+                row.find('td').eq(4).attr('data-line-rate',line_rate);
+                //row.find('td').eq(4).find('input').val(line_rate);
 
                 if(score>vmax){
                     showNotification({"title":"Error","msg":"Invalid score, max number is "+vmax+".","type":"error"});
+                    row.find('td').eq(4).html("");
+                    row.find('td').eq(4).attr('data-line-rate',0);
                     $(this).val('');
                     return;
                 }
+
+               reComputeTotalRating($('#tbl_scores_'+contestant_id));
 
                 var _data = [];
                _data.push({name : "event-id" , value : event_id });
@@ -257,6 +303,7 @@
                _data.push({name : "judge-id" , value : judge_id });
                _data.push({name : "score" , value : score });
                _data.push({name : "contestant-id" , value : contestant_id });
+               _data.push({name : "line_rate" , value : line_rate});
 
                $.ajax({
                    "dataType":"json",
@@ -264,12 +311,25 @@
                    "url":"Tabulation/transaction/create",
                    "data":_data,
                    "beforeSend": showSpinningProgress($('#btn_save'))
+               }).done(function(response){
+                    if( response != undefined ){
+                        showNotification(response);
+                    }
                });
                
            });
 
 
         })();
+
+
+        var reComputeTotalRating =  function(tbl){
+            var rows = tbl.find('tr'); var total = 0;
+            $.each(rows,function(row){
+                total += getFloat($(this).find('td').eq(4).text());
+            });
+            tbl.find('.total_rating').html(total+'%');
+        };
 
 
 

@@ -9,7 +9,8 @@ class Tabulation extends CORE_Controller {
         $this->load->model(array(
             'Contestant_model',
             'Event_criteria_model',
-            'Tabulation_model'
+            'Tabulation_model',
+            'Tabulation_submitted_model'
         ));
 
     }
@@ -31,12 +32,8 @@ class Tabulation extends CORE_Controller {
                 'ec.event_id' => $active_event_id
             ),
             array(
-                'CONCAT_WS(" ",contestants.fname,contestants.lname)as candidate_name',
-                'contestants.nationality',
-                'contestants.contact',
-                'contestants.address',
-                'contestants.photo_path',
-                'contestants.contestant_id'
+                'contestants.*',
+                'IF((SELECT COUNT(x.contestant_id) FROM tabulation_submitted as x WHERE x.contestant_id=ec.contestant_id AND x.event_id=ec.event_id)>0,1,0) as is_submitted'
             ),
             array(
                 array('events_contestant as ec','ec.contestant_id=contestants.contestant_id','inner')
@@ -54,7 +51,8 @@ class Tabulation extends CORE_Controller {
             ),
             array(
                 array('criteria as c','c.criteria_id=events_criteria.criteria_id','left')
-            )
+            ),
+            'c.criteria_id'
         );
 
         $judge_id = $this->session->user_id;
@@ -79,12 +77,31 @@ class Tabulation extends CORE_Controller {
         switch($txn){
             case 'create':
                 $m_tabulation = $this->Tabulation_model;
+                $m_submitted = $this->Tabulation_submitted_model;
 
                 $event_id = $this->input->post('event-id');
                 $contestant_id = $this->input->post('contestant-id');
                 $criteria_id = $this->input->post('criteria-id');
                 $judge_id = $this->input->post('judge-id');
                 $score = $this->input->post('score');
+                $rate = $this->input->post('line_rate');
+
+                $submitted = $m_submitted->get_list(array(
+                    'event_id' => $event_id,
+                    'contestant_id' => $contestant_id,
+                    'judge_id' => $judge_id
+                ));
+
+                if(count($submitted)>0){
+                    $response['title'] = "Cannot be Modified!";
+                    $response['stat'] = "error";
+                    $response['msg'] = "Sorry, this record is already been submitted and finalized.";
+                    echo json_encode($response);
+                    return;
+                }
+
+
+
 
                 $m_tabulation->begin();
 
@@ -100,11 +117,38 @@ class Tabulation extends CORE_Controller {
                 $m_tabulation->judge_id = $judge_id;
                 $m_tabulation->score = $score;
                 $m_tabulation->contestant_id = $contestant_id;
+                $m_tabulation->criteria_rate = $rate;
                 $m_tabulation->save();
 
                 $m_tabulation->commit();
 
                 break;
+
+            case 'mark-submitted':
+                $m_tabulation = $this->Tabulation_submitted_model;
+
+                $contestant_id = $this->input->post('contestant_id');
+                $judge_id = $this->input->post('judge_id');
+                $event_id = $this->input->post('event_id');
+
+                $m_tabulation->delete(array(
+                    'contestant_id'=>$contestant_id,
+                    'judge_id'=>$judge_id,
+                    'event_id'=>$event_id
+                ));
+
+                $m_tabulation->contestant_id = $contestant_id;
+                $m_tabulation->judge_id = $judge_id;
+                $m_tabulation->event_id = $event_id;
+                $m_tabulation->save();
+
+                $response['title'] = "Success!";
+                $response['stat'] = "success";
+                $response['msg'] = "Successfully submitted and finalized.";
+                echo json_encode($response);
+
+                break;
+
         }
     }
 

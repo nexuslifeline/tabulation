@@ -10,15 +10,15 @@
         <div class="sidebar">
             <div class="widget">
                 <div class="widget-body">
-                    <div class="userinfo">
+                    <!--<div class="userinfo">
                         <div class="avatar">
-                            <img src="<?php echo $this->session->user_photo; ?>" class="img-responsive img-circle">
+                            <img src="<?php /*echo $this->session->user_photo; */?>" class="img-responsive img-circle">
                         </div>
                         <div class="info">
-                            <span class="username"><?php echo $this->session->user_fullname; ?></span>
-                            <span class="useremail"><?php echo $this->session->user_email; ?></span>
+                            <span class="username"><?php /*echo $this->session->user_fullname; */?></span>
+                            <span class="useremail"><?php /*echo $this->session->user_email; */?></span>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <div class="widget stay-on-collapse" id="widget-sidebar">
@@ -28,7 +28,7 @@
                         <li class="<?php echo (in_array('1',$this->session->parent_rights)?'':'hidden'); ?>"><a href="#"><i class="ti ti-wallet"></i><span>Main</span></a>
                             <ul class="acc-menu">
 
-                                <li class="<?php echo (in_array('1-1',$this->session->user_rights)?'':'hidden'); ?>"><a href="Contestants">Register Candidate</a></li>
+                                <li class="<?php echo (in_array('1-1',$this->session->user_rights)?'':'hidden'); ?>"><a href="Contestants">Create Entity</a></li>
                                 <li class="<?php echo (in_array('1-2',$this->session->user_rights)?'':'hidden'); ?>"><a href="Tabulation">Tabulation System</a></li>
                             </ul>
                         </li>
@@ -38,6 +38,11 @@
                                 <li class="<?php echo (in_array('2-2',$this->session->user_rights)?'':'hidden'); ?>"><a href="User_groups">Manage User Group</a></li>
                                 <li class="<?php echo (in_array('2-3',$this->session->user_rights)?'':'hidden'); ?>"><a href="Events">Manage Events</a></li>  
                                 <li class="<?php echo (in_array('2-4',$this->session->user_rights)?'':'hidden'); ?>"><a href="Criteria">Setup Criteria</a></li>                                     
+                            </ul>
+                        </li>
+                        <li class="<?php echo (in_array('2',$this->session->parent_rights)?'':'hidden'); ?>"><a href="#"><i class="ti ti-view-list-alt"></i><span>Reports</span></a>
+                            <ul class="acc-menu">
+                                <li class="<?php echo (in_array('3-1',$this->session->user_rights)?'':'hidden'); ?>"><a href="Ranking">Print Ranking</a></li>
                             </ul>
                         </li>
                     </ul>
