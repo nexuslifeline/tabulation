@@ -40,14 +40,16 @@ class Ranking extends CORE_Controller {
             case 'print-ranking':
                 $event_id = $this->input->get('event_id');
                 $data['candidates'] = $this->Tabulation_model->get_contestant_scores($event_id);
-                $this->load->view('template/rpt_ranking');
+                $data['judge_scores'] = $this->Tabulation_model->get_per_judge_score($event_id);
+                $this->load->view('template/rpt_ranking',$data);
                 break;
             case 'per-judge':
                 $m_tabulation = $this->Tabulation_model;
-                $event_id = 9;
-                $contestant_di = 6;
+                $event_id = $this->input->get('event_id');
+                $contestant_di = $this->input->get('contestant_id');
 
                 $data['scores'] = $m_tabulation->get_per_judge_score($event_id,$contestant_di);
+
                 $this->load->view('template/per_charge_score',$data);
                 break;
 

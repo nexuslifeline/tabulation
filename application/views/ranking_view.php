@@ -219,10 +219,11 @@
                 else {
                     tr.addClass( 'details' );
                     var d=row.data();
+                    //console.log(d);
                     $.ajax({
                         "dataType":"html",
                         "type":"POST",
-                        "url":"Ranking/transaction/per-judge",
+                        "url":"Ranking/transaction/per-judge?event_id="+d.event_id+"&contestant_id="+d.contestant_id,
                         "beforeSend" : function(){
                             row.child( '<center><br /><img src="assets/img/loader/ajax-loader-lg.gif" /><br /><br /></center>' ).show();
                         }

@@ -31,13 +31,14 @@ class Tabulation_model extends CORE_Model{
     }
 
 
-    function get_per_judge_score($event_id,$contestant_id){
-        $sql = "SELECT t.event_id,t.judge_id,u.user_fname,
+    function get_per_judge_score($event_id,$contestant_id = null){
+        $sql = "SELECT t.event_id,t.judge_id,u.user_fname,c.entity_name,
             SUM(t.`criteria_rate`)as criteria_rate  
             FROM tabulation as t
             LEFT JOIN `user_accounts` as u ON u.user_id=t.judge_id
+            LEFT JOIN contestants as c ON c.contestant_id=t.contestant_id
             WHERE t.event_id=$event_id 
-            AND t.contestant_id=$contestant_id
+            ".($contestant_id == null ? "" : " AND t.contestant_id=".$contestant_id )."
             GROUP By t.contestant_id,t.judge_id";
         return $this->db->query($sql)->result();
     }

@@ -17,6 +17,7 @@
 
 </style>
 
+<h4>Ranking List</h4>
 <table width="100%">
     <thead>
         <tr>
@@ -29,10 +30,32 @@
     <tbody>
         <?php foreach ($candidates as $c){ ?>
         <tr>
-            <td>001</td>
+            <td><?php echo $c->contestant_no; ?></td>
             <td><?php echo $c->entity_name; ?></td>
             <td><?php echo $c->avg_score; ?></td>
             <td align="center"><b><?php echo $c->rank; ?></b></td>
+        </tr>
+        <?php } ?>
+    </tbody>
+
+</table>
+
+<br />
+<h4>Detailed Score</h4>
+<table width="100%">
+    <thead>
+    <tr>
+        <th width="45%">Panel</th>
+        <th width="45%">Contestant</th>
+        <th width="10%">Score</th>
+    </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($judge_scores as $judge_score){ ?>
+        <tr>
+            <th width="45%"><?php echo $judge_score->user_fname; ?></th>
+            <th width="45%"><?php echo $judge_score->entity_name; ?></th>
+            <th width="10%"><?php echo $judge_score->criteria_rate; ?></th>
         </tr>
         <?php } ?>
     </tbody>
