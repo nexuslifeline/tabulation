@@ -41,7 +41,7 @@ CREATE TABLE `contestants` (
   `date_deleted` DATETIME DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY USING BTREE (`contestant_id`)
 ) ENGINE=InnoDB
-AUTO_INCREMENT=7 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
+AUTO_INCREMENT=26 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
 ;
 
 /* Structure for the `criteria` table : */
@@ -60,7 +60,7 @@ CREATE TABLE `criteria` (
   `date_deleted` DATETIME DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY USING BTREE (`criteria_id`)
 ) ENGINE=InnoDB
-AUTO_INCREMENT=28 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
+AUTO_INCREMENT=7 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
 ;
 
 /* Structure for the `events` table : */
@@ -77,6 +77,7 @@ CREATE TABLE `events` (
   `is_active` TINYINT(4) DEFAULT 1,
   `is_open` TINYINT(4) DEFAULT 1,
   `is_locked` TINYINT(4) DEFAULT 0,
+  `is_voting_closed` TINYINT(4) DEFAULT 0,
   `is_deleted` TINYINT(4) DEFAULT 0,
   `is_completed` TINYINT(4) DEFAULT 0,
   `created_by` INTEGER(11) DEFAULT 0,
@@ -87,7 +88,7 @@ CREATE TABLE `events` (
   `date_deleted` DATETIME DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY USING BTREE (`event_id`)
 ) ENGINE=InnoDB
-AUTO_INCREMENT=10 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
+AUTO_INCREMENT=19 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
 ;
 
 /* Structure for the `events_contestant` table : */
@@ -99,7 +100,7 @@ CREATE TABLE `events_contestant` (
   `contestant_no` VARCHAR(55) COLLATE latin1_swedish_ci DEFAULT '',
   PRIMARY KEY USING BTREE (`event_contestant_id`)
 ) ENGINE=InnoDB
-AUTO_INCREMENT=36 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
+AUTO_INCREMENT=81 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
 ;
 
 /* Structure for the `events_criteria` table : */
@@ -112,7 +113,7 @@ CREATE TABLE `events_criteria` (
   `max_score` DECIMAL(11,2) DEFAULT 0.00,
   PRIMARY KEY USING BTREE (`event_criteria_id`)
 ) ENGINE=InnoDB
-AUTO_INCREMENT=133 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
+AUTO_INCREMENT=323 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
 ;
 
 /* Structure for the `events_judge` table : */
@@ -123,7 +124,19 @@ CREATE TABLE `events_judge` (
   `judge_id` INTEGER(11) DEFAULT 0,
   PRIMARY KEY USING BTREE (`event_judge_id`)
 ) ENGINE=InnoDB
-AUTO_INCREMENT=7 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
+AUTO_INCREMENT=2 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
+;
+
+/* Structure for the `events_vote` table : */
+
+CREATE TABLE `events_vote` (
+  `event_vote_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `contestant_id` INTEGER(11) DEFAULT 0,
+  `voter_id` INTEGER(11) DEFAULT 0,
+  `event_id` INTEGER(11) DEFAULT 0,
+  PRIMARY KEY USING BTREE (`event_vote_id`)
+) ENGINE=InnoDB
+AUTO_INCREMENT=24 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
 ;
 
 /* Structure for the `judges` table : */
@@ -175,7 +188,7 @@ CREATE TABLE `tabulation` (
   `criteria_rate` DECIMAL(11,2) DEFAULT 0.00,
   PRIMARY KEY USING BTREE (`tabulation_id`)
 ) ENGINE=InnoDB
-AUTO_INCREMENT=147 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
+AUTO_INCREMENT=447 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
 ;
 
 /* Structure for the `tabulation_submitted` table : */
@@ -187,7 +200,7 @@ CREATE TABLE `tabulation_submitted` (
   `judge_id` INTEGER(11) DEFAULT 0,
   PRIMARY KEY USING BTREE (`tabulation_submitted_id`)
 ) ENGINE=InnoDB
-AUTO_INCREMENT=6 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
+AUTO_INCREMENT=29 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
 ;
 
 /* Structure for the `user_accounts` table : */
@@ -218,7 +231,7 @@ CREATE TABLE `user_accounts` (
   `is_online` TINYINT(4) DEFAULT 0,
   PRIMARY KEY USING BTREE (`user_id`)
 ) ENGINE=InnoDB
-AUTO_INCREMENT=3 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
+AUTO_INCREMENT=4 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
 ;
 
 /* Structure for the `user_group_rights` table : */
@@ -229,7 +242,7 @@ CREATE TABLE `user_group_rights` (
   `link_code` VARCHAR(20) COLLATE latin1_swedish_ci DEFAULT '',
   PRIMARY KEY USING BTREE (`user_rights_id`)
 ) ENGINE=InnoDB
-AUTO_INCREMENT=12 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
+AUTO_INCREMENT=14 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
 ;
 
 /* Structure for the `user_groups` table : */
@@ -247,65 +260,68 @@ CREATE TABLE `user_groups` (
 AUTO_INCREMENT=4 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
 ;
 
+/* Structure for the `voters_accounts` table : */
+
+CREATE TABLE `voters_accounts` (
+  `voter_id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `voter_fname` VARCHAR(100) COLLATE latin1_swedish_ci DEFAULT '',
+  `voter_lname` VARCHAR(100) COLLATE latin1_swedish_ci DEFAULT '',
+  `voter_mname` VARCHAR(100) COLLATE latin1_swedish_ci DEFAULT '',
+  `voter_username` VARCHAR(100) COLLATE latin1_swedish_ci DEFAULT '',
+  `voter_pword` VARCHAR(100) COLLATE latin1_swedish_ci DEFAULT '',
+  `voter_mobile` VARCHAR(55) COLLATE latin1_swedish_ci DEFAULT '',
+  `verification_code` VARCHAR(100) COLLATE latin1_swedish_ci DEFAULT '',
+  `is_verified` TINYINT(4) DEFAULT 0,
+  PRIMARY KEY USING BTREE (`voter_id`)
+) ENGINE=InnoDB
+AUTO_INCREMENT=31 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
+;
+
 /* Data for the `contestants` table  (LIMIT 0,500) */
 
 INSERT INTO `contestants` (`contestant_id`, `entity_code`, `entity_name`, `desc_1`, `desc_2`, `desc_3`, `desc_4`, `desc_5`, `desc_6`, `photo_path`, `is_active`, `is_deleted`, `created_by`, `date_created`, `modified_by`, `date_modified`, `deleted_by`, `date_deleted`) VALUES
-  (5,'C201708275','Manny Pacquiao','','','','','','','assets/img/default-user-image.png',1,0,1,'2017-08-27 22:58:47',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00'),
-  (6,'C201708276','Jeff Horn','','','','','','','assets/img/default-user-image.png',1,0,1,'2017-08-27 22:58:54',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00');
+  (24,'C2017090324','MANNY PACQUIAO','','','','','','','assets/img/default-user-image.png',1,0,1,'2017-09-03 14:48:39',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00'),
+  (25,'C2017090325','JEFF HORN','','','','','','','assets/img/default-user-image.png',1,0,1,'2017-09-03 14:48:57',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00');
 COMMIT;
 
 /* Data for the `criteria` table  (LIMIT 0,500) */
 
 INSERT INTO `criteria` (`criteria_id`, `criteria`, `description`, `is_active`, `is_deleted`, `created_by`, `modified_by`, `deleted_by`, `date_created`, `date_modified`, `date_deleted`) VALUES
   (1,'Vote','This criteria automatically computes the percentage from the Voting system.',1,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00'),
-  (16,'ROUND 1','',1,0,1,0,0,'2017-08-27 22:55:21','0000-00-00 00:00:00','0000-00-00 00:00:00'),
-  (17,'ROUND 2','',1,0,1,0,0,'2017-08-27 22:55:27','0000-00-00 00:00:00','0000-00-00 00:00:00'),
-  (18,'ROUND 3','',1,0,1,0,0,'2017-08-27 22:56:13','0000-00-00 00:00:00','0000-00-00 00:00:00'),
-  (19,'ROUND 4','',1,0,1,0,0,'2017-08-27 22:56:18','0000-00-00 00:00:00','0000-00-00 00:00:00'),
-  (20,'ROUND 5','',1,0,1,0,0,'2017-08-27 22:56:22','0000-00-00 00:00:00','0000-00-00 00:00:00'),
-  (21,'ROUND 6','',1,0,1,0,0,'2017-08-27 22:56:27','0000-00-00 00:00:00','0000-00-00 00:00:00'),
-  (22,'ROUND 7','',1,0,1,0,0,'2017-08-27 22:56:31','0000-00-00 00:00:00','0000-00-00 00:00:00'),
-  (23,'ROUND 8','',1,0,1,0,0,'2017-08-27 22:56:35','0000-00-00 00:00:00','0000-00-00 00:00:00'),
-  (24,'ROUND 9','',1,0,1,0,0,'2017-08-27 22:56:39','0000-00-00 00:00:00','0000-00-00 00:00:00'),
-  (25,'ROUND 10','',1,0,1,0,0,'2017-08-27 22:56:43','0000-00-00 00:00:00','0000-00-00 00:00:00'),
-  (26,'ROUND 11','',1,0,1,0,0,'2017-08-27 22:56:49','0000-00-00 00:00:00','0000-00-00 00:00:00'),
-  (27,'ROUND 12','',1,0,1,0,0,'2017-08-27 22:56:53','0000-00-00 00:00:00','0000-00-00 00:00:00');
+  (2,'Round 1','',1,0,1,0,0,'2017-09-03 14:35:46','0000-00-00 00:00:00','0000-00-00 00:00:00'),
+  (3,'Round 2','',1,0,1,0,0,'2017-09-03 14:35:54','0000-00-00 00:00:00','0000-00-00 00:00:00'),
+  (4,'Round 3','',1,0,1,0,0,'2017-09-03 14:36:40','0000-00-00 00:00:00','0000-00-00 00:00:00'),
+  (5,'Round 4','',1,0,1,0,0,'2017-09-03 14:36:48','0000-00-00 00:00:00','0000-00-00 00:00:00'),
+  (6,'Round 5','',1,0,1,0,0,'2017-09-03 14:36:55','0000-00-00 00:00:00','0000-00-00 00:00:00');
 COMMIT;
 
 /* Data for the `events` table  (LIMIT 0,500) */
 
-INSERT INTO `events` (`event_id`, `event_name`, `event_description`, `site`, `address`, `contact_person`, `date_schedule`, `remarks`, `is_active`, `is_open`, `is_locked`, `is_deleted`, `is_completed`, `created_by`, `modified_by`, `deleted_by`, `date_created`, `date_modified`, `date_deleted`) VALUES
-  (9,'BOXING','',NULL,'','','2017-08-27','',1,1,0,0,0,1,0,0,'2017-08-27 22:57:03','0000-00-00 00:00:00','0000-00-00 00:00:00');
+INSERT INTO `events` (`event_id`, `event_name`, `event_description`, `site`, `address`, `contact_person`, `date_schedule`, `remarks`, `is_active`, `is_open`, `is_locked`, `is_voting_closed`, `is_deleted`, `is_completed`, `created_by`, `modified_by`, `deleted_by`, `date_created`, `date_modified`, `date_deleted`) VALUES
+  (18,'BOXING','',NULL,'','','2017-09-03','',1,1,0,1,0,0,1,0,0,'2017-09-03 14:34:57','0000-00-00 00:00:00','0000-00-00 00:00:00');
 COMMIT;
 
 /* Data for the `events_contestant` table  (LIMIT 0,500) */
 
 INSERT INTO `events_contestant` (`event_contestant_id`, `event_id`, `contestant_id`, `contestant_no`) VALUES
-  (34,9,6,''),
-  (35,9,5,'');
+  (79,18,24,'2'),
+  (80,18,25,'1');
 COMMIT;
 
 /* Data for the `events_criteria` table  (LIMIT 0,500) */
 
 INSERT INTO `events_criteria` (`event_criteria_id`, `event_id`, `criteria_id`, `percentage`, `max_score`) VALUES
-  (87,9,16,10.00,10.00),
-  (112,9,25,10.00,10.00),
-  (114,9,26,10.00,10.00),
-  (116,9,27,10.00,10.00),
-  (118,9,17,10.00,10.00),
-  (120,9,18,10.00,10.00),
-  (122,9,19,10.00,10.00),
-  (124,9,20,10.00,10.00),
-  (126,9,21,10.00,10.00),
-  (128,9,22,10.00,10.00),
-  (130,9,23,10.00,10.00),
-  (132,9,24,10.00,10.00);
+  (301,18,2,10.00,10.00),
+  (305,18,3,10.00,10.00),
+  (309,18,4,10.00,10.00),
+  (315,18,5,10.00,10.00),
+  (321,18,6,10.00,10.00);
 COMMIT;
 
 /* Data for the `events_judge` table  (LIMIT 0,500) */
 
 INSERT INTO `events_judge` (`event_judge_id`, `event_id`, `judge_id`) VALUES
-  (6,9,2);
+  (1,18,2);
 COMMIT;
 
 /* Data for the `rights_links` table  (LIMIT 0,500) */
@@ -323,37 +339,31 @@ COMMIT;
 /* Data for the `tabulation` table  (LIMIT 0,500) */
 
 INSERT INTO `tabulation` (`tabulation_id`, `event_id`, `judge_id`, `criteria_id`, `contestant_id`, `score`, `criteria_rate`) VALUES
-  (79,9,2,16,6,9,9.00),
-  (81,9,2,17,6,9,9.00),
-  (83,9,2,18,6,9,9.00),
-  (86,9,2,19,6,9,9.00),
-  (89,9,2,20,6,9,9.00),
-  (92,9,2,21,6,9,9.00),
-  (95,9,2,22,6,9,9.00),
-  (98,9,2,23,6,9,9.00),
-  (101,9,2,24,6,9,9.00),
-  (104,9,2,25,6,9,9.00),
-  (107,9,2,26,6,9,9.00),
-  (109,9,2,27,6,9,9.00),
-  (113,9,2,16,5,10,10.00),
-  (116,9,2,17,5,10,10.00),
-  (119,9,2,18,5,10,10.00),
-  (122,9,2,19,5,10,10.00),
-  (125,9,2,20,5,10,10.00),
-  (128,9,2,21,5,10,10.00),
-  (131,9,2,22,5,10,10.00),
-  (134,9,2,23,5,10,10.00),
-  (137,9,2,24,5,10,10.00),
-  (140,9,2,25,5,10,10.00),
-  (143,9,2,26,5,10,10.00),
-  (146,9,2,27,5,10,10.00);
+  (422,18,2,2,25,9,9.00),
+  (424,18,2,3,25,9,9.00),
+  (428,18,2,4,25,9,9.00),
+  (430,18,2,5,25,9,9.00),
+  (432,18,2,6,25,9,9.00),
+  (434,18,2,2,24,10,10.00),
+  (437,18,2,3,24,10,10.00),
+  (440,18,2,4,24,10,10.00),
+  (443,18,2,5,24,10,10.00),
+  (446,18,2,6,24,10,10.00);
+COMMIT;
+
+/* Data for the `tabulation_submitted` table  (LIMIT 0,500) */
+
+INSERT INTO `tabulation_submitted` (`tabulation_submitted_id`, `event_id`, `contestant_id`, `judge_id`) VALUES
+  (27,18,25,2),
+  (28,18,24,2);
 COMMIT;
 
 /* Data for the `user_accounts` table  (LIMIT 0,500) */
 
 INSERT INTO `user_accounts` (`user_id`, `user_name`, `user_pword`, `user_lname`, `user_fname`, `user_mname`, `user_address`, `user_email`, `user_mobile`, `user_telephone`, `user_bdate`, `user_group_id`, `photo_path`, `file_directory`, `is_active`, `is_deleted`, `date_created`, `date_modified`, `date_deleted`, `modified_by_user`, `posted_by_user`, `deleted_by_user`, `is_online`) VALUES
   (1,'admin','d033e22ae348aeb5660fc2140aec35850c4da997','Diaz','Anna Karina','','Pampanga','annakarina@yahoo.com','0935-746-1234','','1970-01-01',1,'assets/img/user/593a366fa6c65.jpg','',1,0,'0000-00-00 00:00:00','2017-08-26 09:58:20',0,1,0,0,1),
-  (2,'judge1','356a192b7913b04c54574d18c28d46e6395428ab','User','Judge','','','','','','2017-06-11',2,'assets/img/anonymous-icon.png','',1,0,'2017-06-11 18:20:01','2017-08-27 22:57:43',0,1,1,0,1);
+  (2,'judge1','356a192b7913b04c54574d18c28d46e6395428ab','User','Judge','','','','','','2017-06-11',2,'assets/img/anonymous-icon.png','',1,0,'2017-06-11 18:20:01','2017-08-27 22:57:43',0,1,1,0,1),
+  (3,'joy','356a192b7913b04c54574d18c28d46e6395428ab','Santos','Joy','','','','','','2017-08-29',2,'assets/img/anonymous-icon.png','',1,0,'2017-08-29 12:49:51','2017-09-02 20:42:41',0,1,1,0,1);
 COMMIT;
 
 /* Data for the `user_group_rights` table  (LIMIT 0,500) */
@@ -366,7 +376,8 @@ INSERT INTO `user_group_rights` (`user_rights_id`, `user_group_id`, `link_code`)
   (8,1,'2-3'),
   (9,1,'2-4'),
   (10,1,'3-1'),
-  (11,2,'1-2');
+  (12,2,'1-2'),
+  (13,2,'3-1');
 COMMIT;
 
 /* Data for the `user_groups` table  (LIMIT 0,500) */

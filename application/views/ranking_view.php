@@ -277,6 +277,7 @@
 
 
         function reloadList(){
+            var i = 0;
             dt=$('#tbl_customer_subsidiary').DataTable({
                 "dom": '<"toolbar">frtip',
                 "bLengthChange":false,
@@ -302,7 +303,10 @@
                     { targets:[1],data: "contestant_no" },
                     { targets:[2],data: "entity_name" },
                     { targets:[3],data: "avg_score" },
-                    { targets:[4],data: "rank" }
+                    { targets:[4],render : function(){
+                    i++;
+                    return i;
+                    } }
                     ]
                 ,
                 "rowCallBack": function(a,b,c){

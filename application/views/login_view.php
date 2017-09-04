@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>JCORE - LOGIN</title>
+    <title>LOGIN</title>
 
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -175,7 +175,7 @@
 
                         if(response.stat=="success"){
                             setTimeout(function(){
-                                window.location.href = "dashboard";
+                                window.location.href = "Tabulation";
                             },600);
                         }
 

@@ -19,14 +19,29 @@ class Tabulation_model extends CORE_Model{
 
         $sql= "SELECT l.*,@rank:=@rank+1 as rank
             FROM
-            (SELECT m.*,c.entity_name,FORMAT(AVG(m.total_score),2) as avg_score
-            FROM
-            (SELECT t.event_id,t.judge_id,t.contestant_id,SUM(criteria_rate) as total_score,
-            (SELECT x.contestant_no FROM events_contestant as x WHERE x.event_id=t.event_id AND x.contestant_id=t.contestant_id)as contestant_no
-            FROM `tabulation` as t WHERE t.event_id = $event_id
-            GROUP BY t.`contestant_id`,t.judge_id)as m
-            LEFT JOIN contestants as c ON c.contestant_id=m.contestant_id
-            GROUP BY m.`contestant_id`,m.judge_id) as l ORDER BY l.avg_score DESC";
+            (SELECT n.*,(IFNULL(total_score,0)/IFNULL(judge_count,1))as avg_score FROM(SELECT m.*,c.entity_name
+              FROM
+              (
+                SELECT t.event_id,t.judge_id,t.contestant_id,
+                SUM(criteria_rate) as total_score,
+                (SELECT x.contestant_no 
+                FROM events_contestant as x 
+                WHERE x.event_id=t.event_id AND x.contestant_id=t.contestant_id
+                )as contestant_no
+                
+                FROM `tabulation` as t WHERE t.event_id = $event_id
+                GROUP BY t.`contestant_id`
+              )as m
+              LEFT JOIN contestants as c ON c.contestant_id=m.contestant_id
+              GROUP BY m.`contestant_id`
+            ) as n 
+            
+            LEFT JOIN
+            (SELECT COUNT(ej.judge_id) as judge_count,ej.event_id FROM events_judge as ej
+			WHERE ej.event_id=$event_id GROUP BY ej.`event_id`) as o ON o.event_id=n.event_id
+            
+            
+            )as l ORDER BY l.avg_score DESC";
         return $this->db->query($sql)->result();
     }
 

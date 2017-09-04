@@ -9,8 +9,11 @@ class Tabulation extends CORE_Controller {
         $this->load->model(array(
             'Contestant_model',
             'Event_criteria_model',
+            'Event_model',
             'Tabulation_model',
-            'Tabulation_submitted_model'
+            'Tabulation_submitted_model',
+            'Events_vote_model',
+            'Event_judge_model'
         ));
 
     }
@@ -27,13 +30,22 @@ class Tabulation extends CORE_Controller {
 
         $active_event_id  = $this->session->active_event_id;
 
-        $candidates = $this->Contestant_model->get_list(
+        $is_judge = $this->Event_judge_model->get_list(
             array(
-                'ec.event_id' => $active_event_id
-            ),
+                'judge_id' => $this->session->user_id
+            )
+        );
+
+        $x = count($is_judge);
+        $x = ($this->session->user_group_id==1?1:$x);
+
+        $candidates = $this->Contestant_model->get_list(
+
+                'ec.event_id ='.$active_event_id.' AND 1<='.$x
+            ,
             array(
                 'contestants.*',
-                'IF((SELECT COUNT(x.contestant_id) FROM tabulation_submitted as x WHERE x.contestant_id=ec.contestant_id AND x.event_id=ec.event_id)>0,1,0) as is_submitted'
+                'IF((SELECT COUNT(x.contestant_id) FROM tabulation_submitted as x WHERE x.contestant_id=ec.contestant_id AND x.event_id=ec.event_id AND x.judge_id='.$this->session->user_id.')>0,1,0) as is_submitted'
             ),
             array(
                 array('events_contestant as ec','ec.contestant_id=contestants.contestant_id','inner')
@@ -142,11 +154,22 @@ class Tabulation extends CORE_Controller {
                 $m_tabulation->event_id = $event_id;
                 $m_tabulation->save();
 
+                $m_event = $this->Event_model;
+                $m_event->is_voting_closed = 1;
+                $m_event->modify($event_id);
+
                 $response['title'] = "Success!";
                 $response['stat'] = "success";
                 $response['msg'] = "Successfully submitted and finalized.";
                 echo json_encode($response);
 
+                break;
+
+            case 'get-votes':
+                $event_id = $this->input->get('event_id');
+                $m_votes = $this->Events_vote_model;
+                $votes = $m_votes->get_event_votes($event_id);
+                echo json_encode($votes);
                 break;
 
         }

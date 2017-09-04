@@ -8,7 +8,8 @@ class Ranking extends CORE_Controller {
         parent::__construct('');
         $this->load->model(array(
             'Tabulation_model',
-            'Event_model'
+            'Event_model',
+            'Event_judge_model'
         ));
 
     }
@@ -41,6 +42,18 @@ class Ranking extends CORE_Controller {
                 $event_id = $this->input->get('event_id');
                 $data['candidates'] = $this->Tabulation_model->get_contestant_scores($event_id);
                 $data['judge_scores'] = $this->Tabulation_model->get_per_judge_score($event_id);
+                $data['judges'] = $this->Event_judge_model->get_list(
+                    array(
+                        'events_judge.event_id' => $event_id
+                    ),
+                    array(
+                        'events_judge.*',
+                        'CONCAT_WS(" ",ua.user_fname,ua.user_lname) as fullname'
+                    ),
+                    array(
+                        array('user_accounts as ua','ua.user_id=events_judge.judge_id','inner')
+                    )
+                );
                 $this->load->view('template/rpt_ranking',$data);
                 break;
             case 'per-judge':

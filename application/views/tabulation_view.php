@@ -148,9 +148,9 @@
                                                                             <td><?php echo $r->criteria; ?></td>
                                                                             <td align="right"><?php echo $r->percentage; $percent += $r->percentage; ?></td>
                                                                             <td align="right"><?php echo ($r->criteria_id==1?'NA':$r->max_score); ?></td>
-                                                                            <td><input type="number" class="form-control txt_candidate_score" style="text-align: right;" value="<?php  $criteria_rating = 0; foreach ($contestant_scores as $cs){
+                                                                            <td><input id="txt_score_<?php echo $c->contestant_id; ?>" type="number" class="form-control <?php echo ($r->criteria_id == 1 ? 'id-vote-criteria':''); ?> txt_candidate_score" style="text-align: right;" value="<?php  $criteria_rating = 0; foreach ($contestant_scores as $cs){
                                                                                    //echo ( $cs->criteria_id == $r->criteria_id && $cs->contestant_id == $c->contestant_id ? $cs->score : '' );
-                                                                                   if($cs->criteria_id == $r->criteria_id && $cs->contestant_id == $c->contestant_id){
+                                                                                   if($cs->criteria_id !=1 && $cs->criteria_id == $r->criteria_id && $cs->contestant_id == $c->contestant_id){
                                                                                         echo $cs->score;
                                                                                        $criteria_rating = $cs->score / $r->max_score  * $r->percentage;
                                                                                        $current_contestant_total += $criteria_rating;
@@ -158,7 +158,7 @@
                                                                                        echo '';
                                                                                    }
                                                                                 } ?>" data-max="<?php echo $r->max_score; ?>" <?php echo($c->is_submitted?'readonly':''); ?>></td>
-                                                                            <td data-line-rate="" align="center"><?php echo $criteria_rating; ?>%</td>
+                                                                            <td id="td_rating_<?php echo $c->contestant_id; ?>" data-line-rate="" align="center"><?php echo $criteria_rating; ?>%</td>
                                                                         </tr>
                                                                         <?php } ?>
 
@@ -247,18 +247,22 @@
 
         var bindEventHandlers=(function(){
 
-
+            var _selectedTable; var _selectedButton;
 
            $('.btn_finalize').click(function(){
                 objFinalize.event_id = $(this).data('event-id');
                 objFinalize.contestant_id = $(this).data('contestant-id');
                 objFinalize.judge_id = $(this).data('judge-id');
 
+               _selectedButton = $(this);
+               _selectedTable = $('#tbl_scores_'+objFinalize.contestant_id);
+               _selectedTable.find('.id-vote-criteria').keyup();
+
                 $('#modal_confirmation').modal('show');
            });
 
            $('#btn_yes').click(function(){
-               //console.log(objFinalize);
+               //console.log(_selectedTable);
 
                $.ajax({
                    "dataType":"json",
@@ -268,6 +272,10 @@
                    "beforeSend": showSpinningProgress($('#btn_save'))
                }).done(function(response){
                     showNotification(response);
+                    //console.log(_selectedTable.find('input'));
+                   $('#tbl_scores_'+objFinalize.contestant_id).find('input').attr('readonly',true);
+                   _selectedButton.removeClass('btn-primary');
+                   _selectedButton.addClass('btn-default');
                });
            });
 
@@ -349,6 +357,32 @@
 
         var getFloat=function(f){
             return parseFloat(accounting.unformat(f));
+        };
+
+
+        setInterval(function(){
+            var active_event_id = <?php echo ($active_event_id); ?>;
+            $.ajax({
+                "dataType":"json",
+                "type":"GET",
+                "url":"Tabulation/transaction/get-votes?event_id=" + active_event_id
+            }).done(function(response){
+                if( response.length > 0 ){
+                    $.each(response, function(e , v){
+                        //console.log(v.contestant_id);
+                        $('#td_rating_'+v.contestant_id).html(v.rating);
+                        $('#txt_score_'+v.contestant_id).val(v.contestant_vote);
+                        $('#txt_score_'+v.contestant_id).attr('data-max',v.total_voters);
+                        reComputeTotalRating($('#tbl_scores_'+v.contestant_id));
+
+                        //$('#txt_score_'+v.contestant_id).keyup();
+                    });
+                }
+            });
+        },1000);
+
+        var reComputeTotal = function(){
+
         };
 
 

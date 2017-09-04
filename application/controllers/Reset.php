@@ -16,7 +16,9 @@ class Reset extends CORE_Controller {
             'Event_judge_model',
             'Event_criteria_model',
             'Tabulation_submitted_model',
-            'Criteria_model'
+            'Criteria_model',
+            'Events_vote_model',
+            'Event_accounts_model'
         ));
 
     }
@@ -32,6 +34,9 @@ class Reset extends CORE_Controller {
         $this->Event_judge_model->delete('event_judge_id>0');
         $this->Event_criteria_model->delete('event_criteria_id>0');
         $this->Tabulation_submitted_model->delete('tabulation_submitted_id>0');
+        $this->Events_vote_model->delete('event_vote_id>0');
+        $this->Events_vote_model->delete('event_vote_id>0');
+        $this->Event_accounts_model->delete('voter_id>0');
 
         echo "<h1>Transaction successfully deleted!</h1>";
     }

@@ -28,12 +28,12 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($candidates as $c){ ?>
+        <?php $i=0; foreach ($candidates as $c){ $i++; ?>
         <tr>
             <td><?php echo $c->contestant_no; ?></td>
             <td><?php echo $c->entity_name; ?></td>
             <td><?php echo $c->avg_score; ?></td>
-            <td align="center"><b><?php echo $c->rank; ?></b></td>
+            <td align="center"><b><?php echo $i; ?></b></td>
         </tr>
         <?php } ?>
     </tbody>
@@ -42,25 +42,32 @@
 
 <br />
 <h4>Detailed Score</h4>
-<table width="100%">
-    <thead>
-    <tr>
-        <th width="45%">Panel</th>
-        <th width="45%">Contestant</th>
-        <th width="10%">Score</th>
-    </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($judge_scores as $judge_score){ ?>
-        <tr>
-            <th width="45%"><?php echo $judge_score->user_fname; ?></th>
-            <th width="45%"><?php echo $judge_score->entity_name; ?></th>
-            <th width="10%"><?php echo $judge_score->criteria_rate; ?></th>
-        </tr>
-        <?php } ?>
-    </tbody>
 
-</table>
+<?php foreach ($judges as $j){ ?>
+    <h4 style="line-height: 0%;"><?php echo $j->fullname; ?></h4>
+    <table width="100%">
+
+        <tbody>
+        <?php $total = 0; foreach ($judge_scores as $judge_score){ ?>
+            <?php if($judge_score->judge_id==$j->judge_id){ ?>
+                <tr>
+                    <td width="70%"><?php echo $judge_score->entity_name; ?></td>
+                    <td width="30%" align="right"><?php echo $judge_score->criteria_rate; ?></td>
+                </tr>
+            <?php $total+=$judge_score->criteria_rate; } ?>
+        <?php  } ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td width="70%" align="right">Average : </td>
+                <td width="30%" align="right"><b> <?php echo $total/count($judges); ?></b></td>
+            </tr>
+        </tfoot>
+
+    </table>
+<?php } ?>
+
+
 
 <script>
     window.print();

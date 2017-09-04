@@ -40,7 +40,7 @@
                                 <li class="<?php echo (in_array('2-4',$this->session->user_rights)?'':'hidden'); ?>"><a href="Criteria">Setup Criteria</a></li>                                     
                             </ul>
                         </li>
-                        <li class="<?php echo (in_array('2',$this->session->parent_rights)?'':'hidden'); ?>"><a href="#"><i class="ti ti-view-list-alt"></i><span>Reports</span></a>
+                        <li class="<?php echo (in_array('3',$this->session->parent_rights)?'':'hidden'); ?>"><a href="#"><i class="ti ti-view-list-alt"></i><span>Reports</span></a>
                             <ul class="acc-menu">
                                 <li class="<?php echo (in_array('3-1',$this->session->user_rights)?'':'hidden'); ?>"><a href="Ranking">Print Ranking</a></li>
                             </ul>
