@@ -10,7 +10,8 @@ class Login extends CORE_Controller {
 
         $this->load->model(array(
             'Voters_accounts_model',
-            'Event_model'
+            'Event_model',
+            'Events_vote_model'
         ));
 
     }
@@ -67,6 +68,25 @@ class Login extends CORE_Controller {
                                 'active_event_id' => (count($events) == 0? 0: $events[0]->event_id)
                             )
                         );
+
+                        //check if this voter alraeady voted on the active event
+                        $m_event_votes = $this->Events_vote_model;
+
+                        $already_voted = $m_event_votes->get_list(array(
+                            'voter_id' =>  $this->session->user_id,
+                            'event_id' => $this->session->active_event_id
+                        ));
+
+                        if( count($already_voted) > 0 ){
+                            $response['title']='Temporary Inactive!';
+                            $response['stat']='warning';
+                            $response['msg']='Ooop\'s! Looks like you\'ve already voted. Apparently you cannot logged in and vote again.<b>Your account will be activated as soon as new event is already open</b>. <br /><br /><b>Thank you!</b>';
+                            echo json_encode($response);
+                            return;
+                        }
+
+
+
 
 
                         $response['title']='Success';

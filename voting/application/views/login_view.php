@@ -278,7 +278,7 @@
                 });
 
                 $('#btn_register').click(function () {
-                    event.preventDefault();
+                   // event.preventDefault();
                     $('#modal_register').modal('show');
                 });
 

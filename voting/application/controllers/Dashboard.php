@@ -32,11 +32,13 @@ class Dashboard extends CORE_Controller {
             ),
             array(
                 'contestants.*',
+                'ec.contestant_no',
                 'IF((SELECT COUNT(x.contestant_id) FROM tabulation_submitted as x WHERE x.contestant_id=ec.contestant_id AND x.event_id=ec.event_id)>0,1,0) as is_submitted'
             ),
             array(
                 array('events_contestant as ec','ec.contestant_id=contestants.contestant_id','inner')
-            )
+            ),
+            'ec.contestant_no'
         );
 
         $disabled = $this->Events_vote_model->get_list(array(

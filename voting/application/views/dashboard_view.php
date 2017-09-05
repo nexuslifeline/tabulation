@@ -302,7 +302,7 @@
                                                                 <td align="center" valign="top">
                                                                     <img src="<?php echo $c->photo_path; ?>" width="70%" width="70%" style="border: 1px solid black;">
                                                                     <br />
-                                                                    <span></span> <b><?php echo $c->entity_name; ?></b><br /><br />
+                                                                    <span></span> <b><?php echo ( $c->contestant_no != '' ? '#'.$c->contestant_no.' ' : '' ).$c->entity_name; ?></b><br /><br />
                                                                     <button class="btn btn-<?php echo ($disabled?'default':'primary'); ?> btn_vote <?php echo ($disabled?'disabled':''); ?>" data-voter-id="<?php echo $this->session->user_id; ?>" data-event-id="<?php echo $active_event_id; ?>"  data-contestant-id="<?php echo $c->contestant_id; ?>"><i class="fa fa-star" style="color:yellow;display: <?php echo ($voted_contestant==$c->contestant_id?'inline-block':'none'); ?>;"></i> Vote</button><br /><br />
 
                                                                 </td>
@@ -313,7 +313,7 @@
                                                                     <i class="fa fa-star" style="color:yellow;"></i>
                                                                     <i class="fa fa-star" style="color:yellow;"></i>
                                                                     <br />
-                                                                    <span><span id="span_contestant_vote_<?php echo $c->contestant_id; ?>">0</span> out of <span id="span_total_vote_<?php echo $c->contestant_id; ?>">0</span></span>
+                                                                    <span style="display: none;"><span id="span_contestant_vote_<?php echo $c->contestant_id; ?>">0</span> out of <span id="span_total_vote_<?php echo $c->contestant_id; ?>">0</span></span>
                                                                     <br /><br /><br />
 
                                                                     <span>Desciption 1 : </span> <b><?php echo $c->desc_1; ?></b><br />

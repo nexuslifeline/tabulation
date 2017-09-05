@@ -110,6 +110,7 @@
                                                 <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; Tabulation</b>
                                             </div>
                                             <div class="panel-body table-responsive">
+                                                <button id="btnFinalizeAll" class="btn btn-primary">SUBMIT AND FINALIZE ALL SCORES</button>
                                                  <table id="tbl_tabulation" class="" cellspacing="0" width="100%">
                                                     <thead class="">
                                                         <tr>
@@ -238,7 +239,9 @@
         var objFinalize = {};
 
         var initializeControls=function() {
-                $('#tbl_tabulation').DataTable();
+                $('#tbl_tabulation').DataTable({
+                    bPaginate : false
+                });
 
 
         }();
@@ -248,6 +251,49 @@
         var bindEventHandlers=(function(){
 
             var _selectedTable; var _selectedButton;
+
+            $('#btnFinalizeAll').click(function(){
+                var btns = $('.btn_finalize');
+
+                var r = confirm("Are you sure you want to submit all scores?");
+                if ( r ) {
+                    $.each(btns , function(i,btn){
+                        //console.log($(btn).data('event-id'));
+
+                        objFinalize.event_id = $(btn).data('event-id');
+                        objFinalize.contestant_id = $(btn).data('contestant-id');
+                        objFinalize.judge_id = $(btn).data('judge-id');
+
+                        _selectedButton = $(btn);
+                        _selectedTable = $('#tbl_scores_'+objFinalize.contestant_id);
+                        _selectedTable.find('.id-vote-criteria').keyup();
+
+                        $.ajax({
+                            "dataType":"json",
+                            "type":"POST",
+                            "url":"Tabulation/transaction/mark-submitted",
+                            "data":objFinalize,
+                            "beforeSend": showSpinningProgress($('#btn_save'))
+                        }).done(function(response){
+                            showNotification(response);
+                            //console.log(_selectedTable.find('input'));
+                            $('#tbl_scores_'+$(btn).data('contestant-id')).find('input').attr('readonly',true);
+                            $(btn).removeClass('btn-primary');
+                            $(btn).addClass('btn-default');
+                        });
+
+
+                    });
+                } else {
+
+                }
+
+                $(this).removeClass('btn-primary');
+                $(this).addClass('btn-default');
+
+
+
+            });
 
            $('.btn_finalize').click(function(){
                 objFinalize.event_id = $(this).data('event-id');

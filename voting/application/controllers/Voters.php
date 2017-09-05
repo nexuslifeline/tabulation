@@ -22,7 +22,7 @@ class Voters extends CORE_Controller {
     {
 
 
-
+/*
         $smsGateway = new SmsGateway('chrisrueda14@yahoo.com', '09141991');
         $deviceID = 58420;
         $number = '+639357467601';
@@ -35,7 +35,7 @@ class Voters extends CORE_Controller {
 
 
         $result = $smsGateway->sendMessageToNumber($number, $code_message, $deviceID, $options);
-        echo json_encode($result);
+        echo json_encode($result);*/
 
 
 
@@ -70,20 +70,20 @@ class Voters extends CORE_Controller {
 
                 $voter_id = $m_votes->last_insert_id();
 
-                $smsGateway = new SmsGateway('chrisrueda14@yahoo.com', '09141991');
+                //$smsGateway = new SmsGateway('chrisrueda14@yahoo.com', '09141991');
                 $page = 1;
 
                 $deviceID = 1;
                 $number = '+639357467601';
                 $code_message = '1418';
 
-                $options = [
+             /*   $options = [
                     'send_at' => strtotime('+1 second'), // Send the message in 10 minutes
                     'expires_at' => strtotime('+1 hour') // Cancel the message in 1 hour if the message is not yet sent
                 ];
 
 
-                $result = $smsGateway->sendMessageToNumber($number, $code_message, $deviceID, $options);
+                $result = $smsGateway->sendMessageToNumber($number, $code_message, $deviceID, $options);*/
 
 
                 $m_votes->verification_code = $code_message;

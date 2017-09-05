@@ -4,15 +4,15 @@
     <list default="true" id="9dbececb-4de7-402b-abab-bda04c26d8ec" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/config/database.php" afterPath="$PROJECT_DIR$/application/config/database.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/Ranking.php" afterPath="$PROJECT_DIR$/application/controllers/Ranking.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/Reset.php" afterPath="$PROJECT_DIR$/application/controllers/Reset.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/Tabulation.php" afterPath="$PROJECT_DIR$/application/controllers/Tabulation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Tabulation_model.php" afterPath="$PROJECT_DIR$/application/models/Tabulation_model.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/login_view.php" afterPath="$PROJECT_DIR$/application/views/login_view.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/ranking_view.php" afterPath="$PROJECT_DIR$/application/views/ranking_view.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/User_groups_model.php" afterPath="$PROJECT_DIR$/application/models/User_groups_model.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/tabulation_view.php" afterPath="$PROJECT_DIR$/application/views/tabulation_view.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/template/elements/side_bar_navigation.php" afterPath="$PROJECT_DIR$/application/views/template/elements/side_bar_navigation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/template/rpt_ranking.php" afterPath="$PROJECT_DIR$/application/views/template/rpt_ranking.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/voting/.idea/workspace.xml" afterPath="$PROJECT_DIR$/voting/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/voting/application/config/database.php" afterPath="$PROJECT_DIR$/voting/application/config/database.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/voting/application/controllers/Dashboard.php" afterPath="$PROJECT_DIR$/voting/application/controllers/Dashboard.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/voting/application/controllers/Login.php" afterPath="$PROJECT_DIR$/voting/application/controllers/Login.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/voting/application/controllers/Voters.php" afterPath="$PROJECT_DIR$/voting/application/controllers/Voters.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/voting/application/views/dashboard_view.php" afterPath="$PROJECT_DIR$/voting/application/views/dashboard_view.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/voting/application/views/login_view.php" afterPath="$PROJECT_DIR$/voting/application/views/login_view.php" />
     </list>
     <ignored path="tabulation.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,92 +33,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Ranking.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/controllers/Ranking.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="44" column="29" lean-forward="false" selection-start-line="44" selection-start-column="23" selection-end-line="44" selection-end-column="29" />
-              <folding>
-                <element signature="e#2293#2686#0#PHP" expanded="false" />
-                <marker date="1504361367598" expanded="false" signature="1421:1595" ph="..." />
-                <marker date="1504361367598" expanded="true" signature="2593:2686" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ranking_view.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/ranking_view.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5219">
-              <caret line="307" column="28" lean-forward="false" selection-start-line="307" selection-start-column="28" selection-end-line="307" selection-end-column="28" />
-              <folding>
-                <marker date="1504364228228" expanded="true" signature="10388:10447" ph="..." />
-                <marker date="1504364228228" expanded="true" signature="10692:10751" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rpt_ranking.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/template/rpt_ranking.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="47" lean-forward="false" selection-start-line="35" selection-start-column="47" selection-end-line="35" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="tabulation_view.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/views/tabulation_view.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5103">
-              <caret line="381" column="16" lean-forward="false" selection-start-line="381" selection-start-column="16" selection-end-line="381" selection-end-column="16" />
+            <state relative-caret-position="407">
+              <caret line="277" column="29" lean-forward="false" selection-start-line="277" selection-start-column="29" selection-end-line="277" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tabulation.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/controllers/Tabulation.php">
+      <file leaf-file-name="User_groups_model.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/models/User_groups_model.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Events_vote_model.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/models/Events_vote_model.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+            <state relative-caret-position="340">
+              <caret line="20" column="30" lean-forward="false" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
               <folding>
-                <marker date="1504338401800" expanded="true" signature="325:985" ph="SELECT n.eve... COUNT" />
-                <marker date="1504338401800" expanded="true" signature="467:686" ph="SELECT COUNT... events_vote" />
-                <marker date="1504338401800" expanded="true" signature="767:933" ph="SELECT COUNT... events_contestant" />
-                <marker date="1504338401800" expanded="true" signature="767:942" ph="SELECT COUNT... events_contestant" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Tabulation_model.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/models/Tabulation_model.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="48" lean-forward="false" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="48" />
-              <folding>
-                <element signature="n#get_per_judge_score#0;n#Tabulation_model#0;n#!!top" expanded="false" />
-                <marker date="1504364119919" expanded="true" signature="395:1470" ph="SELECT l.* F... *" />
-                <marker date="1504364119919" expanded="true" signature="459:1400" ph="SELECT n.*,(... *" />
-                <marker date="1504364119919" expanded="true" signature="533:1170" ph="SELECT m.*,c... event_id" />
-                <marker date="1504364119919" expanded="true" signature="609:1033" ph="SELECT t.eve... tabulation" />
-                <marker date="1504364119919" expanded="true" signature="723:871" ph="SELECT x.con... events_contestant" />
-                <marker date="1504364119919" expanded="true" signature="1239:1369" ph="SELECT COUNT... events_judge" />
-                <marker date="1504364119919" expanded="true" signature="1613:2072" ph="SELECT t.eve... tabulation" />
+                <marker date="1504585345946" expanded="true" signature="330:609" ph="INSERT INTO user_groups... " />
+                <marker date="1504585345946" expanded="true" signature="610:771" ph="UPDATE user_... " />
+                <marker date="1504585345946" expanded="true" signature="882:996" ph="INSERT INTO user_group_rights... " />
+                <marker date="1504585345946" expanded="true" signature="914:958" ph="SELECT link_... rights_links" />
+                <marker date="1504585345946" expanded="true" signature="997:1180" ph="UPDATE user_... " />
               </folding>
             </state>
           </provider>
@@ -128,7 +63,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>contact</find>
       <find>email</find>
       <find>photo_path</find>
       <find>contestant_code</find>
@@ -157,6 +91,7 @@
       <find>cbo_customers</find>
       <find>select.cbo-add-contestant</find>
       <find>Submit</find>
+      <find>tbl_tabulation</find>
       <find>btn_finalize</find>
     </findStrings>
   </component>
@@ -188,9 +123,7 @@
         <option value="$PROJECT_DIR$/application/models/Event_contestant_model.php" />
         <option value="$PROJECT_DIR$/application/views/template/enlistment_view.php" />
         <option value="$PROJECT_DIR$/application/views/template/per_charge_score.php" />
-        <option value="$PROJECT_DIR$/application/config/database.php" />
         <option value="$PROJECT_DIR$/application/models/Events_vote_model.php" />
-        <option value="$PROJECT_DIR$/application/views/tabulation_view.php" />
         <option value="$PROJECT_DIR$/application/models/Event_accounts_model.php" />
         <option value="$PROJECT_DIR$/application/controllers/Reset.php" />
         <option value="$PROJECT_DIR$/application/controllers/Ranking.php" />
@@ -200,6 +133,9 @@
         <option value="$PROJECT_DIR$/application/views/ranking_view.php" />
         <option value="$PROJECT_DIR$/application/views/template/rpt_ranking.php" />
         <option value="$PROJECT_DIR$/application/controllers/Tabulation.php" />
+        <option value="$PROJECT_DIR$/application/config/database.php" />
+        <option value="$PROJECT_DIR$/application/views/tabulation_view.php" />
+        <option value="$PROJECT_DIR$/application/models/User_groups_model.php" />
       </list>
     </option>
   </component>
@@ -224,14 +160,14 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -244,74 +180,7 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tabulation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tabulation" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tabulation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tabulation" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tabulation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tabulation" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tabulation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tabulation" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -441,25 +310,27 @@
       <workItem from="1504324063864" duration="19895000" />
       <workItem from="1504406580908" duration="2087000" />
       <workItem from="1504419113233" duration="732000" />
+      <workItem from="1504581000996" duration="3749000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128808000" />
+    <option name="totallyTimeSpent" value="132557000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24670571" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22082019" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -501,13 +372,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/views/template/user_group_rights.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="101" lean-forward="false" selection-start-line="22" selection-start-column="101" selection-end-line="22" selection-end-column="101" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/Tabulation.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -714,13 +578,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/config/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1496">
-          <caret line="88" column="36" lean-forward="false" selection-start-line="88" selection-start-column="36" selection-end-line="88" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/models/Event_model.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -749,13 +606,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/Event_accounts_model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/Event_accounts_model.php" />
     <entry file="file://$PROJECT_DIR$/application/controllers/Reset.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
@@ -793,12 +644,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/Ranking.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="44" column="29" lean-forward="false" selection-start-line="44" selection-start-column="23" selection-end-line="44" selection-end-column="29" />
+        <state relative-caret-position="748">
+          <caret line="57" column="22" lean-forward="false" selection-start-line="57" selection-start-column="22" selection-end-line="57" selection-end-column="22" />
           <folding>
-            <element signature="e#2293#2686#0#PHP" expanded="false" />
-            <marker date="1504361367598" expanded="false" signature="1421:1595" ph="..." />
-            <marker date="1504361367598" expanded="true" signature="2593:2686" ph="..." />
+            <marker date="1504508530396" expanded="true" signature="138:269" ph="{...}" />
+            <marker date="1504508530396" expanded="true" signature="205:269" ph="..." />
+            <marker date="1504508530396" expanded="true" signature="211:269" ph="..." />
           </folding>
         </state>
       </provider>
@@ -809,13 +660,7 @@
           <caret line="19" column="48" lean-forward="false" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="48" />
           <folding>
             <element signature="n#get_per_judge_score#0;n#Tabulation_model#0;n#!!top" expanded="false" />
-            <marker date="1504364119919" expanded="true" signature="395:1470" ph="SELECT l.* F... *" />
-            <marker date="1504364119919" expanded="true" signature="459:1400" ph="SELECT n.*,(... *" />
-            <marker date="1504364119919" expanded="true" signature="533:1170" ph="SELECT m.*,c... event_id" />
-            <marker date="1504364119919" expanded="true" signature="609:1033" ph="SELECT t.eve... tabulation" />
-            <marker date="1504364119919" expanded="true" signature="723:871" ph="SELECT x.con... events_contestant" />
-            <marker date="1504364119919" expanded="true" signature="1239:1369" ph="SELECT COUNT... events_judge" />
-            <marker date="1504364119919" expanded="true" signature="1613:2072" ph="SELECT t.eve... tabulation" />
+            <marker date="1504508530436" expanded="true" signature="314:1526" ph="..." />
           </folding>
         </state>
       </provider>
@@ -823,10 +668,11 @@
     <entry file="file://$PROJECT_DIR$/application/views/ranking_view.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5219">
-          <caret line="307" column="28" lean-forward="false" selection-start-line="307" selection-start-column="28" selection-end-line="307" selection-end-column="28" />
+          <caret line="311" column="28" lean-forward="false" selection-start-line="311" selection-start-column="28" selection-end-line="311" selection-end-column="28" />
           <folding>
-            <marker date="1504364228228" expanded="true" signature="10388:10447" ph="..." />
-            <marker date="1504364228228" expanded="true" signature="10692:10751" ph="..." />
+            <marker date="1504508530442" expanded="true" signature="7970:12401" ph="{...}" />
+            <marker date="1504508530442" expanded="true" signature="11013:12391" ph="{...}" />
+            <marker date="1504508530442" expanded="true" signature="12220:12244" ph="[...]" />
           </folding>
         </state>
       </provider>
@@ -839,32 +685,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/Events_vote_model.php">
+    <entry file="file://$PROJECT_DIR$/application/models/Events_vote_model.php" />
+    <entry file="file://$PROJECT_DIR$/application/controllers/Tabulation.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding>
-            <marker date="1504338401800" expanded="true" signature="325:985" ph="SELECT n.eve... COUNT" />
-            <marker date="1504338401800" expanded="true" signature="467:686" ph="SELECT COUNT... events_vote" />
-            <marker date="1504338401800" expanded="true" signature="767:933" ph="SELECT COUNT... events_contestant" />
-            <marker date="1504338401800" expanded="true" signature="767:942" ph="SELECT COUNT... events_contestant" />
-          </folding>
+        <state relative-caret-position="272">
+          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="501">
+          <caret line="79" column="19" lean-forward="false" selection-start-line="79" selection-start-column="19" selection-end-line="79" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/tabulation_view.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5103">
-          <caret line="381" column="16" lean-forward="false" selection-start-line="381" selection-start-column="16" selection-end-line="381" selection-end-column="16" />
+        <state relative-caret-position="407">
+          <caret line="277" column="29" lean-forward="false" selection-start-line="277" selection-start-column="29" selection-end-line="277" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/Tabulation.php">
+    <entry file="file://$PROJECT_DIR$/application/models/User_groups_model.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="340">
+          <caret line="20" column="30" lean-forward="false" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+          <folding>
+            <marker date="1504585345946" expanded="true" signature="330:609" ph="INSERT INTO user_groups... " />
+            <marker date="1504585345946" expanded="true" signature="610:771" ph="UPDATE user_... " />
+            <marker date="1504585345946" expanded="true" signature="882:996" ph="INSERT INTO user_group_rights... " />
+            <marker date="1504585345946" expanded="true" signature="914:958" ph="SELECT link_... rights_links" />
+            <marker date="1504585345946" expanded="true" signature="997:1180" ph="UPDATE user_... " />
+          </folding>
         </state>
       </provider>
     </entry>
