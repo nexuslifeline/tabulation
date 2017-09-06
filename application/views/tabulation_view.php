@@ -416,16 +416,21 @@
                 if( response.length > 0 ){
                     $.each(response, function(e , v){
                         //console.log(v.contestant_id);
-                        $('#td_rating_'+v.contestant_id).html(v.rating);
+
                         $('#txt_score_'+v.contestant_id).val(v.contestant_vote);
                         $('#txt_score_'+v.contestant_id).attr('data-max',v.total_voters);
+
+                        var row = $('#txt_score_'+v.contestant_id).closest('tr');
+                        var percentage = row.data('percentage');
+                        $('#td_rating_'+v.contestant_id).html((v.contestant_vote/v.total_voters * percentage)+'%');
+
                         reComputeTotalRating($('#tbl_scores_'+v.contestant_id));
 
                         //$('#txt_score_'+v.contestant_id).keyup();
                     });
                 }
             });
-        },1000);
+        },700);
 
         var reComputeTotal = function(){
 
