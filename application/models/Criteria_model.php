@@ -14,8 +14,8 @@ class Criteria_model extends CORE_Model{
 
 
     function seed_criteria(){
-        $sql="INSERT INTO `criteria` (`criteria_id`, `criteria`, `description`, `is_active`,`is_deleted`) VALUES
-                                        (1,'Vote','This criteria automatically computes the percentage from the Voting system.',1,0)
+        $sql="INSERT INTO `criteria` (`criteria_id`, `criteria`, `description`, `is_active`,`is_deleted`,criteria_type_id) VALUES
+                                        (1,'Vote','This criteria automatically computes the percentage from the Voting system.',1,0,1)
                                          
                                           ON DUPLICATE KEY UPDATE
 

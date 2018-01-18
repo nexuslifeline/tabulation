@@ -160,16 +160,15 @@
                         <div id="div_criteria_list">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; Criteria Management</b>
+                                    <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; Type of Criteria</b>
                                 </div>
                                 <div class="panel-body table-responsive">
-                                    <button class="btn btn-primary" id="btn_new" style="float: left; text-transform: capitalize;font-family: Tahoma, Georgia, Serif;margin-bottom: 0px !important;" data-toggle="modal" data-target="" data-placement="left" title="New tb" ><i class="fa fa-plus"></i> Create Criteria</button>
+                                    <button class="btn btn-primary" id="btn_new" style="float: left; text-transform: capitalize;font-family: Tahoma, Georgia, Serif;margin-bottom: 0px !important;" data-toggle="modal" data-target="" data-placement="left" title="New tb" ><i class="fa fa-plus"></i> Create Type</button>
                                     <table id="tbl_criteria" class="" cellspacing="0" width="100%">
                                         <thead class="">
                                         <tr>
-                                            <th>Criteria</th>
-                                            <th>Description</th>
-                                            <th>Type</th>
+                                            <th>Type of Criteria</th>
+                                            <th>Description</th>                                         
                                             <th><center>Action</center></th>
                                         </tr>
                                         </thead>
@@ -215,7 +214,7 @@
         <div class="modal-content">
             <div class="modal-header" style="background-color:#2ecc71;">
                 <button type="button" class="close"   data-dismiss="modal" aria-hidden="true">X</button>
-                <b><span id="modal_mode"> </span>Criteria</b>
+                <b><span id="modal_mode"> </span>TYpe</b>
             </div>
 
             <div class="modal-body">
@@ -224,25 +223,14 @@
                         <div class="col-lg-12">
 
                             <div class="form-group" style="margin-bottom:0px;">
-                                <label class="">Criteria * :</label>
+                                <label class="">Type * :</label>
                                 <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-toggle-off"></i>
                                 </span>
-                                    <input type="text" name="criteria" id="txt_criteria" class="form-control" value="" data-error-msg="Criteria name is required!" required>
+                                    <input type="text" name="criteria_type" id="txt_criteria" class="form-control" value="" data-error-msg="tb name is required!" required>
                                 </div>
                             </div>
-
-                            <div class="form-group" style="margin-bottom:0px;">
-                                <label class="">* Type : </label>
-                                <select class="form-control" id="cboTypes" name="criteria_type_id" data-error-msg="Type is required!" required>
-                                    <?php foreach($criteria_types as $t){ ?>
-                                    <option value="<?php echo $t->criteria_type_id; ?>"><?php echo $t->criteria_type; ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-
-
 
                             <div class="form-group" style="margin-bottom:0px;">
                                 <label class="">Description :</label>
@@ -311,14 +299,13 @@ $(document).ready(function(){
             "dom": '<"toolbar">frtip',
             "bLengthChange":false,
             "pageLength":15,
-            "ajax" : "Criteria/transaction/list",
+            "ajax" : "Criteria_types/transaction/list",
             "columns": [
 
-                { targets:[1],data: "criteria" },
+                { targets:[1],data: "criteria_type" },
                 { targets:[2],data: "description" },
-                { targets:[3],data: "criteria_type" },
                 {
-                    targets:[4],
+                    targets:[3],
                     render: function (data, type, full, meta){
                         var btn_edit='<button class="btn btn-primary btn-sm" name="edit_info"   data-toggle="tooltip" data-placement="top" title="Edit" style="margin-left:-5px;"><i class="fa fa-pencil"></i> </button>';
                         var btn_trash='<button class="btn btn-danger btn-sm" name="remove_info"  data-toggle="tooltip" data-placement="top" title="Move to trash" style="margin-right:-5px;"><i class="fa fa-trash-o"></i> </button>';
@@ -363,9 +350,7 @@ $(document).ready(function(){
             $('#modal_criteria').modal('show');
             _selectRowObj=$(this).closest('tr');
             var data=dt.row(_selectRowObj).data();
-            _selectedID=data.criteria_id;
-
-            $('#cboTypes').val(data.criteria_type_id);
+            _selectedID=data.criteria_type_id;
 
             $('input,textarea').each(function(){
                 var _elem=$(this);
@@ -382,13 +367,13 @@ $(document).ready(function(){
             $('#modal_confirmation').modal('show');
             _selectRowObj=$(this).closest('tr');
             var data=dt.row(_selectRowObj).data();
-            _selectedID=data.criteria_id;
+            _selectedID=data.criteria_type_id;
 
         });
 
 
         $('#btn_yes').click(function(){
-            removeContestant().done(function(response){
+            removeCriteriaType().done(function(response){
                 showNotification(response);
                 if(response.stat == 'success') {
                     dt.row(_selectRowObj).remove().draw();
@@ -462,11 +447,11 @@ $(document).ready(function(){
 
     var createCriteria=function(){
         var _data=$('#frm_criteria').serializeArray();
-        _data.push({name : "photo_path" ,value : $('img[name="img_user"]').attr('src')});
+        //_data.push({name : "photo_path" ,value : $('img[name="img_user"]').attr('src')});
         return $.ajax({
             "dataType":"json",
             "type":"POST",
-            "url":"Criteria/transaction/create",
+            "url":"Criteria_types/transaction/create",
             "data":_data,
             "beforeSend": showSpinningProgress($('#btn_save'))
         });
@@ -474,23 +459,23 @@ $(document).ready(function(){
 
     var updateCriteria=function(){
         var _data=$('#frm_criteria').serializeArray();
-        _data.push({name : "criteria_id" ,value : _selectedID});
+        _data.push({name : "criteria_type_id" ,value : _selectedID});
 
         return $.ajax({
             "dataType":"json",
             "type":"POST",
-            "url":"Criteria/transaction/update",
+            "url":"Criteria_types/transaction/update",
             "data":_data,
             "beforeSend": showSpinningProgress($('#btn_save'))
         });
     };
 
-    var removeContestant=function(){
+    var removeCriteriaType=function(){
         return $.ajax({
             "dataType":"json",
             "type":"POST",
-            "url":"Criteria/transaction/delete",
-            "data":{criteria_id : _selectedID}
+            "url":"Criteria_types/transaction/delete",
+            "data":{criteria_type_id : _selectedID}
         });
     };
 

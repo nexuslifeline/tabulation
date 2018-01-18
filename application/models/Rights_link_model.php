@@ -21,6 +21,7 @@ class Rights_link_model extends CORE_Model{
                                           (7,'2','2-2','Manage User Group'),
                                           (8,'2','2-3','Manage Events'),
                                           (9,'2','2-4','Setup Criteria'),
+                                          (11,'2','2-5','Type of Criteria'),
                                           (10,'3','3-1','Print Ranking')
 
                                           ON DUPLICATE KEY UPDATE

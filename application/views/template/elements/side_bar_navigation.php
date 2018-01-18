@@ -37,7 +37,8 @@
                                 <li class="<?php echo (in_array('2-1',$this->session->user_rights)?'':'hidden'); ?>"><a href="Users">Manage Users Account</a></li>
                                 <li class="<?php echo (in_array('2-2',$this->session->user_rights)?'':'hidden'); ?>"><a href="User_groups">Manage User Group</a></li>
                                 <li class="<?php echo (in_array('2-3',$this->session->user_rights)?'':'hidden'); ?>"><a href="Events">Manage Events</a></li>  
-                                <li class="<?php echo (in_array('2-4',$this->session->user_rights)?'':'hidden'); ?>"><a href="Criteria">Setup Criteria</a></li>                                     
+                                <li class="<?php echo (in_array('2-4',$this->session->user_rights)?'':'hidden'); ?>"><a href="Criteria">Setup Criteria</a></li>
+                                <li class="<?php echo (in_array('2-5',$this->session->user_rights)?'':'hidden'); ?>"><a href="Criteria_types">Create Type of Criteria</a></li>
                             </ul>
                         </li>
                         <li class="<?php echo (in_array('3',$this->session->parent_rights)?'':'hidden'); ?>"><a href="#"><i class="ti ti-view-list-alt"></i><span>Reports</span></a>

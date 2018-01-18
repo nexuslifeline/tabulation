@@ -11,7 +11,7 @@ class Event_criteria_model extends CORE_Model{
     }
 
 
-    function get_criteria_list($event_id){
+    function get_criteria_list($event_id,$criteria_type_id = null){
         $sql = "SELECT
                     c.criteria_id,c.criteria,c.description,IFNULL(ec.percentage,0) as percentage,
                     IF(ISNULL(ec.event_id),0,1) as status,ec.max_score
@@ -27,7 +27,7 @@ class Event_criteria_model extends CORE_Model{
                     )as ec ON ec.criteria_id=c.criteria_id
 
 
-                    WHERE c.is_active=1 AND c.is_deleted=0 ORDER BY c.criteria";
+                    WHERE c.is_active=1 AND c.is_deleted=0 ".($criteria_type_id != null ? " AND c.criteria_type_id=$criteria_type_id" : "")." ORDER BY c.criteria";
 
         return $this->db->query($sql)->result();
 
