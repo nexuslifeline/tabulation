@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9dbececb-4de7-402b-abab-bda04c26d8ec" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+<<<<<<< Updated upstream
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/config/database.php" afterPath="$PROJECT_DIR$/application/config/database.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/User_groups_model.php" afterPath="$PROJECT_DIR$/application/models/User_groups_model.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/tabulation_view.php" afterPath="$PROJECT_DIR$/application/views/tabulation_view.php" />
@@ -13,6 +14,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/voting/application/controllers/Voters.php" afterPath="$PROJECT_DIR$/voting/application/controllers/Voters.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/voting/application/views/dashboard_view.php" afterPath="$PROJECT_DIR$/voting/application/views/dashboard_view.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/voting/application/views/login_view.php" afterPath="$PROJECT_DIR$/voting/application/views/login_view.php" />
+=======
+>>>>>>> Stashed changes
     </list>
     <ignored path="tabulation.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,8 +39,23 @@
       <file leaf-file-name="tabulation_view.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/views/tabulation_view.php">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state relative-caret-position="407">
               <caret line="277" column="29" lean-forward="false" selection-start-line="277" selection-start-column="29" selection-end-line="277" selection-end-column="29" />
+=======
+            <state relative-caret-position="6477">
+              <caret line="381" column="16" lean-forward="false" selection-start-line="381" selection-start-column="16" selection-end-line="381" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Tabulation.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/controllers/Tabulation.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+>>>>>>> Stashed changes
               <folding />
             </state>
           </provider>
@@ -191,7 +209,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
     <property name="settings.editor.selected.configurable" value="settings.typescriptcompiler" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../voting" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../procurement" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -310,15 +328,27 @@
       <workItem from="1504324063864" duration="19895000" />
       <workItem from="1504406580908" duration="2087000" />
       <workItem from="1504419113233" duration="732000" />
+<<<<<<< Updated upstream
       <workItem from="1504581000996" duration="3749000" />
+=======
+      <workItem from="1504840259608" duration="120000" />
+      <workItem from="1504924833121" duration="152000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< Updated upstream
     <option name="totallyTimeSpent" value="132557000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+=======
+    <option name="totallyTimeSpent" value="129080000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+>>>>>>> Stashed changes
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24670571" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -696,16 +726,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/config/database.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
         <state relative-caret-position="501">
           <caret line="79" column="19" lean-forward="false" selection-start-line="79" selection-start-column="19" selection-end-line="79" selection-end-column="19" />
+=======
+        <state relative-caret-position="6477">
+          <caret line="381" column="16" lean-forward="false" selection-start-line="381" selection-start-column="16" selection-end-line="381" selection-end-column="16" />
+>>>>>>> Stashed changes
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/tabulation_view.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
         <state relative-caret-position="407">
           <caret line="277" column="29" lean-forward="false" selection-start-line="277" selection-start-column="29" selection-end-line="277" selection-end-column="29" />
+=======
+        <state relative-caret-position="272">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+>>>>>>> Stashed changes
           <folding />
         </state>
       </provider>

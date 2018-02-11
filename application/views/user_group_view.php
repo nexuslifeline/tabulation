@@ -285,7 +285,10 @@ $(document).ready(function(){
                         return '<center>'+btn_edit+'&nbsp;'+btn_trash+'</center>';
                     }
                 }
-            ]
+            ],
+			language: {
+				 "info": "Showing page _PAGE_ of _PAGES_"
+			}
         });
 
 

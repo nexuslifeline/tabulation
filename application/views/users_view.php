@@ -500,6 +500,7 @@
                 "dom": '<"toolbar">frtip',
                 "bLengthChange":false,
                 "ajax" : "Users/transaction/list",
+				"order": [[5,"asc"]],
                 "columns": [
                     {
                         "targets": [0],
@@ -522,7 +523,10 @@
                         return '<center>'+btn_edit+'&nbsp;'+btn_trash+'</center>';
                     }
                     }
-                ]
+                ],
+				language: {
+					info: "Showing page _PAGE_ of _PAGES_",
+				}
             });
 
 
@@ -802,6 +806,13 @@
                         $('input[name="user_confirm_pword"]').focus();
                         stat=false;
                     }
+					
+					//validate character length
+					if($('input[name="user_pword"]').val().length < 6){
+						 showNotification({title:"Error!",stat:"error",msg:"Password must be 6 characters long."});
+                        $('input[name="user_pword"]').focus();
+                        stat=false;
+					}
 
                 return stat;
         };

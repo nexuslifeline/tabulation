@@ -311,7 +311,10 @@
                 ,
                 "rowCallBack": function(a,b,c){
                     console.log(b);
-                }
+                },
+				language : {
+					 "info": "Showing page _PAGE_ of _PAGES_"
+				}
 
             });
         };

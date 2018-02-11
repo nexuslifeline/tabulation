@@ -28,7 +28,8 @@ class Tabulation extends CORE_Controller {
         $data['_top_navigation']=$this->load->view('template/elements/top_navigation','',TRUE);
         $data['_footer']=$this->load->view('template/elements/page_footer','',TRUE);
 
-        $active_event_id  = $this->session->active_event_id;
+        $active_event_id  = ( $this->session->active_event_id == null ? 0 : $this->session->active_event_id);
+        $this->session->user_id = ($this->session->user_id == null ? 0 : $this->session->user_id);
 
         $is_judge = $this->Event_judge_model->get_list(
             array(
@@ -45,7 +46,9 @@ class Tabulation extends CORE_Controller {
             ,
             array(
                 'contestants.*',
-                'IF((SELECT COUNT(x.contestant_id) FROM tabulation_submitted as x WHERE x.contestant_id=ec.contestant_id AND x.event_id=ec.event_id AND x.judge_id='.$this->session->user_id.')>0,1,0) as is_submitted'
+                'IF((SELECT COUNT(x.contestant_id) FROM tabulation_submitted as x 
+                WHERE x.contestant_id=ec.contestant_id AND x.event_id=ec.event_id 
+                AND x.judge_id='.$this->session->user_id.')>0,1,0) as is_submitted'
             ),
             array(
                 array('events_contestant as ec','ec.contestant_id=contestants.contestant_id','inner')

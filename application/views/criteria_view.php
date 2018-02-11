@@ -168,7 +168,8 @@
                                         <thead class="">
                                         <tr>
                                             <th>Criteria</th>
-                                            <th>Description</th>                                         
+                                            <th>Description</th>
+                                            <th>Type</th>
                                             <th><center>Action</center></th>
                                         </tr>
                                         </thead>
@@ -228,9 +229,20 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-toggle-off"></i>
                                 </span>
-                                    <input type="text" name="criteria" id="txt_criteria" class="form-control" value="" data-error-msg="tb name is required!" required>
+                                    <input type="text" name="criteria" id="txt_criteria" class="form-control" value="" data-error-msg="Criteria name is required!" required>
                                 </div>
                             </div>
+
+                            <div class="form-group" style="margin-bottom:0px;">
+                                <label class="">* Type : </label>
+                                <select class="form-control" id="cboTypes" name="criteria_type_id" data-error-msg="Type is required!" required>
+                                    <?php foreach($criteria_types as $t){ ?>
+                                    <option value="<?php echo $t->criteria_type_id; ?>"><?php echo $t->criteria_type; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+
+
 
                             <div class="form-group" style="margin-bottom:0px;">
                                 <label class="">Description :</label>
@@ -297,6 +309,7 @@ $(document).ready(function(){
     var initializeControls=function() {
         dt=$('#tbl_criteria').DataTable({
             "dom": '<"toolbar">frtip',
+			"order": [[ 3, "asc" ]],
             "bLengthChange":false,
             "pageLength":15,
             "ajax" : "Criteria/transaction/list",
@@ -304,8 +317,9 @@ $(document).ready(function(){
 
                 { targets:[1],data: "criteria" },
                 { targets:[2],data: "description" },
+                { targets:[3],data: "criteria_type" },
                 {
-                    targets:[3],
+                    targets:[4],
                     render: function (data, type, full, meta){
                         var btn_edit='<button class="btn btn-primary btn-sm" name="edit_info"   data-toggle="tooltip" data-placement="top" title="Edit" style="margin-left:-5px;"><i class="fa fa-pencil"></i> </button>';
                         var btn_trash='<button class="btn btn-danger btn-sm" name="remove_info"  data-toggle="tooltip" data-placement="top" title="Move to trash" style="margin-right:-5px;"><i class="fa fa-trash-o"></i> </button>';
@@ -316,6 +330,7 @@ $(document).ready(function(){
             ],
 
             language: {
+				info: "Showing page _PAGE_ of _PAGES_",
                 searchPlaceholder: "Search Criteria"
             }
 
@@ -351,6 +366,8 @@ $(document).ready(function(){
             _selectRowObj=$(this).closest('tr');
             var data=dt.row(_selectRowObj).data();
             _selectedID=data.criteria_id;
+
+            $('#cboTypes').val(data.criteria_type_id);
 
             $('input,textarea').each(function(){
                 var _elem=$(this);

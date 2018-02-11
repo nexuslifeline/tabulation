@@ -240,7 +240,11 @@
 
         var initializeControls=function() {
                 $('#tbl_tabulation').DataTable({
-                    bPaginate : false
+                    bPaginate : false,
+					bInfo : false,
+					language: {
+						 info: "Showing page _PAGE_ of _PAGES_"
+					}
                 });
 
 

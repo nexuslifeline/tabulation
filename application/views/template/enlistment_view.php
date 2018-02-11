@@ -69,16 +69,17 @@
 
     <hr /><br>
 
-    <b>Entity/Candidate/Person Enlistment</b> Please tick mark candidates on this event.<br>
+    <b>Participant/Candidate/Person Enlistment</b> Please tick mark Participantse
+	on this event.<br>
     <table width="100%" style="border: 1px solid white;">
         <thead>
         <tr>
             <th width="10%" style="border: 1px solid white;">Enlist</th>
-            <th width="8%" style="border: 1px solid white;">Entity #</th>
-            <th style="border: 1px solid white;">Entity/Candidate/Competitor</th>
-            <th style="border: 1px solid white;">Description 1</th>
-            <th style="border: 1px solid white;">Description 2</th>
-            <th style="border: 1px solid white;">Description 3</th>
+            <th width="15%" style="border: 1px solid white;">Participant #</th>
+            <th style="border: 1px solid white;">Participant/Candidate/Competitor</th>
+            <th style="border: 1px solid white;">Description</th>
+            <th style="border: 1px solid white;display: none;">Description 2</th>
+            <th style="border: 1px solid white;display: none;">Description 3</th>
 
         </tr>
         </thead>
@@ -89,8 +90,8 @@
                 <td style="border: 1px solid white;"><input type="text" name="entity_no" class="form-control entity_no" value="<?php echo $contestant->contestant_no; ?>"></td>
                 <td style="border: 1px solid white;"><?php echo $contestant->entity_name; ?></td>
                 <td style="border: 1px solid white;"><?php echo $contestant->desc_1; ?></td>
-                <td style="border: 1px solid white;"><?php echo $contestant->desc_2; ?></td>
-                <td style="border: 1px solid white;"><?php echo $contestant->desc_3; ?></td>
+                <td style="border: 1px solid white;display: none;"><?php echo $contestant->desc_2; ?></td>
+                <td style="border: 1px solid white;display: none;"><?php echo $contestant->desc_3; ?></td>
 
             </tr>
         <?php }?>

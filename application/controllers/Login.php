@@ -14,7 +14,8 @@ class Login extends CORE_Controller {
             'User_group_right_model',
             'Criteria_model',
             'Rights_link_model',
-            'Event_model'
+            'Event_model',
+            'Criteria_type_model'
         ));
 
     }
@@ -56,6 +57,8 @@ class Login extends CORE_Controller {
 
         $m_rights = $this->Rights_link_model;
         $m_rights->create_default_link_list();
+
+        $this->Criteria_type_model->create_criteria_types();
     }
 
 
@@ -114,13 +117,13 @@ class Login extends CORE_Controller {
                             )
                         );
 
-                        $m_users=$this->Users_model;
+                      /*  $m_users=$this->Users_model;
                         $m_users->is_online=1;
-                        $m_users->modify($result->row()->user_id);
+                        $m_users->modify($result->row()->user_id);*/
 
                         $response['title']='Success';
                         $response['stat']='success';
-                        $response['msg']='User successfully authenticated.';
+                        $response['msg']='User successfully authenticated.'.$this->session->user_id;
 
                         echo json_encode($response);
 

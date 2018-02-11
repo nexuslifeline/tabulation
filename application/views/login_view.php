@@ -71,12 +71,12 @@
 	<a href="Login" class="login-logo"></a>
 		<div class="row">
 			<div class="hidden-xs hidden-sm col-md-8">
-				<span class="text-center" style="position: absolute; top: 10000%; left: 11%; font-size: 40px; font-family: 'Segoe UI', sans-serif; color: white; font-weight: 200;"><img src="" style="max-width: 150px;max-height: 100px;"><br><b>TABULATION</b> SYSTEM v1
-				<br>
-					<span style="padding-right:15px;">
-
-                    </span>
-				</span>
+				<div style="padding-top:80px;">
+				<center>
+					<span style="font-size: 40px; font-family: 'Segoe UI', sans-serif; color: white; font-weight: 200;">				
+					<br><b>TABULATION</b> SYSTEM 				
+					</span></center>
+				</div>
 			</div>
 			<div class="col-md-4">
 				<div style="border:none; margin-top: 15%;">
@@ -116,7 +116,7 @@
 									</div>
 									<div class="col-sm-offset-6"></div>								
 									<div class="col-xs-12 col-sm-12">
-										<button id="btn_login" class="btn btn-primary btn-block btn-custom-jk" data-style="expand-left" data-spinner-color="white" data-size="s" style="margin-bottom: 50px;">
+										<button id="btn_login" type="button" class="btn btn-primary btn-block btn-custom-jk" data-style="expand-left" data-spinner-color="white" data-size="s" style="margin-bottom: 50px;">
 										<span class=""></span> Login
 										</button>
 									</div>
@@ -164,7 +164,7 @@
             var bindEventHandlers=(function(){
 
                 $('#btn_login').click(function(){
-
+					
                     var l = Ladda.create(this);
                     l.start();
 

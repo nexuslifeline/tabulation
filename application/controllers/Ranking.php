@@ -40,6 +40,7 @@ class Ranking extends CORE_Controller {
                 break;
             case 'print-ranking':
                 $event_id = $this->input->get('event_id');
+				$data['event'] = $this->Event_model->get_list($event_id);
                 $data['candidates'] = $this->Tabulation_model->get_contestant_scores($event_id);
                 $data['judge_scores'] = $this->Tabulation_model->get_per_judge_score($event_id);
                 $data['judges'] = $this->Event_judge_model->get_list(

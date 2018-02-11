@@ -12,7 +12,8 @@ class Events     extends CORE_Controller {
             'Contestant_model',
             'Event_judge_model',
             'Event_contestant_model',
-            'Event_criteria_model'
+            'Event_criteria_model',
+            'Criteria_type_model'
         ));
 
     }
@@ -29,6 +30,7 @@ class Events     extends CORE_Controller {
 
         $data['title'] = 'Events | Registration';
         $data['events'] = $this->Event_model->get_list('is_deleted=0');
+        $data['types'] = $this->Criteria_type_model->get_list('is_deleted=0');
         $this->load->view('events_view',$data);
 
     }
@@ -268,6 +270,7 @@ class Events     extends CORE_Controller {
                 $m_criteria = $this->Event_criteria_model;
 
                 $event_id = $this->input->get('event-id');
+                $type_id = $this->input->get('type_id');
                 $info = $m_criteria->get_list(
                     array(
                         'event_id'=>$event_id
@@ -281,7 +284,7 @@ class Events     extends CORE_Controller {
                 $data['total_percentage'] =  (count($info)>0?$info[0]->total_percentage:0);
                 $data['judges'] = $m_judges->get_judge_list($event_id);
                 $data['contestants'] = $m_contestants->get_contestant_list($event_id);
-                $data['criteria'] = $m_criteria->get_criteria_list($event_id);
+                $data['criteria'] = $m_criteria->get_criteria_list($event_id,$type_id);
 
                 $this->load->view('template/enlistment_view',$data);
                 break;

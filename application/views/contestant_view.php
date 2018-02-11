@@ -171,16 +171,15 @@
                                     <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; Entity Management</b>
                                 </div>
                                 <div class="panel-body table-responsive">
-                                    <button class="btn btn-primary" id="btn_new" style="float: left; text-transform: capitalize;font-family: Tahoma, Georgia, Serif;margin-bottom: 0px !important;" data-toggle="modal" data-target="" data-placement="left" title="Register Entity" ><i class="fa fa-plus"></i> Register New Entity</button>
+                                    <button class="btn btn-primary" id="btn_new" style="float: left; text-transform: capitalize;font-family: Tahoma, Georgia, Serif;margin-bottom: 0px !important;" data-toggle="modal" data-target="" data-placement="left" title="Register Entity" ><i class="fa fa-plus"></i> Register New Participant</button>
                                     <table id="tbl_candidates" class="" cellspacing="0" width="100%">
                                         <thead class="">
                                         <tr>
                                             <th></th>
                                             <th>Code</th>
-                                            <th>Entity</th>
-                                            <th>Description 1</th>
-                                            <th>Description 2</th>
-                                            <th>Description 3</th>
+                                            <th>Participant</th>
+                                          <th>Description</th>
+                                            
                                             <th><center>Action</center></th>
                                         </tr>
                                         </thead>
@@ -235,7 +234,7 @@
                     <div class="col-lg-9">
 
                         <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Entity Name * :</label>
+                            <label class="">Participant * :</label>
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-user"></i>
@@ -245,16 +244,16 @@
                         </div>
 
                         <div class="form-group" style="margin-bottom:0px;">
-                            <label class="">Description 1 (Optional)  :</label>
+                            <label class="">Description (Optional)  :</label>
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <input type="text" name="desc_1" id="txt_mname" class="form-control" value="">
+                                <textarea type="text" name="desc_1" id="txt_mname" class="form-control" value="" row="8"></textarea>
                             </div>
                         </div>
 
-                        <div class="form-group" style="margin-bottom:0px;">
+                        <div class="form-group" style="margin-bottom:0px;display:none;">
                             <label class="">Description 2 (Optional) :</label>
                             <div class="input-group">
                                 <span class="input-group-addon">
@@ -264,21 +263,21 @@
                             </div>
                         </div>
 
-                        <div class="form-group" style="margin-bottom:0px;">
+                        <div class="form-group" style="margin-bottom:0px;display:none;">
                             <label class="">Description 3 (Optional) :</label>
                             <div class="input-group">
                                 <span class="input-group-addon">
-                                    <i class="fa fa-toggle-off"></i>
+                                    <i class="fa fa-user"></i>
                                 </span>
                                 <input type="text" name="desc_3" id="txt_contact" class="form-control" value="">
                             </div>
                         </div>
 
-                        <div class="form-group" style="margin-bottom:0px;">
+                        <div class="form-group" style="margin-bottom:0px;display:none;">
                             <label class="">Description 4 (Optional) :</label>
                             <div class="input-group">
                                 <span class="input-group-addon">
-                                    <i class="fa fa-send"></i>
+                                    <i class="fa fa-user"></i>
                                 </span>
                                 <input type="text" name="desc_4" id="txt_email" class="form-control" value="">
                             </div>
@@ -286,21 +285,21 @@
 
 
 
-                        <div class="form-group" style="margin-bottom:0px;">
+                        <div class="form-group" style="margin-bottom:0px;display:none;">
                             <label class="">Description 5 (Optional) :</label>
                             <div class="input-group">
                                 <span class="input-group-addon">
-                                    <i class="fa fa-toggle-off"></i>
+                                    <i class="fa fa-user"></i>
                                 </span>
                                 <input type="text" name="desc_5" id="txt_nationality" class="form-control" value="">
                             </div>
                         </div>
 
-                        <div class="form-group" style="margin-bottom:0px;">
+                        <div class="form-group" style="margin-bottom:0px;display:none;">
                             <label class="">Description 6 (Optional) :</label>
                             <div class="input-group">
                                 <span class="input-group-addon">
-                                    <i class="fa fa-toggle-off"></i>
+                                    <i class="fa fa-user"></i>
                                 </span>
                                 <input type="text" name="desc_6" id="txt_nationality" class="form-control" value="">
                             </div>
@@ -425,11 +424,9 @@ $(document).ready(function(){
                 },
                 { targets:[1],data: "entity_code" },
                 { targets:[2],data: "entity_name" },
-                { targets:[3],data: "desc_1" },
-                { targets:[4],data: "desc_2" },
-                { targets:[5],data: "desc_3" },
+				{ targets:[3],data: "desc_1" },
                 {
-                    targets:[6],
+                    targets:[4],
                     render: function (data, type, full, meta){
                         var btn_edit='<button class="btn btn-primary btn-sm" name="edit_info"   data-toggle="tooltip" data-placement="top" title="Edit" style="margin-left:-5px;"><i class="fa fa-pencil"></i> </button>';
                         var btn_trash='<button class="btn btn-danger btn-sm" name="remove_info"  data-toggle="tooltip" data-placement="top" title="Move to trash" style="margin-right:-5px;"><i class="fa fa-trash-o"></i> </button>';
@@ -440,6 +437,7 @@ $(document).ready(function(){
             ],
 
             language: {
+				info: "Showing page _PAGE_ of _PAGES_",
                 searchPlaceholder: "Search Candidate"
             },
             "rowCallback":function( row, data, index ){

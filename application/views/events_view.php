@@ -314,6 +314,30 @@
         </div>
     </div>
 
+    <div id="modal_select_type" class="modal fade" tabindex="-1" role="dialog"><!--modal-->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"   data-dismiss="modal" aria-hidden="true">X</button>
+                    <h4 class="modal-title" style="color:white;"><span id="modal_mode"> </span>Preset Event Criteria</h4>
+                </div>
+
+                <div class="modal-body">
+                    <label class="">* Type : </label>
+                    <select class="form-control" id="cboTypes" name="criteria_type_id" data-error-msg="Type is required!" required>
+                        <?php foreach($types as $t){ ?>
+                            <option value="<?php echo $t->criteria_type_id; ?>"><?php echo $t->criteria_type; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="btnAcceptType">Accept</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div id="modal_confirm_activation" class="modal fade" tabindex="-1" role="dialog"><!--modal-->
         <div class="modal-dialog modal-sm">
@@ -489,7 +513,8 @@ $(document).ready(function(){
             ],
 
             language: {
-                searchPlaceholder: "Search Event"
+                searchPlaceholder: "Search Event",
+				info: "Showing page _PAGE_ of _PAGES_"
             },
             "rowCallback":function( row, data, index ){
 
@@ -567,7 +592,25 @@ $(document).ready(function(){
         });
 
 
+        var __selectedEventId; var __typeId;
+        $('#btnAcceptType').click(function(){
+            //alert($('#cboTypes').val());
+            __typeId = $('#cboTypes').val();
+            $('#modal_select_type').modal('hide');
+            setTimeout(function(){
+                $.ajax({
+                    "dataType":"html",
+                    "type":"POST",
+                    "url":"Events/transaction/enlistment?event-id="+__selectedEventId+"&type_id="+__typeId,
+                    "beforeSend" : function(){
+                        $('#modal_event_setup').modal('show');
+                    }
+                }).done(function(response){
+                    $('#modal_event_setup').find('.modal-body').html(response);
+                });
+            },600);
 
+        });
 
 
         $('#tbl_events tbody').on( 'click', 'button[name="enlist_contestant"]', function () {
@@ -576,16 +619,22 @@ $(document).ready(function(){
             var data=dt.row(tr).data();
 
             var d=row.data();
-            $.ajax({
+
+            __selectedEventId = data.event_id || 0;
+            $('#modal_select_type').modal('show');
+
+            return;
+           /* $.ajax({
                 "dataType":"html",
                 "type":"POST",
                 "url":"Events/transaction/enlistment?event-id="+data.event_id,
                 "beforeSend" : function(){
                     $('#modal_event_setup').modal('show');
+                  
                 }
             }).done(function(response){
                 $('#modal_event_setup').find('.modal-body').html(response);
-            });
+            });*/
         });
 
         $('#tbl_events tbody').on( 'click', 'tr td.details-control', function () {

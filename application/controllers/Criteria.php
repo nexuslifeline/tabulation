@@ -7,7 +7,8 @@ class Criteria extends CORE_Controller {
     {
         parent::__construct('');
         $this->load->model(array(
-            'Criteria_model'
+            'Criteria_model',
+            'Criteria_type_model'
         ));
 
     }
@@ -23,6 +24,7 @@ class Criteria extends CORE_Controller {
         $data['_footer']=$this->load->view('template/elements/page_footer','',TRUE);
 
         $data['title'] = 'Criteria | Setup';
+        $data['criteria_types'] = $this->Criteria_type_model->get_list('is_deleted=0');
         $this->load->view('criteria_view',$data);
 
     }
@@ -30,7 +32,7 @@ class Criteria extends CORE_Controller {
     function transaction($txn=null){
         switch($txn){
             case 'list':
-                $response['data'] = $this->response_rows('is_deleted=0');
+                $response['data'] = $this->response_rows('criteria.is_deleted=0');
                 echo json_encode($response);
                 break;
 
@@ -40,7 +42,8 @@ class Criteria extends CORE_Controller {
                 $m_criteria->begin();
 
                 $m_criteria->criteria = $this->input->post('criteria',TRUE);
-                $m_criteria->description = $this->input->post('description',TRUE);              
+                $m_criteria->description = $this->input->post('description',TRUE);
+                $m_criteria->criteria_type_id = $this->input->post('criteria_type_id',TRUE);
 
                 $m_criteria->created_by = $this->session->user_id;
                 $m_criteria->set('date_created','NOW()');
@@ -67,8 +70,8 @@ class Criteria extends CORE_Controller {
                 $m_criteria->begin();
 
                 $m_criteria->criteria = $this->input->post('criteria',TRUE);
-                $m_criteria->description = $this->input->post('description',TRUE);    
-
+                $m_criteria->description = $this->input->post('description',TRUE);
+                $m_criteria->criteria_type_id = $this->input->post('criteria_type_id',TRUE);
                 $m_criteria->modified_by = $this->session->user_id;
                 $m_criteria->set('date_modified','NOW()');
                 $m_criteria->modify($criteria_id);
@@ -112,7 +115,16 @@ class Criteria extends CORE_Controller {
 
     function response_rows($filter){
         $m_criteria = $this->Criteria_model;
-        return  $m_criteria->get_list($filter);
+        return  $m_criteria->get_list($filter,
+            array(
+                'criteria.*',
+                'ct.criteria_type'
+            ),
+            array(
+                array('criteria_types as ct','criteria.criteria_type_id=ct.criteria_type_id','left')
+            ),			
+			'ct.criteria_type'
+        );
     }
 
 

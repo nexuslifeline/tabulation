@@ -3,7 +3,7 @@
         border-collapse: collapse;
         border: 1px solid black;
         text-align: left;
-
+		font-family:Monotype Corsiva, Times, Serif;
     }
     th{
         padding: 5px;
@@ -13,9 +13,23 @@
         padding: 5px;
         border: 1px solid black;
     }
+	
+	table > thead th{
+		background-color: #0dc134;
+	}
+	
+	table > tbody tr:nth-child(even) {background: #CCC}
+	table > tbody tr:nth-child(odd) {background: #FFF}
 
 
 </style>
+
+<div  style="border-bottom: 3px solid black;">
+<center>
+<h2 style="line-height: 20%;color: blue;font-family:Monotype Corsiva, Times, Serif;""><?php echo $event[0]->event_name; ?></h2>
+<p style="line-height: 20%;font-family:Monotype Corsiva, Times, Serif;"><?php echo $event[0]->address; ?></p>
+<p style="line-height: 20%;font-family:Monotype Corsiva, Times, Serif;"><i><?php echo date('F d, Y',strtotime($event[0]->date_schedule)); ?></i></p></center>
+</div>
 
 <h4>Ranking List</h4>
 <table width="100%">
@@ -23,7 +37,7 @@
         <tr>
             <th>#</th>
             <th>Entity/Candidate/Competitor</th>
-            <th>Average</th>
+            <th style="text-align: right;">Average</th>
             <th style="text-align: center;">Rank</th>
         </tr>
     </thead>
@@ -32,7 +46,7 @@
         <tr>
             <td><?php echo $c->contestant_no; ?></td>
             <td><?php echo $c->entity_name; ?></td>
-            <td><?php echo $c->avg_score; ?></td>
+            <td style="text-align: right;"><?php echo $c->avg_score; ?></td>
             <td align="center"><b><?php echo $i; ?></b></td>
         </tr>
         <?php } ?>
@@ -58,10 +72,10 @@
         <?php  } ?>
         </tbody>
         <tfoot>
-            <tr>
+            <!--<tr>
                 <td width="70%" align="right">Average : </td>
                 <td width="30%" align="right"><b> <?php echo $total/count($judges); ?></b></td>
-            </tr>
+            </tr>-->
         </tfoot>
 
     </table>
