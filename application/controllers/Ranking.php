@@ -9,7 +9,8 @@ class Ranking extends CORE_Controller {
         $this->load->model(array(
             'Tabulation_model',
             'Event_model',
-            'Event_judge_model'
+            'Event_judge_model',
+            'Event_criteria_model'
         ));
 
     }
@@ -40,6 +41,8 @@ class Ranking extends CORE_Controller {
                 break;
             case 'print-ranking':
                 $event_id = $this->input->get('event_id');
+
+                $data['criterias'] = $this->Event_criteria_model->get_criteria_list($event_id);
 				$data['event'] = $this->Event_model->get_list($event_id);
                 $data['candidates'] = $this->Tabulation_model->get_contestant_scores($event_id);
                 $data['judge_scores'] = $this->Tabulation_model->get_per_judge_score($event_id);

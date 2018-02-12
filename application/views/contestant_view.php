@@ -413,6 +413,10 @@ $(document).ready(function(){
             "dom": '<"toolbar">frtip',
             "bLengthChange":false,
             "pageLength":15,
+            "language": {
+                "info": "Showing page _PAGE_ of _PAGES_",
+                "searchPlaceholder": "Search Candidate"
+            },
             "ajax" : "Contestants/transaction/list",
             "columns": [
                 {
@@ -436,10 +440,7 @@ $(document).ready(function(){
                 }
             ],
 
-            language: {
-				info: "Showing page _PAGE_ of _PAGES_",
-                searchPlaceholder: "Search Candidate"
-            },
+
             "rowCallback":function( row, data, index ){
 
                 $(row).find('td').eq(4).attr({
