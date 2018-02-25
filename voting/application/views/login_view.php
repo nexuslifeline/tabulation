@@ -161,17 +161,18 @@
                                             <label>Firstname * : </label>
                                             <input type="text" name="voter_fname" class="form-control" data-error-msg="Firstname is required." required />
                                         </div>
-                                        <div class="col-lg-12">
-                                            <label>Lastname : </label>
-                                            <input type="text" name="voter_lname" class="form-control" />
-                                        </div>
+
                                         <div class="col-lg-12">
                                             <label>Middlename : </label>
                                             <input type="text" name="voter_mname" class="form-control" />
                                         </div>
                                         <div class="col-lg-12">
+                                            <label>Lastname : </label>
+                                            <input type="text" name="voter_lname" class="form-control" />
+                                        </div>
+                                        <div class="col-lg-12">
                                             <label>Mobile # * : </label>
-                                            <input type="text" name="voter_mobile" class="form-control" data-error-msg="Mobile # is required." required />
+                                            <input type="number" name="voter_mobile" class="form-control" data-error-msg="Mobile # is required." required />
                                         </div>
                                     </div>
                                 </form>
@@ -264,6 +265,7 @@
 
                             }
                         }).done(function(response){
+                            console.log(response);
                             showNotification(response);
                             if(response.stat=='success'||response.stat=='info'){
                                 $('#btn_verify').data('voter-id' , response.voter_id );
@@ -280,6 +282,7 @@
                 $('#btn_register').click(function () {
                    // event.preventDefault();
                     $('#modal_register').modal('show');
+                    clearFields();
                 });
 
                 $('#btn_login').click(function(){
@@ -355,6 +358,13 @@
                 });
 
                 return stat;
+            };
+
+            var clearFields = function(){
+                    var inputElems = $('#frmRegister input');
+                    $.each(inputElems, function(i, elem){
+                        $(elem).val('');
+                    });
             };
 
             var showNotification=function(obj){

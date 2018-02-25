@@ -15,7 +15,8 @@ class Login extends CORE_Controller {
             'Criteria_model',
             'Rights_link_model',
             'Event_model',
-            'Criteria_type_model'
+            'Criteria_type_model',
+            'Event_judge_model'
         ));
 
     }
@@ -93,14 +94,29 @@ class Login extends CORE_Controller {
                             $parent_links[]=$main[0];
                         }
 
-                        //get active event
+                    /*    //get active event
                         $m_events = $this->Event_model;
                         $events = $m_events->get_list(array(
                             'is_open' => 1
-                        ));
+                        ));*/
 
+                        //$active_event_id =  (count($events) == 0? 0: $events[0]->event_id);
 
+                        //get the event id where user is one of the judge
+                        $m_event_judge = $this->Event_judge_model;
+                        $user_id = $result->row()->user_id;
+                        $event_judge = $m_event_judge->get_list(
+                            array(
+                                'events_judge.judge_id' => $user_id,
+                                'events.is_open' => 1
+                            ),
+                            'events_judge.event_id',
+                            array(
+                                array('events','events.event_id=events_judge.event_id','inner')
+                            )
+                        );
 
+                        $active_event_id = (count($event_judge) == 0? 0: $event_judge[0]->event_id);
 
                         //set session data here and response data
                         $this->session->set_userdata(
@@ -113,7 +129,7 @@ class Login extends CORE_Controller {
                                 'user_rights'=>$user_rights,
                                 'parent_rights'=>$parent_links,
                                 'logged_in'=>1,
-                                'active_event_id' => (count($events) == 0? 0: $events[0]->event_id)
+                                'active_event_id' =>$active_event_id
                             )
                         );
 

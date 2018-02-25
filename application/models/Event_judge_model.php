@@ -24,7 +24,12 @@ class Event_judge_model extends CORE_Model{
                   WHERE ej.event_id=$event_id
                 ) as ej ON ej.judge_id=ua.user_id
 
-                WHERE ua.user_group_id=2 AND ua.is_active=1 AND ua.is_deleted=0 ORDER BY ua.user_fname,ua.user_lname";
+                WHERE ua.user_group_id=2 AND ua.is_active=1 AND ua.is_deleted=0 
+                AND ua.user_id NOT IN(
+                    SELECT x.judge_id FROM events_judge as x INNER JOIN events as z ON z.event_id = x.event_id
+                    WHERE z.is_open = 1 AND NOT x.event_id = $event_id
+                )
+                ORDER BY ua.user_fname,ua.user_lname";
 
         return $this->db->query($sql)->result();
 

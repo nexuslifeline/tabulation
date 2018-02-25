@@ -29,7 +29,7 @@
     <link href="assets/plugins/datapicker/datepicker3.css" rel="stylesheet">
 
 
-    <link href="assets/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
 
     <style>
         html{
@@ -168,7 +168,7 @@
                         <div id="div_event_list">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; Nature of Event</b>
+                                    <b style="color: white; font-size: 12pt;"><i class="fa fa-bars"></i>&nbsp; Name of Event</b>
                                 </div>
                                 <div class="panel-body table-responsive">
                                     <button class="btn btn-primary" id="btn_new" style="float: left; text-transform: capitalize;font-family: Tahoma, Georgia, Serif;margin-bottom: 0px !important;" data-toggle="modal" data-target="" data-placement="left" title="New Event" ><i class="fa fa-plus"></i> Create New Event</button>
@@ -176,7 +176,8 @@
                                         <thead class="">
                                         <tr>
                                             <th></th>
-                                            <th>Nature of Event</th>
+                                            <th>Event ID</th>
+                                            <th>Name of Event</th>
                                             <th>Site</th>
                                             <th>Address</th>
                                             <th>Contact Person</th>
@@ -233,12 +234,12 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group" style="margin-bottom:0px;">
-                                <label class="">Nature of Event * :</label>
+                                <label class="">Name of Event * :</label>
                                 <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-toggle-off"></i>
                                 </span>
-                                    <input type="text" name="event_name" id="txt_event_name" class="form-control" value="" data-error-msg="Nature of Event is required!" required>
+                                    <input type="text" name="event_name" id="txt_event_name" class="form-control" value="" data-error-msg="Name of Event is required!" required>
                                 </div>
                             </div>
 
@@ -308,7 +309,8 @@
                 </div>
 
                 <div class="modal-footer">
-
+                    <button class="btn btn-primary" id="btnSaveEventSetup">Save</button>
+                    <button class="btn btn-default" id="btnCancelEventSetup"  data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
@@ -348,7 +350,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <p id="modal-body-message">Are you sure you want to activate this event?</p>
+                    <p id="activation_confirm_message">Are you sure you want to activate this event?</p>
                 </div>
 
                 <div class="modal-footer">
@@ -438,7 +440,242 @@
     </div>
 </div>
 
-<?php echo $_footer; ?>
+    <div id="modal_judge" class="modal fade" tabindex="-1" role="dialog"><!--modal-->
+        <div class="modal-dialog" style="width: 30%;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#2ecc71;">
+                    <button type="button" class="close"   data-dismiss="modal" aria-hidden="true">X</button>
+                    <b><span id="modal_mode"> </span>Judge</b>
+                </div>
+
+                <div class="modal-body">
+                    <form id="frm_judge">
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <div class="form-group" style="margin-bottom:0px;">
+                                    <label class="">Username * :</label>
+                                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                        <input type="text" name="user_name" id="txt_fname" class="form-control" value="" data-error-msg="Username is required!" required>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="form-group" style="margin-bottom:0px;">
+                                    <label class="">Password * :</label>
+                                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-code"></i>
+                                    </span>
+                                        <input type="password" name="user_pword" id="" class="form-control" value="" data-error-msg="Password is required!" required>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" style="margin-bottom:0px;">
+                                    <label class="">Firstname * :</label>
+                                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                        <input type="text" name="user_fname" id="" class="form-control" value="" data-error-msg="Firstname is requried!" required>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" style="margin-bottom:0px;">
+                                    <label class="">Lastname * :</label>
+                                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                        <input type="text" name="user_lname" id="" class="form-control" value="" data-error-msg="Lastname is required!" required>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="btn_judge_save" type="button" class="btn btn-primary" style="background-color:#2ecc71;color:white;"><span class=""></span> Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div><!---content---->
+        </div>
+    </div><!---modal-->
+
+
+    <div id="modal_criteria" class="modal fade" tabindex="-1" role="dialog"><!--modal-->
+        <div class="modal-dialog" style="width: 30%;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#2ecc71;">
+                    <button type="button" class="close"   data-dismiss="modal" aria-hidden="true">X</button>
+                    <b><span id="modal_mode"> </span>Criteria</b>
+                </div>
+
+                <div class="modal-body">
+                    <form id="frm_criteria">
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <div class="form-group" style="margin-bottom:0px;">
+                                    <label class="">Criteria * :</label>
+                                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-toggle-off"></i>
+                                    </span>
+                                        <input type="text" name="criteria" id="txt_criteria" class="form-control" value="" data-error-msg="Criteria name is required!" required>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" style="margin-bottom:0px;">
+                                    <label class="">Max Score :</label>
+                                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-toggle-off"></i>
+                                    </span>
+                                        <input type="number" oninput="validity.valid||(value=value.replace(/\D+/g, ''))" name="criteria_max_score" id="txt_criteria" class="form-control" value="" data-error-msg="Criteria name is required!" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom:0px;">
+                                    <label class="">Percentage :</label>
+                                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-toggle-off"></i>
+                                    </span>
+                                        <input type="number" oninput="validity.valid||(value=value.replace(/\D+/g, ''))" name="criteria_percentage" id="txt_criteria" class="form-control" value="" data-error-msg="Criteria name is required!" required>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" style="margin-bottom:0px;">
+                                    <label class="">Description :</label>
+                                    <textarea name="description" id="txt_description" class="form-control"></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="btn_criteria_save" type="button" class="btn btn-primary" style="background-color:#2ecc71;color:white;"><span class=""></span> Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div><!---content---->
+        </div>
+    </div><!---modal-->
+
+
+    <div id="modal_participant" class="modal fade" tabindex="-1" role="dialog"><!--modal-->
+        <div class="modal-dialog" style="width: 50%;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#2ecc71;">
+                    <button type="button" class="close"   data-dismiss="modal" aria-hidden="true">X</button>
+                    <b><span id="modal_mode"> </span>Candidate Info</b>
+                </div>
+
+                <div class="modal-body">
+                    <form id="frm_contestants">
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <div class="form-group" style="margin-bottom:0px;">
+                                    <label class="">Participant * :</label>
+                                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                        <input type="text" name="entity_name" id="txt_fname" class="form-control" value="" data-error-msg="Entity Name is required!" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom:0px;">
+                                    <label class="">Description (Optional)  :</label>
+                                    <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                        <textarea type="text" name="desc_1" id="txt_mname" class="form-control" value="" row="8"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom:0px;display:none;">
+                                    <label class="">Description 2 (Optional) :</label>
+                                    <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                        <input type="text" name="desc_2" id="txt_lname" class="form-control" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom:0px;display:none;">
+                                    <label class="">Description 3 (Optional) :</label>
+                                    <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                        <input type="text" name="desc_3" id="txt_contact" class="form-control" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom:0px;display:none;">
+                                    <label class="">Description 4 (Optional) :</label>
+                                    <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                        <input type="text" name="desc_4" id="txt_email" class="form-control" value="">
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group" style="margin-bottom:0px;display:none;">
+                                    <label class="">Description 5 (Optional) :</label>
+                                    <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                        <input type="text" name="desc_5" id="txt_nationality" class="form-control" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom:0px;display:none;">
+                                    <label class="">Description 6 (Optional) :</label>
+                                    <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                        <input type="text" name="desc_6" id="txt_nationality" class="form-control" value="">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="btn_save_participant" type="button" class="btn btn-primary" style="background-color:#2ecc71;color:white;"><span class=""></span> Save</button>
+                    <button id="" type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div><!---content---->
+        </div>
+    </div><!---modal-->
+
+    <?php echo $_footer; ?>
 
 </div>
 </div>
@@ -480,7 +717,7 @@
 
 $(document).ready(function(){
     var dt; var _txnMode; var _selectedID; var _selectRowObj; var _selectedProductType; var _files;
-
+    var __typeId; var __selectedEventId;
     var initializeControls=function() {
         dt=$('#tbl_events').DataTable({
             "dom": '<"toolbar">frtip',
@@ -489,17 +726,18 @@ $(document).ready(function(){
             "ajax" : "Events/transaction/list",
             "columns": [
                 {
-                    targets:[1],
+                    targets:[0],
                     render: function (data, type, full, meta){
                         var cls = (full.is_open == "1"?"fa-check-circle":"fa-times-circle");
                         var clr = (full.is_open == "1"?"green":"red");
                         return '<center><a href="#" class="btn_activate" data-event-id="'+full.event_id+'"><i class="fa '+cls+'" style="color:'+clr+';"></a></center>';
                     }
                 },
-                { targets:[1],data: "event_name" },
-                { targets:[2],data: "site" },
-                { targets:[3],data: "address" },
-                { targets:[4],data: "contact_person" },
+                { targets:[1],data: "event_id" },
+                { targets:[2],data: "event_name" },
+                { targets:[3],data: "site" },
+                { targets:[4],data: "address" },
+                { targets:[5],data: "contact_person" },
                 {
                     targets:[5],
                     render: function (data, type, full, meta){
@@ -538,13 +776,115 @@ $(document).ready(function(){
     }();
 
 
+    var createCriteria=function(){
+        var _data=$('#frm_criteria').serializeArray();
+        _data.push({name : 'criteria_type_id',value: __typeId});
+        return $.ajax({
+            "dataType":"json",
+            "type":"POST",
+            "url":"Criteria/transaction/create",
+            "data":_data,
+            "beforeSend": showSpinningProgress($('#btn_criteria_save'))
+        });
+    };
 
+    var generateCriteriaRow = function(item){
+        return '<tr data-criteria-id="'+item.criteria_id+'" data-event-id="'+__selectedEventId+'">'+
+                '<td style="border: 1px solid white;"><select class="form-control col-sm-12 cbo-add-criteria"><option value="0" >No</option><option value="1" selected>Yes</option></select></td>'+
+                '<td style="border: 1px solid white;">'+item.criteria+'</td>'+
+                '<td style="border: 1px solid white;">'+item.description+'</td>'+
+                '<td style="border: 1px solid white;"><input type="number" name="percentage" class="form-control" value="'+item.max_score+'" max="100" style="text-align: right;" /></td>'+
+                '<td style="border: 1px solid white;"><input type="text" name="rating" class="form-control" value="'+item.max_percentage+'" max="100" style="text-align: right;" /></td>'+
+                '</tr>';
+    };
+
+    var generateParticipantRow = function(item){
+        return  '<tr data-contestant-id="'+item.contestant_id+'" data-event-id="'+__selectedEventId+'">'+
+                '<td style="border: 1px solid white;"><select class="form-control col-sm-12 cbo-add-contestant"><option value="0">No</option><option value="1" selected>Yes</option></select></td>'+
+                '<td style="border: 1px solid white;"><input type="text" name="entity_no" class="form-control entity_no" value=""></td>'+
+                '<td style="border: 1px solid white;">'+item.entity_name+'</td>'+
+                '<td style="border: 1px solid white;">'+item.desc_1+'</td>'+
+                '<td style="border: 1px solid white;display: none;"></td>'+
+                '<td style="border: 1px solid white;display: none;"></td>'+
+                '</tr>';
+    };
+
+    var generateJudgeRow = function(item){
+        return  '<tr data-judge-id="'+item.user_id+'" data-event-id="'+__selectedEventId+'">'+
+                '<td align="center" style="border: 1px solid white;"><select class="form-control col-sm-12 cbo-add-judge"><option value="0">No</option><option value="1" selected>Yes</option></select></td>'+
+                '<td style="border: 1px solid white;">'+item.user_fname+'</td>'+
+                '<td style="border: 1px solid white;"></td>'+
+                '<td style="border: 1px solid white;"></td>'+
+                '<td style="border: 1px solid white;"></td>'+
+                '</tr>';
+    };
+
+    var addCriteria = function(criteria_id,event_id,status,percentage,rating){
+        $.ajax({
+            "dataType":"json",
+            "type":"POST",
+            "url":"Events/transaction/add-criteria",
+            "data":[{name : "criteria-id" ,value: criteria_id},{name : "event-id" ,value: event_id},{name : "status" ,value: status},{name : "percentage" ,value: percentage},{name : "rating" ,value: rating}]
+        });
+    };
+
+    var registerContestant=function(){
+        var _data=$('#frm_contestants').serializeArray();
+        return $.ajax({
+            "dataType":"json",
+            "type":"POST",
+            "url":"Contestants/transaction/create",
+            "data":_data,
+            "beforeSend": showSpinningProgress($('#btn_save_participant'))
+        });
+    };
+
+    var addParticipant = function(contestant_id,event_id,status,contestant_no){
+        $.ajax({
+            "dataType":"json",
+            "type":"POST",
+            "url":"Events/transaction/add-candidate",
+            "data":[{name : "contestant-id" ,value: contestant_id},{name : "event-id" ,value: event_id},{name : "status" ,value: status},{name : "contestant-no" ,value: contestant_no}]
+        });
+    };
+
+    var createUserAccount=function(){
+        var _data=$('#frm_judge').serializeArray();
+        _data.push({name : "user_group_id" ,value : 2 });
+        return $.ajax({
+            "dataType":"json",
+            "type":"POST",
+            "url":"Users/transaction/create",
+            "data":_data,
+            "beforeSend": showSpinningProgress($('#btn_judge_save'))
+        });
+    };
+
+    var addJudge = function(judge_id,event_id,status){
+        $.ajax({
+            "dataType":"json",
+            "type":"POST",
+            "url":"Events/transaction/add-judge",
+            "data":[{name : "judge-id" ,value: judge_id},{name : "event-id" ,value: event_id},{name : "status" ,value: status}]
+        });
+    };
 
     var bindEventHandlers=(function(){
         var detailRows = []; var selEventID = 0;
 
         $('#tbl_events tbody').on( 'click', 'a.btn_activate', function (e) {
             e.preventDefault();
+
+            var tr = $(this).closest('tr');
+            var row = dt.row( tr );
+            var data=dt.row(tr).data();
+
+            if(data.is_open == "1" ){
+                $('#activation_confirm_message').html("Are you sure you want to close this event?");
+            }else{
+                $('#activation_confirm_message').html("Are you sure you want to open this event?");
+            }
+
             $('#modal_confirm_activation').modal('show');
             selEventID = $(this).data('event-id');
 
@@ -592,7 +932,7 @@ $(document).ready(function(){
         });
 
 
-        var __selectedEventId; var __typeId;
+
         $('#btnAcceptType').click(function(){
             //alert($('#cboTypes').val());
             __typeId = $('#cboTypes').val();
@@ -603,6 +943,7 @@ $(document).ready(function(){
                     "type":"POST",
                     "url":"Events/transaction/enlistment?event-id="+__selectedEventId+"&type_id="+__typeId,
                     "beforeSend" : function(){
+                        $('#modal_event_setup').find('.modal-body').html('');
                         $('#modal_event_setup').modal('show');
                     }
                 }).done(function(response){
@@ -610,6 +951,25 @@ $(document).ready(function(){
                 });
             },600);
 
+        });
+
+        $('#btnSaveEventSetup').click(function(){
+            showNotification({
+                title : 'Success',
+                stat : 'success',
+                msg : 'Event successfully configured.'
+            });
+        });
+
+        $('#btnCancelEventSetup').click(function(){
+            /*$.ajax({
+                "dataType":"json",
+                "type":"POST",
+                "url":"Events/transaction/reset-setup",
+                "data":[{name : "event-id" ,value: __selectedEventId}]
+            }).done(function(response){
+
+            });*/
         });
 
 
@@ -713,6 +1073,78 @@ $(document).ready(function(){
             });
         });
 
+        $('#modal_event_setup').on('click','#linkAddCriteria',function(e){
+            e.preventDefault();
+            $('#modal_criteria').modal('show');
+        });
+
+        $('#modal_event_setup').on('click','#linkParticipant',function(e){
+            e.preventDefault();
+            $('#modal_participant').modal('show');
+        });
+
+        $('#modal_event_setup').on('click','#linkJudge',function(e){
+            e.preventDefault();
+            $('#modal_judge').modal('show');
+        });
+
+        $('#btn_save_participant').click(function(){
+            if(validateRequiredFields($('#frm_contestants'))){
+                    registerContestant().done(function(response){
+                        showNotification(response);
+                        var item = response.row_added[0];
+
+                        $('#tblParticipant > tbody').append(generateParticipantRow(item));
+                        addParticipant(item.contestant_id,__selectedEventId,1,item.contestant_no);
+                        clearFields($('#frm_contestants'));
+                    }).always(function(){
+                        $('#modal_participant').modal('toggle');
+                        showSpinningProgress($('#btn_save_participant'));
+                    });
+
+            }
+        });
+
+
+        $('#btn_criteria_save').click(function(){
+            if(validateRequiredFields($('#frm_criteria'))) {
+                createCriteria().done(function (response) {
+                    showNotification(response);
+
+                    var item = response.row_added[0];
+                    item['max_score'] = $('input[name="criteria_max_score"]').val();
+                    item['max_percentage'] = $('input[name="criteria_percentage"]').val();
+
+                    $('#tblCriteria > tbody').append(generateCriteriaRow(item));
+
+
+                    addCriteria(item.criteria_id,__selectedEventId,1,item.max_percentage,item.max_score);
+
+
+                    clearFields($('#frm_criteria'));
+                }).always(function () {
+                    $('#modal_criteria').modal('toggle');
+                    showSpinningProgress($('#btn_criteria_save'));
+                });
+            }
+        });
+
+        $('#btn_judge_save').click(function(){
+            if(validateRequiredFields($('#frm_judge'))) {
+                createUserAccount().done(function(response){
+                    showNotification(response);
+                    var item = response.row_added[0];
+                    addJudge(item.user_id,__selectedEventId,1);
+                    $('#tblJudge > tbody').append(generateJudgeRow(item));
+                    clearFields($('#frm_judge'));
+                }).always(function(){
+                    $('#modal_judge').modal('toggle');
+                    showSpinningProgress($('#btn_judge_save'));
+                });
+            }
+        });
+
+
         $('#modal_event_setup').on('keyup','input[name="percentage"],input[name="rating"]',function(){
             var row = $(this).closest('tr');
             var criteria_id= row.data('criteria-id');
@@ -758,13 +1190,11 @@ $(document).ready(function(){
             var percentage = row.find('input[name="percentage"]').val();
             var rating = row.find('input[name="rating"]').val();
 
-            $.ajax({
-                "dataType":"json",
-                "type":"POST",
-                "url":"Events/transaction/add-criteria",
-                "data":[{name : "criteria-id" ,value: criteria_id},{name : "event-id" ,value: event_id},{name : "status" ,value: status},{name : "percentage" ,value: percentage},{name : "rating" ,value: rating}]
-            });
+            addCriteria(criteria_id,event_id,status,percentage,rating);
         });
+
+
+
 
         $('#modal_event_setup').on('change','select.cbo-add-contestant',function(){
             var contestant_id= $(this).closest('tr').data('contestant-id');
@@ -772,26 +1202,20 @@ $(document).ready(function(){
             var contestant_no = $(this).closest('tr').find('input.entity_no').val();
             var status = $(this).val();
 
-            $.ajax({
-                "dataType":"json",
-                "type":"POST",
-                "url":"Events/transaction/add-candidate",
-                "data":[{name : "contestant-id" ,value: contestant_id},{name : "event-id" ,value: event_id},{name : "status" ,value: status},{name : "contestant-no" ,value: contestant_no}]
-            });
+            addParticipant(contestant_id,event_id,status,contestant_no);
+
         });
+
+
+
 
          $('#modal_event_setup').on('change','select.cbo-add-judge',function(){
             var judge_id= $(this).closest('tr').data('judge-id');
             var event_id= $(this).closest('tr').data('event-id');
             var status = $(this).val();
-
-            $.ajax({
-                "dataType":"json",
-                "type":"POST",
-                "url":"Events/transaction/add-judge",
-                "data":[{name : "judge-id" ,value: judge_id},{name : "event-id" ,value: event_id},{name : "status" ,value: status}]
-            });
+             addJudge(judge_id,event_id,status);
         });
+
 
 
         $('#tbl_events tbody').on('click','button[name="remove_info"]',function(){

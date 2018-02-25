@@ -1,8 +1,9 @@
 <div>
     <br>
-    <b>Panel / Judge Enlistment</b> Please tick mark members of panel.<br>
-
-    <table width="100%" style="border: 1px solid white;">
+    <b>Panel / Judge Enlistment</b> Please tick mark members of panel.
+    <span class="pull-right">Not in the list? [ <a id="linkJudge" href="">Register Judge</a> ]</span>
+    <br/>
+    <table id="tblJudge" width="100%" style="border: 1px solid white;">
         <thead>
             <tr>
                 <th width="10%" style="border: 1px solid white;">Enlist</th>
@@ -32,12 +33,11 @@
     <b>Setup Criteria of Judging</b>
 
     <div class="alert alert-dismissable alert-info">
-        <i class="ti ti-close"></i>&nbsp; Please make sure total percentage is <b>100%</b>. <br />
         <i class="ti ti-settings"></i>&nbsp; Please make sure you select <b>Yes</b> and specify the <b>Percentage</b> of the <b>Criteria</b>.
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     </div>
-
-    <table width="100%" style="border: 1px solid white;">
+    <span class="pull-right">Not in the list? [ <a id="linkAddCriteria" href="">Add Criteria</a> ]</span>
+    <table width="100%" id="tblCriteria" style="border: 1px solid white;">
         <thead>
         <tr>
             <th width="10%" style="border: 1px solid white;">Add</th>
@@ -70,8 +70,10 @@
     <hr /><br>
 
     <b>Participant/Candidate/Person Enlistment</b> Please tick mark Participantse
-	on this event.<br>
-    <table width="100%" style="border: 1px solid white;">
+	on this event.
+    <span class="pull-right">Not in the list? [ <a id="linkParticipant" href="">Register Participant</a> ]</span>
+    <br>
+    <table id="tblParticipant" width="100%" style="border: 1px solid white;">
         <thead>
         <tr>
             <th width="10%" style="border: 1px solid white;">Enlist</th>

@@ -19,9 +19,9 @@
 		background-color: #49c1bc;
 	}
 	
-	table > tbody tr:nth-child(even) {background: #CCC}
+	/*table > tbody tr:nth-child(even) {background: #CCC}
 	table > tbody tr:nth-child(odd) {background: #FFF}
-
+*/
     .circle{
         width: 35px;
         height: 35px;

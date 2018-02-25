@@ -149,7 +149,7 @@
                                                                             <td><?php echo $r->criteria; ?></td>
                                                                             <td align="right"><?php echo $r->percentage; $percent += $r->percentage; ?></td>
                                                                             <td align="right"><?php echo ($r->criteria_id==1?'NA':$r->max_score); ?></td>
-                                                                            <td><input id="txt_score_<?php echo $c->contestant_id; ?>" type="number" class="form-control <?php echo ($r->criteria_id == 1 ? 'id-vote-criteria':''); ?> txt_candidate_score" style="text-align: right;" value="<?php  $criteria_rating = 0; foreach ($contestant_scores as $cs){
+                                                                            <td><input id="txt_score_<?php echo $c->contestant_id; ?>" type="number" oninput="validity.valid||(value=value.replace(/\D+/g, ''))" class="number-only form-control <?php echo ($r->criteria_id == 1 ? 'id-vote-criteria':''); ?> txt_candidate_score" style="text-align: right;" value="<?php  $criteria_rating = 0; foreach ($contestant_scores as $cs){
                                                                                    //echo ( $cs->criteria_id == $r->criteria_id && $cs->contestant_id == $c->contestant_id ? $cs->score : '' );
                                                                                    if($cs->criteria_id !=1 && $cs->criteria_id == $r->criteria_id && $cs->contestant_id == $c->contestant_id){
                                                                                         echo $cs->score;
@@ -175,7 +175,7 @@
                                                                 </table>
 
                                                                 <br />
-                                                                <button class="btn btn-<?php echo($c->is_submitted?'default':'primary'); ?> btn_finalize" <?php echo($c->is_submitted?'disabled':''); ?>  data-judge-id="<?php echo $this->session->user_id; ?>" data-event-id="<?php echo $active_event_id; ?>" data-contestant-id="<?php echo $c->contestant_id; ?>">Submit and Finalize</button><br /><br />
+                                                                <button style="display: none;" class="btn btn-<?php echo($c->is_submitted?'default':'primary'); ?> btn_finalize" <?php echo($c->is_submitted?'disabled':''); ?>  data-judge-id="<?php echo $this->session->user_id; ?>" data-event-id="<?php echo $active_event_id; ?>" data-contestant-id="<?php echo $c->contestant_id; ?>">Submit and Finalize</button><br /><br />
                                                             </td>
                                                         </tr>
                                                         <?php } ?>

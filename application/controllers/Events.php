@@ -37,6 +37,17 @@ class Events     extends CORE_Controller {
 
     function transaction($txn=null){
         switch($txn){
+            case 'reset-setup':
+                $event_id = $this->input->post('event_id');
+                $this->Event_judge_model->delete(array('event_id'=>$event_id));
+                $this->Event_contestant_model->delete(array('event_id'=>$event_id));
+                $this->Event_criteria_model->delete(array('event_id'=>$event_id));
+
+                $response['title'] = "Success!";
+                $response['stat'] = "success";
+                $response['msg'] = "Event successfully configured!";
+                echo json_encode($response);
+                break;
             case 'list':
                 $response['data'] = $this->response_rows('is_deleted=0');
                 echo json_encode($response);
@@ -293,7 +304,7 @@ class Events     extends CORE_Controller {
                 $event_id = $this->input->post('event-id');
                 $m_events = $this->Event_model;
 
-                //check current status
+              /*  //check current status
                 $is_open = $m_events->get_list(array(
                     'event_id'=>$event_id,
                     'is_open'=>1
@@ -305,7 +316,7 @@ class Events     extends CORE_Controller {
                     $response['msg']='This event is already open and activated.';
                     echo json_encode($response);
                     return;
-                }
+                }*/
 
                 //check if already been locked
               /*  $is_locked = $m_events->get_list(array(
@@ -324,20 +335,20 @@ class Events     extends CORE_Controller {
                 $m_events->is_locked = 1;
                 $m_events->modify('event_id>0');*/
 
-                $m_events->is_open = 0;
+                /*$m_events->is_open = 0;
                 $m_events->modify(
                     '`event_id`>0'
-                );
+                );*/
 
-                $m_events->is_open = 1;
+                $m_events->set('is_open','NOT is_open');
                 $m_events->is_locked = 0;
                 $m_events->modify($event_id);
 
                 $this->session->active_event_id = $event_id;
 
-                $response['title']='Activated!';
+                $response['title']='Success!';
                 $response['stat']='success';
-                $response['msg']='Event successfully activated.';
+                $response['msg']='Event status successfully updated.';
                 echo json_encode($response);
 
                 break;

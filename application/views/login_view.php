@@ -140,7 +140,7 @@
 					
 				</div>
 				
-				<span style="font-size: 12px; color: white; font-weight: 200; position: absolute; top: 130%; left: 60%;">Powered by : Anna Karina</span>
+				<!--<span style="font-size: 12px; color: white; font-weight: 200; position: absolute; top: 130%; left: 60%;">Powered by : Anna Karina</span>-->
 <!--
 				<div class="text-center">
 					<a href="#" class="btn btn-label btn-social btn-facebook mb-md"><i class="ti ti-facebook"></i>Connect with Facebook</a>

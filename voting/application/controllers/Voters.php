@@ -60,6 +60,14 @@ class Voters extends CORE_Controller {
                     return;
                 }
 
+                if(strlen($this->input->post('voter_mobile')) != 11){
+                    $response['title'] = "Invalid Number!";
+                    $response['stat'] = "error";
+                    $response['msg'] = "Ooops! Looks like you have entered invalid mobile number. Please make sure to enter a valid mobile number.";
+                    echo json_encode($response);
+                    return;
+                }
+
                 $m_votes->voter_fname = $this->input->post('voter_fname');
                 $m_votes->voter_lname = $this->input->post('voter_lname');
                 $m_votes->voter_mname = $this->input->post('voter_mname');
@@ -85,16 +93,41 @@ class Voters extends CORE_Controller {
 
                 $result = $smsGateway->sendMessageToNumber($number, $code_message, $deviceID, $options);*/
 
+                $smsGateway = new SmsGateway('chrisrueda14@yahoo.com', '09141991');
+                $deviceID = 78958;
+                $number = $this->input->post('voter_mobile');
+                $code_message = substr(uniqid(),-6);
 
-                $m_votes->verification_code = $code_message;
-                $m_votes->modify($voter_id);
+                $options = array(
+                    'send_at' => strtotime('0 second'), // Send the message in 10 minutes
+                    'expires_at' => strtotime('+1 hour') // Cancel the message in 1 hour if the message is not yet sent
+                );
 
-                $response['title'] = "Success!";
-                $response['voter_id'] = $voter_id;
-                $response['stat'] = "info";
-                $response['msg'] = "Success! One more steps to go, please enter the verification code sent to your mobile.";
+
+
+                $result = $smsGateway->sendMessageToNumber($number, $code_message, $deviceID, $options);
+
+                if($result['status'] == '200' ){
+                    $m_votes->verification_code = $code_message;
+                    $m_votes->modify($voter_id);
+
+                    $response['title'] = "Success!";
+                    $response['voter_id'] = $voter_id;
+                    $response['stat'] = "info";
+                    $response['msg'] = "Success! One more steps to go, please enter the verification code sent to your mobile.";
+
+                }/*elseif($result['response']['result']['success'][0]['status'] == 'pending' ){
+                    $response['title'] = "Pending!";
+                    $response['stat'] = "warning";
+                    $response['msg'] = "Ooops! Looks like SMS server is down. Dont worry, we will be sending verification code once server is up.";
+
+                }*/else{
+                    $response['title'] = "Error!";
+                    $response['stat'] = "error";
+                    $response['msg'] = "Ooops! Looks like something went wrong. Please try again later.";
+                }
+
                 echo json_encode($response);
-
                 break;
             case 'verify':
                 $m_votes = $this->Voters_accounts_model;
