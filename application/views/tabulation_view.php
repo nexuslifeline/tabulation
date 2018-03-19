@@ -158,7 +158,7 @@
                                                                                    }else{
                                                                                        echo '';
                                                                                    }
-                                                                                } ?>" data-max="<?php echo $r->max_score; ?>" <?php echo($c->is_submitted?'readonly':''); ?>></td>
+                                                                                } ?>" min="1" data-max="<?php echo $r->max_score; ?>" <?php echo($c->is_submitted?'readonly':''); ?>></td>
                                                                             <td id="td_rating_<?php echo $c->contestant_id; ?>" data-line-rate="" align="center"><?php echo $criteria_rating; ?>%</td>
                                                                         </tr>
                                                                         <?php } ?>

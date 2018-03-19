@@ -20,7 +20,8 @@ class Reset extends CORE_Controller {
             'Events_vote_model',
             'Event_accounts_model',
             'Criteria_type_model',
-            'Voter_account_model'
+            'Voter_account_model',
+            'Users_model'
         ));
 
     }
@@ -29,6 +30,7 @@ class Reset extends CORE_Controller {
     public function index()
     {
         $this->Event_model->delete('event_id>0');
+        $this->Users_model->delete('user_group_id!=1');
         $this->Criteria_model->delete('criteria_id>0');
         $this->Contestant_model->delete('contestant_id>0');
         $this->Tabulation_model->delete('tabulation_id>0');

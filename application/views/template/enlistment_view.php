@@ -53,8 +53,8 @@
                 <td style="border: 1px solid white;"><select class="form-control col-sm-12 cbo-add-criteria"><option value="0" <?php echo ($cr->status==0?'selected':''); ?>>No</option><option value="1"<?php echo ($cr->status==1?'selected':''); ?>>Yes</option></select></td>
                 <td style="border: 1px solid white;"><?php echo $cr->criteria; ?></td>
                 <td style="border: 1px solid white;"><?php echo $cr->description; ?></td>
-                <td style="border: 1px solid white;"><input type="number" name="percentage" class="form-control" value="<?php echo $cr->percentage; ?>" max="100" style="text-align: right;" /></td>
-                <td style="border: 1px solid white;"><input type="text" name="rating" class="form-control" value="<?php echo ($cr->criteria_id==1?'NA':($cr->max_score==0?'100':$cr->max_score)); ?>" max="100" style="text-align: right;" <?php echo ($cr->criteria_id==1?'readonly':''); ?> /></td>
+                <td style="border: 1px solid white;"><input type="number" name="percentage" min="1" oninput="validity.valid||(value=value.replace(/\D+/g, ''))" class="form-control" value="<?php echo $cr->percentage; ?>" max="100" style="text-align: right;" /></td>
+                <td style="border: 1px solid white;"><input type="number" name="rating" min="1" oninput="validity.valid||(value=value.replace(/\D+/g, ''))" class="form-control" value="<?php echo ($cr->criteria_id==1?'NA':($cr->max_score==0?'100':$cr->max_score)); ?>" max="100" style="text-align: right;" <?php echo ($cr->criteria_id==1?'readonly':''); ?> /></td>
             </tr>
         <?php } ?>
         </tbody>

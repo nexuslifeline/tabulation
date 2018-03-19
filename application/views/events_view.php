@@ -959,6 +959,7 @@ $(document).ready(function(){
                 stat : 'success',
                 msg : 'Event successfully configured.'
             });
+            $('#modal_event_setup').modal('hide');
         });
 
         $('#btnCancelEventSetup').click(function(){

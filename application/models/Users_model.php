@@ -29,6 +29,7 @@ class Users_model extends CORE_Model{
         $this->db->join('user_groups as ug', 'ua.user_group_id = ug.user_group_id','left');
         $this->db->where('ua.user_name', $uname);
         $this->db->where('ua.user_pword', sha1($pword));
+        $this->db->where('ua.is_deleted', 0);
         return $this->db->get();
 
     }
